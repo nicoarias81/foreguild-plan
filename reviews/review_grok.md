@@ -1,0 +1,41 @@
+1. VERDICT — **6/10**. Would not place top-3: a revenue contest judged by Seer/market people will fade a plan whose month-12 GMV and take-rate story change between the lede and the table, and whose $2.63 margin only exists if you count a fee the revenue model does not.
+
+2. FATAL FLAWS
+- Lede vs model: “Target: $182k of GMV in month 12 at a 7.4% blended take, which is roughly $13.5k/month” vs the table’s **$146,400 GMV / $10,834**. $182k × 7.4% is the $13.5k; the table annualises to the stated “$130k run-rate” ($10,834 × 12). Two different businesses in one PDF.
+- Unit margin is incompatible with the revenue stack. $2.63 is **only** $3.66 + $1.22 − $1.90 − $0.35. That treats the 2% “market fee for triage” as protocol revenue. The five revenue lines do **not** include it; blended take 7.4% is 6% settlement plus ~1.4% of other lines, i.e. **less than 6%+2%**. If the 2% is a cost (juror/LP/Seer cut), margin is **$0.19**, not $2.63. The 43% has no denominator in the block (not 2.63/3.66, 2.63/4.88, or 2.63/61).
+- Verification insurance is insolvent at the stated mix: 1.5% of a $61 ticket is **$0.92** against “$15–$60 per audit”. Insurance only pencils on ~$1,000+ tickets, yet it is “~11%” of month-12 revenue while avg ticket is $61.
+- Escrow float “~3.5% APY × avg 9 days held → ~6%” of revenue is impossible: 3.5% × 9/365 ≈ **0.086% of GMV** ≈ **1.2% of revenue** at a 7.4% take, not 6%. Settlement fee as “~72%” of month-12 revenue is also wrong: 6/7.4 = **81%** (and 0.06 × 146,400 = $8,784 / $10,834).
+- Prize cannot fund the plan as written. Buckets sum to $17.7k; team is **$3,000/mo and is not in those buckets**. “First 90 days of operations $3,200” is infra/Kleros/audits, not people. The “~$9k” fallback (“drop the contracts audit to a peer review”) is an escrow protocol shipping without an external audit. Whether even $9k ≤ 0.5 ETH + 4,000 USDC is **unverified** (no ETH print).
+- FAO gap: futarchy sets **parameters** (fee, whitelist, bonds, audit rate). It does not direct a swarm’s actions. Worker agents are unconstrained claimants. That is a marketplace with a futarchy module, not “how that governance directs their actions.”
+- Small but credibility-killing: cold-start “you only read the **two** submissions” vs “default **k = 3**”; fee market described as YES/NO then launched as “4% / 6% / 8%”; poidh fieldwork dated **2026-11-05**.
+
+3. ARITHMETIC CHECK
+**Unit block.** 0.06 × 61 = **$3.66**. 0.02 × 61 = **$1.22**. $1.90 and $0.35 are inputs, not derived. **$3.66 − $1.22 − $1.90 − $0.35 = $0.19**, not $2.63. **$3.66 + $1.22 − $1.90 − $0.35 = $2.63** — so $2.63 requires counting market fee as revenue. **43% is wrong** on every honest base: 2.63/3.66 = 72%; 2.63/4.88 = 54%; 2.63/61 = 4.3%. Only 2.63/(61 × 10%) ≈ 43% fits, and 10% is not a number they use. $1.90 as 10% × ~$19/audit is internally plausible **if** almost no $1,000+ tasks (else 100% audit blows the amortization).
+
+**12-month table.** GMV: 120×38=**4,560**; 480×45=**21,600**; 1,150×54=**62,100**; 2,400×61=**146,400** — all correct. Revenue = GMV × take: 4,560×6%=**273.6 → 274**; 21,600×6.6%=**1,425.6 → 1,426**; 62,100×7.1%=**4,409**; 146,400×7.4%=**10,833.6 → 10,834** — table is internally consistent and **does not match** the $182k / $13.5k lede. 10,834×12=**130,008** (“roughly $130k”) uses the table, not the lede ($13.5k×12=**$162k**).
+
+**Break-even.** Fixed cost 3,000+260=**$3,260** is correct. 3,260 / 2.63 = **1,239.5 ≈ 1,240** — arithmetic follows a **bad** $2.63. Recompute: if 2% is not Foreguild revenue, contribution = 3.66−1.90−0.35=**$1.41**, BE = **~2,310 tasks/mo**. If 2% is cost, contribution=**$0.19**, BE=**~17,200**. If you instead use month-12 blended take: 0.074×61=**$4.51** − 1.90 − 0.35 = **$2.26**, BE=**~1,440**, still not 1,240. Infra is double-touched ($260/mo fixed **and** $0.35/task). At 2,400 tasks, 2,400×$1.90=**$4,560/mo audits** alone, so “cost base under $4k/month” is false unless they mean fixed cost only.
+
+**Other broken shares.** Float: 146,400 × 9/365 × 3.5% = **~$126/mo** = 1.2% of $10,834, not 6% (~$650). Settlement 72% vs 81% as above. Insurance 1.5%×61=**$0.92** vs $15–$60 audit cost. Subsidy bucket $2,000 / 6% = **$33k GMV** of fee waivers vs month-3 GMV **$4,560**.
+
+4. BRIEF COVERAGE
+- **Where tasks come from — SOLID.** Five waves ordered by time-to-cash, poidh/DAO/Seer-backlog cold start, ticket ranges labelled as assumptions.
+- **How agents are assigned — SOLID.** Not matching: escrow+test to post, bond-to-claim, cap then “beat the current best,” deterministic reject before any human. That is an assignment rule.
+- **How work is assessed — SOLID.** Script → Seer opportunity market as triage → sampled audit; poster keeps the accept bit. Disputes: Reality.eth/Kleros, loser-pays, one round.
+- **Spending / disputes / human intervention — WEAK.** Disputes and the three human powers (freeze, delist, fraud override) + 2% override trigger are specified. Spending is not: $3k/mo team, bounty spend, and day-to-day treasury use sit outside futarchy except “audit budget.”
+- **Revenue — WEAK.** Right *shape* (charge settlement, no listings/subs) but the lede, unit block, blended-take mix, float, insurance, and BE do not survive recomputation — fatal for a revenue contest.
+- **How futarchy directs the agents’ actions — WEAK.** Markets on fee, whitelist, sample rate, bonds, licensing terms. That is parameter governance. No mechanism where a market chooses what the swarm does, funds, or ships this week. YES/NO vs 4/6/8 fee menu is also internally inconsistent. Gnosis/FutarchyFactory/Router/opportunity-market pilots beyond this naming contest: **unverified**.
+
+5. WHAT IS ACTUALLY GOOD
+- Correct scarce resource: review, not agents; poidh failure modes (stale `acceptingClaims`, honeypot field, two real claims in 40 minutes) make the thesis operational rather than vibes.
+- Assessment design actually uses Seer’s object: opportunity market as a **queue**, not a judge; “wrong market costs minutes, wrong human queue costs the afternoon.”
+- Fact/parameter split is the right FAO instinct: Reality.eth/Kleros on a payout, futarchy on the fee schedule — plus an unusually honest thin-market paragraph (seed, 5% revenue gate, time-boxed veto).
+- 90-day plan with kill criteria; “repeat poster rate” as the bounty-board-vs-job-board test is the one metric this audience will believe.
+- Refusing listing fees and subscriptions with a non-generic reason (futarchy needs a metric you cannot farm by existing).
+
+6. FIVE CONCRETE FIXES
+1. **Pick one month-12 model and put it in the lede.** Either 2,400 × $61 = $146.4k GMV → $10.8k at 7.4%, or ~2,980 tasks / ~$76 ticket → $182k → $13.5k. Delete the other. Same for “$130k run-rate” vs $13.5k×12.
+2. **Rebuild the unit block so it uses the same take as the table.** State who pays/receives the 2% triage fee. If it is not Foreguild revenue, drop it from $2.63; recompute contribution and BE (will move from 1,240 toward ~1,440 or ~2,310). Replace “43%” with margin / **fee revenue** (or / ticket) and show the division.
+3. **Fix the two fake revenue legs or change the mix.** Float: print $126/mo (or change hold days/APY) and ~1% of revenue, not 6%. Insurance: either restrict to tickets where 1.5% ≥ audit cost (~$1k+), or raise the rate, or drop the “~11% of month-12” claim. Recast settlement share as **~81%**, not 72%. Then make the five % shares add to the blended 7.4%.
+4. **Put people and the escrow audit on-chain in the prize budget.** Line-item the $3,000/mo (deferred, bounty-only, or unpaid founder) through month 9; do not hide it behind “$3,200 for 90 days.” Do not “drop the contracts audit to a peer review” on an escrow that holds poster funds — cut seed liquidity or subsidy first. Show prize vs ETH **as a number**.
+5. **Close the FAO loop the brief asked for.** One concrete loop: a futarchy-set monthly category budget that **Foreguild-owned agents** must spend (or return), with their task selection/bid policy as the action the market is directing — distinct from worker-claimants and from fee knobs. Unify k=2 vs k=3 and binary vs 4/6/8 while you are there.

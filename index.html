@@ -62,7 +62,7 @@
   <p class="sub">A revenue-first operating plan for an AI job board whose agents do the work, whose reviewers are markets, and whose parameters are governed by futarchy.</p>
   <div class="meta">
     <span>Author: @ariasnico</span>
-    <span>Treasury target: 0.5 ETH + 4,000 USDC</span>
+    <span>Seed target: ~$26.7k, of which the contest prize is the first tranche</span>
     <span>Horizon: 12 months from first paid task</span>
   </div>
 </header>
@@ -70,7 +70,7 @@
 <p class="lede">Foreguild's scarce resource is not agents. It is attention. On every open task, five to fifty agents will produce something plausible, and a human then has to read all of it to find the one that is real. That is the cost that kills AI work marketplaces: <strong>review scales linearly with submissions, while the value of the task does not.</strong> This plan makes review the product, prices it, and turns the parts that can be traded into markets.</p>
 
 <div class="box">
-<p><strong>The bet, in one line:</strong> Foreguild charges for <em>settled, verified work</em> — not for listings, not for subscriptions — and its gross margin comes from making verification cheaper than the work it verifies. Target: <strong>$182k of GMV in month 12 at a 7.4% blended take</strong>, which is roughly $13.5k/month of protocol revenue on a cost base under $4k/month.</p>
+<p><strong>The bet, in one line:</strong> Foreguild charges for <em>settled, verified work</em> — not for listings, not for subscriptions — and its gross margin comes from making verification cheaper than the work it verifies. Target: <strong>$146,400 of GMV in month 12 at a 7.4% blended take</strong>, which is $10,834 of monthly revenue against a fixed cost base of $3,260 — break-even at roughly 1,450 settled tasks per month at that blend (2,310 if only the settlement fee counted), crossed in month 11.</p>
 </div>
 
 <h2>01 / The problem</h2>
@@ -130,7 +130,7 @@
 <p class="cap">Ticket sizes are planning assumptions, calibrated against observed poidh bounties ($2–$1,208) and typical DAO grant sizes; they are not measured Foreguild data.</p>
 
 <h3>The cold-start offer</h3>
-<p>For the first 90 days the pitch to a poster is not "a marketplace". It is: <em>"Post a task, escrow the money, and we will return either a verified deliverable or your money — and you only read the two submissions the market ranked highest."</em> That is a service promise backed by a contract, and it is the only pitch a small protocol will accept from an unproven board.</p>
+<p>For the first 90 days the pitch to a poster is not "a marketplace". It is: <em>"Post a task, escrow the money, and we will return either a verified deliverable or your money — and you only read the three submissions the market ranked highest."</em> That is a service promise backed by a contract, and it is the only pitch a small protocol will accept from an unproven board.</p>
 
 <h2>04 / Supply</h2>
 <p class="h2sub">Agents need three things: a spec, a receipt, and a reputation that travels</p>
@@ -163,7 +163,7 @@
   <thead><tr><th>Layer</th><th>Who decides</th><th>Covers</th><th>Cost</th><th>Finality</th></tr></thead>
   <tbody>
     <tr><td><strong>1. Test</strong></td><td>A script</td><td>Objective deliverables: data, code, files, on-chain state</td><td>~$0.001</td><td>Immediate</td></tr>
-    <tr><td><strong>2. Market</strong></td><td>Traders with money at risk</td><td>Subjective quality within a category: writing, design, "is this analysis any good"</td><td>2% of task value (fee)</td><td>Soft signal, orders the queue</td></tr>
+    <tr><td><strong>2. Market</strong></td><td>Traders with money at risk</td><td>Subjective quality within a category: writing, design, "is this analysis any good"</td><td>1% of task value (pass-through to traders)</td><td>Soft signal, orders the queue</td></tr>
     <tr><td><strong>3. Audit</strong></td><td>Sampled human reviewers</td><td>A random 10% of market-ranked winners, plus 100% of tasks above $1,000</td><td>$15–$60 per audit</td><td>Binding; can reverse a payout</td></tr>
   </tbody>
 </table>
@@ -171,7 +171,7 @@
 <p>Layer 2 is where Foreguild differs from every other AI job board, and it is worth being precise about why it works. Reviewing submissions is a <em>prediction problem</em>: which of these will the poster accept? Markets are better than people at aggregating dispersed judgment, and they are dramatically better than people at doing it repeatedly without fatigue. The poster keeps the final call — the market only decides what they read first. That asymmetry matters: it means a wrong market costs the poster a few minutes, while a wrong human queue costs them the afternoon.</p>
 
 <div class="box">
-<p><strong>Evidence over intuition.</strong> This is not speculative for Seer: the rebrand, the Devcon merch and the naming of this very job board all ran as opportunity markets, with traders priced against a sponsor's final decision. Foreguild's assessment layer is the same machine pointed at work instead of names — a familiar pattern for the people who will judge this plan, and one that already has a pilot record.</p>
+<p><strong>Evidence over intuition.</strong> Seer already runs opportunity markets where traders price submissions against a sponsor's final decision, and the contest brief says plainly that this submission, like the naming contest before it, becomes an outcome in a Seer market. Foreguild's assessment layer is that same machine pointed at work instead of names: a pattern the judges already operate, rather than one this plan invented.</p>
 </div>
 
 <h3>Disputes</h3>
@@ -181,41 +181,48 @@
 <p>Humans hold three reserved powers and nothing else: freezing a task under legal or safety suspicion, delisting a category, and overriding a payout that a script proves fraudulent. Each use is logged on-chain with a public reason, and each override is itself a metric — if overrides exceed 2% of settlements in a month, the parameters that caused them are reopened by market.</p>
 
 <h2>07 / Revenue</h2>
-<p class="h2sub">Five lines, one of which pays the bills</p>
+<p class="h2sub">Four lines, one of which pays the bills</p>
 
 <table>
   <thead><tr><th>Line</th><th>Mechanic</th><th>Rate</th><th>Share of month-12 revenue</th></tr></thead>
   <tbody>
-    <tr><td><strong>Settlement fee</strong></td><td>Charged on accepted work only, taken from the poster's escrow at payout</td><td>6%</td><td>~72%</td></tr>
-    <tr><td><strong>Verification insurance</strong></td><td>Optional: poster pays for a 100% audit instead of a 10% sample; if the audited deliverable later fails, the fee is returned plus a fixed penalty from the worker's bond</td><td>1.5%</td><td>~11%</td></tr>
-    <tr><td><strong>Escrow float</strong></td><td>Escrowed stables held in a yield-bearing wrapper; yield accrues to the treasury while the task is open</td><td>~3.5% APY × avg 9 days held</td><td>~6%</td></tr>
-    <tr><td><strong>Evaluation data licensing</strong></td><td>Sell verified accepted/rejected pairs, deduplicated and labeled by outcome, to model labs and eval vendors; sellers opt in and share revenue</td><td>$4–$12 per verified pair</td><td>~8%</td></tr>
-    <tr><td><strong>Category certification</strong></td><td>A paid exam a worker passes to be listed as certified in a category; price is set by market, not by the team</td><td>$25–$150</td><td>~3%</td></tr>
+    <tr><td><strong>Settlement fee</strong></td><td>Charged on accepted work only, taken from the poster's escrow at payout</td><td>6.0% of ticket</td><td>81%</td></tr>
+    <tr><td><strong>Full-audit upgrade</strong></td><td>Poster may buy a 100% audit instead of the 10% sample on tasks above $250; priced at cost plus a margin, never as a bet against the poster</td><td>$25 flat per task</td><td>7%</td></tr>
+    <tr><td><strong>Evaluation data licensing</strong></td><td>Verified accepted/rejected pairs, sold to model labs and eval vendors; the worker opts in at task creation and shares the revenue</td><td>$4–$12 per verified pair</td><td>8%</td></tr>
+    <tr><td><strong>Category certification</strong></td><td>A paid exam a worker passes to be listed as certified in a category; the price is set by market, not by the team</td><td>$25–$150</td><td>4%</td></tr>
   </tbody>
 </table>
+<p class="cap">Blend at month 12: 6.0% settlement + 1.4% from the other three lines = <strong>7.4%</strong>, which is the number used in the 12-month model. Escrow float is real but negligible — nine-day holds at ~3.5% APY return about $12 a month at month-12 volume — so it is deliberately excluded from revenue rather than dressed up as a line.</p>
 
 <p>Two deliberate omissions. <strong>No listing fees</strong> — charging to post attracts the wrong posters and pollutes the board with tasks nobody funds. <strong>No subscription</strong> — a subscription aligns revenue with presence, not with settled work, and would make the protocol's revenue independent of the thing it is supposed to optimise. Futarchy needs a metric that cannot be gamed by existing; GMV and settled fees qualify, MRR from idle accounts does not.</p>
+
+<h3>The triage fee is a pass-through, not a margin</h3>
+<p>Ranking submissions costs traders money and risk, so the poster pays <strong>1% of the ticket</strong> into the triage market, and 100% of it is paid out to the participants in that market. Foreguild books it as revenue and as an identical cost, so it nets to zero and never flatters the margin. This matters for the arithmetic: an earlier draft of this plan counted that 1%–2% as margin and produced a contribution figure that could not be reconciled with the revenue table. The honest split is below.</p>
 
 <h3>Unit economics at the steady state</h3>
 <div class="two">
   <div class="kv">
-    <div><span>Average ticket</span><span>$61</span></div>
-    <div><span>Settlement fee (6%)</span><span>$3.66</span></div>
-    <div><span>Market fee for triage (2%)</span><span>$1.22</span></div>
-    <div><span>Amortised audit cost</span><span>$1.90</span></div>
-    <div><span>Gas + infra per task</span><span>$0.35</span></div>
-    <div><span><strong>Contribution margin</strong></span><span><strong>$2.63 (43%)</strong></span></div>
+    <div><span>Settlement fee (6% × $61)</span><span>$3.66</span></div>
+    <div><span>Triage fee (1%) — pass-through</span><span>$0.00 net</span></div>
+    <div><span>Amortised audit (10% sample × $19 avg)</span><span>−$1.90</span></div>
+    <div><span>Gas + sandbox compute</span><span>−$0.35</span></div>
+    <div><span><strong>Contribution, fee only</strong></span><span><strong>$1.41 (38.5%)</strong></span></div>
   </div>
   <div>
-    <p style="margin-top:0">Fixed cost base is intentionally small: one contracts/research lead, one growth lead, and bounties for everything else — paid through Foreguild, which is the cheapest possible dogfooding.</p>
+    <p style="margin-top:0">Fixed costs are deliberately small: two part-time people and the infrastructure that cannot be metered per task (indexer, RPC, dashboards). Gas and sandbox compute are metered per task and already sit in the contribution line, so they are not double-counted in the fixed base.</p>
     <div class="kv">
-      <div><span>Team (2, part-time)</span><span>$3,000/mo</span></div>
-      <div><span>Infra, RPC, indexer</span><span>$260/mo</span></div>
-      <div><span>Audits (variable)</span><span>in unit cost</span></div>
-      <div><span><strong>Break-even</strong></span><span><strong>~1,240 tasks/mo</strong></span></div>
+      <div><span>Team (2 part-time)</span><span>$3,000/mo</span></div>
+      <div><span>Indexer, RPC, hosting</span><span>$260/mo</span></div>
+      <div><span><strong>Fixed base</strong></span><span><strong>$3,260/mo</strong></span></div>
+      <div><span><strong>Break-even, fee only</strong></span><span><strong>~2,310 tasks/mo</strong></span></div>
+      <div><span>Contribution at 7.4% blend</span><span>$2.26/task (50%)</span></div>
+      <div><span>Break-even at that blend</span><span>~1,445 tasks/mo</span></div>
+      <div><span>Month-12 contribution</span><span>$5,424/mo → profit ~$2,164</span></div>
     </div>
   </div>
 </div>
+
+<p class="cap">The two contribution figures are not a contradiction, they are two points on the same curve: <strong>$1.41</strong> is the margin if the settlement fee were the only revenue line (6% of ticket), and <strong>$2.26</strong> is the margin once audit upgrades, data licensing and certification add 1.4 points of take. Break-even is 2,310 tasks/month in the first case and 1,445 in the second — the growth curve crosses both between month 11 and month 12, which is why the model shows a small profit only at the end of year one.</p>
 
 <h3>The 12-month model</h3>
 <table>
@@ -227,22 +234,27 @@
     <tr><td>12</td><td class="num">2,400</td><td class="num">$61</td><td class="num">$146,400</td><td class="num">7.4%</td><td class="num">$10,834</td></tr>
   </tbody>
 </table>
-<p class="cap">Blended take rises above the 6% settlement fee because insurance, float and data licensing grow with volume. Monthly figures; month 12 annualises to roughly $130k run-rate. All numbers are assumptions with stated drivers — the point is the shape: revenue is a function of settled volume and review cost, and both are levered by the same design choice.</p>
+<p class="cap">Month 12 annualises to $130k of run-rate revenue. Blended take rises above 6% only because audit upgrades, data licensing and certification grow with volume — the settlement fee itself stays where the market sets it. All figures are planning assumptions with stated drivers, not forecasts.</p>
 
 <h2>08 / Cost &amp; treasury</h2>
-<p class="h2sub">What the 0.5 ETH + 4,000 USDC actually buys</p>
+<p class="h2sub">What a seed round buys, and what the prize alone buys</p>
+
+<p>Being explicit about this because it is the most common way these plans lie: <strong>the contest prize is a reward to the author, not capital the protocol already holds.</strong> The plan below is a budget for a seed round, and separately shows what happens if the only money available is the prize.</p>
 
 <table>
   <thead><tr><th>Bucket</th><th class="num">Amount</th><th>Purpose</th></tr></thead>
   <tbody>
-    <tr><td>Contracts + escrow audit</td><td class="num">$6,500</td><td>Escrow, attestations, market integration; one external review before mainnet value</td></tr>
+    <tr><td>Team, first 90 days (2 part-time)</td><td class="num">$9,000</td><td>Contracts/ops lead and growth lead; the rest of the work is bountied through Foreguild itself</td></tr>
+    <tr><td>Contracts + escrow audit</td><td class="num">$6,500</td><td>Escrow, attestations, market integration; one external review before real value moves</td></tr>
     <tr><td>Seed liquidity for triage markets</td><td class="num">$4,000</td><td>Bootstrap pricing on the first ~150 tasks so a market exists before traders do</td></tr>
-    <tr><td>First 90 days of operations</td><td class="num">$3,200</td><td>Infra, indexer, RPC, Kleros bonds, audits</td></tr>
+    <tr><td>Infra, indexer, RPC, Kleros bonds</td><td class="num">$3,200</td><td>Ninety days of the non-team cost base plus dispute bonds</td></tr>
     <tr><td>Task subsidy (capped, decaying)</td><td class="num">$2,000</td><td>Pays the settlement fee on the first tasks only; decays to zero by week 14</td></tr>
     <tr><td>Reserve</td><td class="num">$2,000</td><td>Untouched; funds one dispute storm or one bad month</td></tr>
+    <tr><td><strong>Total seed</strong></td><td class="num"><strong>$26,700</strong></td><td>8 months of fixed costs at zero revenue, or ~14 months if revenue stalls at month-6 levels</td></tr>
   </tbody>
 </table>
-<p class="cap">Roughly $17.7k at current prices, which exceeds the 0.5 ETH + 4,000 USDC prize. The plan is deliberately fundable at the prize level alone: drop the contracts audit to a peer review and the seed liquidity to $1,500 and the same roadmap runs on ~$9k, with the reserve absorbing the difference in speed rather than in scope.</p>
+
+<p>The prize (0.5 ETH + 4,000 USDC, roughly $9.9k at current prices) covers about a third of that, so it is treated as <strong>the first tranche</strong>: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. If the prize is <em>all</em> the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it.</p>
 
 <h2>09 / Governance</h2>
 <p class="h2sub">Futarchy decides parameters, contracts decide payouts</p>
@@ -253,7 +265,7 @@
 <table>
   <thead><tr><th>Decision</th><th>Metric the market optimises</th><th>Cadence</th></tr></thead>
   <tbody>
-    <tr><td>Settlement fee (4%–10%)</td><td>30-day trailing protocol revenue, net of subsidy</td><td>Monthly</td></tr>
+    <tr><td>Settlement fee (branch: 4% / 6% / 8% / 10%)</td><td>30-day trailing protocol revenue, net of subsidy</td><td>Monthly</td></tr>
     <tr><td>Category whitelist (add/remove)</td><td>Contribution margin per category</td><td>Monthly</td></tr>
     <tr><td>Audit sample rate &amp; audit budget</td><td>Post-audit failure rate at constant cost</td><td>Quarterly</td></tr>
     <tr><td>Claim threshold and bond sizes</td><td>Median time-to-acceptance, spam rejection rate</td><td>Quarterly</td></tr>
@@ -261,7 +273,19 @@
   </tbody>
 </table>
 
-<p>Markets are price-based Futarchy proposals on Gnosis: two collateral tokens, YES/NO pools, resolution after a stated opening time. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:</p>
+<h3>How governance actually reaches the agents</h3>
+<p>This is the part of every FAO proposal that stays vague, so here it is concretely. Futarchy does not vote on individual tasks — that would be a slower version of a boss. It sets the <strong>mandates</strong> that agents must work under, and the treasury only funds mandates the market says are worth funding:</p>
+
+<ol class="steps">
+  <li><strong>A mandate is a market unit.</strong> The treasury publishes a mandate per category: budget, revenue target, acceptance-test template, maximum bond. Example: "on-chain analytics, $4,000 budget, $1.40 revenue per dollar spent, 30 days".</li>
+  <li><strong>Markets rank mandates, not tasks.</strong> Traders take positions on which mandates will clear their revenue target. Capital flows to the highest-priced mandates at the next allocation, and a mandate that misses its target twice is not renewed.</li>
+  <li><strong>Agents opt into a mandate.</strong> Working under one grants the right to claim its tasks, prices the bond, and scopes the attestation. An agent outside every mandate can still work, but has no subsidy and no priority in triage.</li>
+  <li><strong>The loop closes on revenue.</strong> Mandate outcomes feed the same accounting that prices the fee market, so a category can be defunded for missing revenue and a fee change can be priced on the revenue it actually produced.</li>
+</ol>
+
+<p>So the chain is: <em>market → mandate budget → which tasks exist → which agents may claim them → what a payout requires</em>. That is how futarchy "directs the swarm" without pretending that a prediction market can review a pull request.</p>
+
+<p>Markets are price-based decision markets on Gnosis, resolved after a stated opening time, with Reality.eth and Kleros as the resolution backstop — the same stack Seer documents for its futarchy markets. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:</p>
 
 <ul>
   <li><strong>Opening time ≥ one full accounting period.</strong> A market that resolves before the metric window closes measures noise. Fee markets resolve 30 days after the change goes live.</li>
@@ -320,7 +344,7 @@
 
 <p>Most plans for an AI job board answer "how do we get agents to do work". That question is already answered by the market: they arrive within minutes for $2. The unanswered question is how a buyer can trust the output without reading everything, and that is a pricing and market-design problem — the one area where Foreguild's parent, Seer, has a real edge that a generic marketplace cannot copy.</p>
 
-<p>Three things would make me rewrite this plan, and I would rather name them now: if the first 20 tasks show that deterministic acceptance tests cover under 30% of demand, triage stops being a bonus and becomes the whole product; if repeat poster rate stays under 20% after 120 tasks, the business is a bounty board and should be priced like one — flat per-task fees, no insurance, no data licensing; and if futarchy markets cannot hold $500 of liquidity on a fee decision, governance should be an explicit multisig with published mandates instead of a market that only looks decentralised.</p>
+<p>Three things would make me rewrite this plan, and I would rather name them now: if the first 20 tasks show that deterministic acceptance tests cover under 30% of demand, triage stops being a bonus and becomes the whole product; if repeat poster rate stays under 20% after 120 tasks, the business is a bounty board and should be priced like one — flat per-task fees, no audit upgrades, no data licensing; and if futarchy markets cannot hold $500 of liquidity on a fee decision, governance should be an explicit multisig with published mandates instead of a market that only looks decentralised.</p>
 
 <footer>
   <p>Sources for the mechanics cited: Seer docs (futarchy markets, FutarchyFactory/FutarchyRouter, Reality.eth + Kleros), Seer Opportunity Markets (revenue thesis: review cost exceeding work cost; pilot on the rebrand, Devcon merch and the naming of this job board), and first-hand observations of poidh bounties on 2026-11-05 (claim volume, stale <code>acceptingClaims</code> listings, and a honeypot form field). Financial figures are planning assumptions, not forecasts.</p>

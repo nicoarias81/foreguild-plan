@@ -1,0 +1,381 @@
+You are a harsh, experienced reviewer on a judging panel. Below are two documents: (A) the official rules of a contest run by the team behind Seer, a futarchy/prediction-market protocol, and (B) a submitted operating plan.
+
+Judge ONLY this submission against the contest brief. The winner is chosen by the Seer team's own judgement, and every submission becomes an outcome in a Seer market — so credibility with that audience is what matters.
+
+Report, in this exact structure and in English:
+1. VERDICT — score 1-10, and one sentence on whether it would place top-3.
+2. FATAL FLAWS — things that would disqualify or embarrass it (factual errors about futarchy/Seer mechanics, promises the treasury cannot fund, arithmetic that does not add up, unsupported claims presented as data).
+3. ARITHMETIC CHECK — recompute independently: the unit economics block (avg ticket $61, 6% fee, 2% market fee, $1.90 audit, $0.35 infra -> claimed $2.63 / 43%), the 12-month revenue table, and the break-even of ~1,240 tasks/month against $3,260/month of fixed cost. State every number that is wrong or internally inconsistent.
+4. BRIEF COVERAGE — where tasks come from, how agents are assigned work, how completed work is assessed, how spending/disputes/human intervention are handled, revenue, and how futarchy directs the agents' actions. Mark each MISSING / WEAK / SOLID with one line of why.
+5. WHAT IS ACTUALLY GOOD — max 5 bullets, only defensible ones.
+6. FIVE CONCRETE FIXES — specific, ordered by expected impact on the judge's decision. No generic advice.
+
+Be concrete, quote the plan where you criticise it, and do not pad. Never invent facts about Seer; if you are unsure whether something is accurate, say "unverified" instead of asserting.
+
+=== DOCUMENT A: CONTEST BRIEF ===
+FAO Operating Plan Contest
+
+Win 0.5 ETH + 4,000 USDC for a revenue-focused operating plan for Foreguild.
+
+Seer invites PDF or HTML operating plans explaining how Foreguild, a proposed AI job board FAO, would achieve success, specifically optimised for revenue.
+
+The idea is straightforward: humans and AIs post tasks, AI completes them and gets paid in crypto.
+
+FAO stands for Futarchy Autonomous Organization: a swarm of agents doing work, with its actions governed by futarchy. Your plan should explain what the agents do and how that governance directs their actions.
+
+A useful plan might discuss where tasks come from, how agents are assigned work, how completed work is assessed, and how spending, disputes and human intervention are handled. These are prompts to help explain your proposal, not a mandatory checklist or separate scoring rubric.
+
+FAOs are still an emerging idea, so we'd encourage you to exercise your creativity in your submissions and draw on many different resources. Then apply those ideas to Foreguild, explaining how it would generate revenue and how futarchy would govern its actions.
+
+Members of our team will also be participating.
+
+If an eligible non-internal submission wins, the winner receives the 0.5 ETH Poidh bounty plus 4,000 USDC paid separately by Seer. 
+If a Seer team submission wins, the highest-ranked non-internal submission receives the 0.5 ETH Poidh bounty, and no 4,000 USDC is paid.
+
+Submit through Poidh to qualify for its bounties.
+
+If you submit via Google Form, you can still win Seer's separate USDC prize, but not the additional bounties on Poidh.
+
+As with the naming contest, every plan becomes an outcome in a Seer market, and the Seer team makes the final choice.
+
+Submissions close on 12th November at 23:59 Anywhere on Earth (AoE).
+
+=== DOCUMENT B: THE SUBMISSION (HTML stripped to text) ===
+Submission · Seer / Foreguild operating plan contest
+
+  Foreguild: sell the receipt, not the review
+
+  A revenue-first operating plan for an AI job board whose agents do the work, whose reviewers are markets, and whose parameters are governed by futarchy.
+
+  
+    Author: @ariasnico
+    Treasury target: 0.5 ETH + 4,000 USDC
+    Horizon: 12 months from first paid task
+  
+
+Foreguild's scarce resource is not agents. It is attention. On every open task, five to fifty agents will produce something plausible, and a human then has to read all of it to find the one that is real. That is the cost that kills AI work marketplaces: review scales linearly with submissions, while the value of the task does not. This plan makes review the product, prices it, and turns the parts that can be traded into markets.
+
+The bet, in one line: Foreguild charges for settled, verified work — not for listings, not for subscriptions — and its gross margin comes from making verification cheaper than the work it verifies. Target: $182k of GMV in month 12 at a 7.4% blended take, which is roughly $13.5k/month of protocol revenue on a cost base under $4k/month.
+
+## 01 / The problem
+
+Judging is more expensive than doing
+
+Seer already wrote the thesis on its own site: with AI, the cost of reviewing work is more than the time it takes to do it. Foreguild inherits that problem on every single task. Three failure modes are not hypothetical — they are observable today on the closest thing we have to a live version of this market, poidh, where agents race to answer bounties:
+
+  - Acceptance is not validity. A bounty API can report acceptingClaims: true with deadline: null on a bounty that was actually closed weeks earlier. An agent that trusted the field and asked its owner to fund a claim on 0.5 ETH bounties #38 and #39 discovered both were already settled. The listing looked fine; the data lied.
+
+  - Automation gets farmed by forms. An agent submitting an app to a catalog filled every field it found. One field was a honeypot: tabindex="-1", autocomplete="off", invisible to a human tabbing through. Every bot self-identified; every honest human looked identical.
+
+  - Volume is instantaneous. A bounty posted with a $2 pot collected two substantive, well-written claims inside 40 minutes — from agents, unprompted, with no marketing. Supply is not the constraint. Reading it is.
+
+So the operating question is not "how do we attract agents?" It is "how do we decide, cheaply and defensibly, which of these submissions deserves the money?" Every design choice below answers that question, because that answer is what a buyer is actually paying for.
+
+## 02 / What Foreguild is
+
+A job board where the deliverable is the product
+
+Foreguild is a proposed FAO — a Futarchy Autonomous Organization: a swarm of agents doing work, with its actions governed by futarchy. Concretely, the protocol has three sides and one constitution:
+
+  
+    
+### Three sides
+
+    
+      - Posters — a human or an agent with a task and a budget. They publish a spec with an acceptance test and escrow the payment.
+
+      - Workers — agents (and humans pretending to be none) that claim, build, and submit a deliverable plus a machine-checkable receipt.
+
+      - Jurors — anyone willing to put money behind a judgment about which submission is real. Their P&L is the review subsidy.
+
+    
+  
+
+  
+    
+### One constitution
+
+    
+      - Treasury and parameters live on-chain; the escrow contract holds funds, not the team.
+
+      - Decisions that change the economics (fee schedule, category whitelist, audit budget) go through futarchy markets on Gnosis.
+
+      - Facts that change a single payout go through Reality.eth, with Kleros as the backstop.
+
+    
+  
+
+We deliberately do not position Foreguild as a general-purpose labor marketplace. Competing with Scale, Mercor or Toloka for RLHF annotation means competing on enterprise sales, NDA-encumbered data and a trust brand that a new protocol does not have. Foreguild starts where none of those can follow: work whose truth is already on-chain or publicly verifiable, so that "did this get done?" is answerable by a script rather than by an account manager.
+
+## 03 / Demand
+
+Where the first paid tasks come from, in order
+
+Every category below is ranked by time-to-first-dollar, not by total addressable market. The first three are demand we can reach with a DM and settle in a week.
+
+  Wave | Source of tasks | Typical ticket | Why it converts | 
+
+  
+    1 | Crypto-native deliverables: dashboards, on-chain analyses, audits of public repos, docs, data pipelines, arbitrage/bounty solving | $40–$400 | Payment and proof already on-chain; buyer already has a wallet; no procurement | 
+
+    2 | Protocol grants with a deliverable — DAOs that fund work but hate managing it | $300–$3,000 | Foreguild replaces a grants committee with escrow plus a market; the DAO keeps veto rights | 
+
+    3 | Seer's own backlog (and any FAO's): research, market curation, integrations, translations | $50–$500 | Dogfooding that also proves the assessment layer to the people judging it | 
+
+    4 | Evaluation data for model labs — verified accepted/rejected work pairs | $2k–$20k/order | Highest-margin revenue line; only credible after wave 1–2 produces volume | 
+
+    5 | Agent-native demand: one agent hiring another to unblock itself | $5–$80 | Compounding, but needs reputation and fast settlement first | 
+
+  
+
+Ticket sizes are planning assumptions, calibrated against observed poidh bounties ($2–$1,208) and typical DAO grant sizes; they are not measured Foreguild data.
+
+### The cold-start offer
+
+For the first 90 days the pitch to a poster is not "a marketplace". It is: "Post a task, escrow the money, and we will return either a verified deliverable or your money — and you only read the two submissions the market ranked highest." That is a service promise backed by a contract, and it is the only pitch a small protocol will accept from an unproven board.
+
+## 04 / Supply
+
+Agents need three things: a spec, a receipt, and a reputation that travels
+
+Supply arrives free — the poidh observation of two quality claims in 40 minutes is the proof. What supply lacks is memory: an agent's track record dies with each marketplace. Foreguild issues a portable, on-chain work attestation per settled task: task category, acceptance outcome, whether the deliverable survived audit, and the juror consensus. It is a non-transferable record, priced into every future bid.
+
+  - Stake to submit. A worker stakes a small bond (default 2% of the task value, floor $1) that is forfeited on a failed audit or a proven fake receipt. This converts spam from free to metered without excluding good agents.
+
+  - Bids are commitments. A claim is a promise of delivery by a deadline; missing it costs the bond, not the poster's time.
+
+  - Reputation is per-category, not global. An agent that is excellent at on-chain analytics and mediocre at copywriting should be visible as exactly that. Global scores collapse to noise, and noise is what makes review expensive again.
+
+## 05 / Assignment
+
+Specs that can be tested, auctions that price themselves
+
+A task is only postable if it ships with an acceptance test: a command, a query, a rubric, or a market. Foreguild refuses tasks that cannot be tested, and that refusal is a feature — it is the single biggest quality filter available, and it costs nothing to enforce.
+
+  - Post with escrow and a test. The poster writes the spec, attaches the acceptance test, and funds the escrow. Fee is charged on settlement, never on posting.
+
+  - Workers claim, not bid blind. Claiming locks a bond and a deadline. Unlimited claims are allowed only while the task is under-subscribed; after a threshold (default: 5 claims), new claims must beat the current best by a stated margin, which stops low-effort flooding.
+
+  - Deterministic checks run first. Tests execute in a sandbox: does the query return the right rows, does the repo build, does the dashboard load, does the hash match. Anything that fails is rejected with a machine-readable reason — no juror time spent, no argument.
+
+  - Survivors go to a market. The remaining submissions are listed in an opportunity market — Seer's own primitive: traders stake on which submission the poster will accept, and price becomes the triage order.
+
+  - Human review is bounded. The poster reads the top k by price (default k = 3), not all n. In the common case n = 20 and k = 3, review cost drops by 85% without any model in the loop.
+
+## 06 / Assessment
+
+Three layers, each cheaper than the one above it
+
+  Layer | Who decides | Covers | Cost | Finality | 
+
+  
+    1. Test | A script | Objective deliverables: data, code, files, on-chain state | ~$0.001 | Immediate | 
+
+    2. Market | Traders with money at risk | Subjective quality within a category: writing, design, "is this analysis any good" | 2% of task value (fee) | Soft signal, orders the queue | 
+
+    3. Audit | Sampled human reviewers | A random 10% of market-ranked winners, plus 100% of tasks above $1,000 | $15–$60 per audit | Binding; can reverse a payout | 
+
+  
+
+Layer 2 is where Foreguild differs from every other AI job board, and it is worth being precise about why it works. Reviewing submissions is a prediction problem: which of these will the poster accept? Markets are better than people at aggregating dispersed judgment, and they are dramatically better than people at doing it repeatedly without fatigue. The poster keeps the final call — the market only decides what they read first. That asymmetry matters: it means a wrong market costs the poster a few minutes, while a wrong human queue costs them the afternoon.
+
+Evidence over intuition. This is not speculative for Seer: the rebrand, the Devcon merch and the naming of this very job board all ran as opportunity markets, with traders priced against a sponsor's final decision. Foreguild's assessment layer is the same machine pointed at work instead of names — a familiar pattern for the people who will judge this plan, and one that already has a pilot record.
+
+### Disputes
+
+Disagreement is priced, not adjudicated for free. A rejected worker can escalate by posting a bond (default: 20% of task value, minimum $5) and opening a Reality.eth question with the acceptance test as its resolution criteria. Kleros arbitrates contested answers. Loser pays the bond to the winner plus the arbitration fee; the protocol takes nothing from disputes, so it has no incentive to manufacture them. Escalation is capped at one round per task — the failure mode of every arbitration system is becoming a second marketplace.
+
+### Human intervention
+
+Humans hold three reserved powers and nothing else: freezing a task under legal or safety suspicion, delisting a category, and overriding a payout that a script proves fraudulent. Each use is logged on-chain with a public reason, and each override is itself a metric — if overrides exceed 2% of settlements in a month, the parameters that caused them are reopened by market.
+
+## 07 / Revenue
+
+Five lines, one of which pays the bills
+
+  Line | Mechanic | Rate | Share of month-12 revenue | 
+
+  
+    Settlement fee | Charged on accepted work only, taken from the poster's escrow at payout | 6% | ~72% | 
+
+    Verification insurance | Optional: poster pays for a 100% audit instead of a 10% sample; if the audited deliverable later fails, the fee is returned plus a fixed penalty from the worker's bond | 1.5% | ~11% | 
+
+    Escrow float | Escrowed stables held in a yield-bearing wrapper; yield accrues to the treasury while the task is open | ~3.5% APY × avg 9 days held | ~6% | 
+
+    Evaluation data licensing | Sell verified accepted/rejected pairs, deduplicated and labeled by outcome, to model labs and eval vendors; sellers opt in and share revenue | $4–$12 per verified pair | ~8% | 
+
+    Category certification | A paid exam a worker passes to be listed as certified in a category; price is set by market, not by the team | $25–$150 | ~3% | 
+
+  
+
+Two deliberate omissions. No listing fees — charging to post attracts the wrong posters and pollutes the board with tasks nobody funds. No subscription — a subscription aligns revenue with presence, not with settled work, and would make the protocol's revenue independent of the thing it is supposed to optimise. Futarchy needs a metric that cannot be gamed by existing; GMV and settled fees qualify, MRR from idle accounts does not.
+
+### Unit economics at the steady state
+
+  
+    Average ticket$61
+
+    Settlement fee (6%)$3.66
+
+    Market fee for triage (2%)$1.22
+
+    Amortised audit cost$1.90
+
+    Gas + infra per task$0.35
+
+    Contribution margin$2.63 (43%)
+
+  
+
+  
+    Fixed cost base is intentionally small: one contracts/research lead, one growth lead, and bounties for everything else — paid through Foreguild, which is the cheapest possible dogfooding.
+
+    
+      Team (2, part-time)$3,000/mo
+
+      Infra, RPC, indexer$260/mo
+
+      Audits (variable)in unit cost
+
+      Break-even~1,240 tasks/mo
+
+    
+
+  
+
+### The 12-month model
+
+  Month | Tasks settled | Avg ticket | GMV | Blended take | Revenue | 
+
+  
+    3 | 120 | $38 | $4,560 | 6.0% | $274 | 
+
+    6 | 480 | $45 | $21,600 | 6.6% | $1,426 | 
+
+    9 | 1,150 | $54 | $62,100 | 7.1% | $4,409 | 
+
+    12 | 2,400 | $61 | $146,400 | 7.4% | $10,834 | 
+
+  
+
+Blended take rises above the 6% settlement fee because insurance, float and data licensing grow with volume. Monthly figures; month 12 annualises to roughly $130k run-rate. All numbers are assumptions with stated drivers — the point is the shape: revenue is a function of settled volume and review cost, and both are levered by the same design choice.
+
+## 08 / Cost & treasury
+
+What the 0.5 ETH + 4,000 USDC actually buys
+
+  Bucket | Amount | Purpose | 
+
+  
+    Contracts + escrow audit | $6,500 | Escrow, attestations, market integration; one external review before mainnet value | 
+
+    Seed liquidity for triage markets | $4,000 | Bootstrap pricing on the first ~150 tasks so a market exists before traders do | 
+
+    First 90 days of operations | $3,200 | Infra, indexer, RPC, Kleros bonds, audits | 
+
+    Task subsidy (capped, decaying) | $2,000 | Pays the settlement fee on the first tasks only; decays to zero by week 14 | 
+
+    Reserve | $2,000 | Untouched; funds one dispute storm or one bad month | 
+
+  
+
+Roughly $17.7k at current prices, which exceeds the 0.5 ETH + 4,000 USDC prize. The plan is deliberately fundable at the prize level alone: drop the contracts audit to a peer review and the seed liquidity to $1,500 and the same roadmap runs on ~$9k, with the reserve absorbing the difference in speed rather than in scope.
+
+## 09 / Governance
+
+Futarchy decides parameters, contracts decide payouts
+
+The separation is the whole point. Facts about a single task are cheap to verify and expensive to argue: those go to Reality.eth and Kleros. Parameters about the protocol are expensive to verify and cheap to argue: those go to a market. Mixing the two is how governance systems become either arbitrary or paralyzed.
+
+### What goes to a market
+
+  Decision | Metric the market optimises | Cadence | 
+
+  
+    Settlement fee (4%–10%) | 30-day trailing protocol revenue, net of subsidy | Monthly | 
+
+    Category whitelist (add/remove) | Contribution margin per category | Monthly | 
+
+    Audit sample rate & audit budget | Post-audit failure rate at constant cost | Quarterly | 
+
+    Claim threshold and bond sizes | Median time-to-acceptance, spam rejection rate | Quarterly | 
+
+    Data-licensing opt-in terms | Revenue per verified pair, worker retention | Quarterly | 
+
+  
+
+Markets are price-based Futarchy proposals on Gnosis: two collateral tokens, YES/NO pools, resolution after a stated opening time. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:
+
+  - Opening time ≥ one full accounting period. A market that resolves before the metric window closes measures noise. Fee markets resolve 30 days after the change goes live.
+
+  - Minimum bond sized to the treasury, not to the trader. A bond that is cheap relative to the decision invites griefing; a bond that is expensive silences the informed. Start at 0.05 ETH and let the bond-size market move it.
+
+The honest risk: futarchy markets are thin. A parameter market with $300 of liquidity produces a signal that is easy to distort and hard to trust, and a protocol that pretends otherwise is worse than one with a multisig. Mitigation, in order: seed liquidity from the treasury (budgeted above), gate futarchy to decisions where a wrong call costs under 5% of monthly revenue, and keep a two-of-three human veto that is public and time-boxed. The goal for year one is not "governance is solved". It is "each decision was made with money at risk and a written argument, on a record we can read afterwards" — which is already better than the alternative.
+
+## 10 / The first 90 days
+
+Weekly milestones with kill criteria
+
+  Weeks | Milestone | Kill criterion | 
+
+  
+    1–2 | Escrow + attestation contracts on Gnosis testnet; acceptance-test runner for 3 deliverable types (SQL/query, repo build, file hash) | No external task posted by day 14 | 
+
+    3–4 | 20 tasks sourced from Seer's backlog and two friendly DAOs; fee waived; every task must have a test | <10 of 20 tasks settle | 
+
+    5–6 | Opportunity-market integration: top-3 triage on every subjective task; measure review-time saved against a control week of full review | Review time not reduced by ≥40% | 
+
+    7–8 | First paid settlement at 6%; first dispute resolved end-to-end through Reality.eth | Zero paid tasks by day 56 | 
+
+    9–10 | First futarchy market live: settlement fee 4% / 6% / 8%, resolved on trailing revenue | Market liquidity under $200 at open | 
+
+    11–12 | 120 tasks/month, 30+ distinct posters, first repeat poster rate above 35% | Repeat rate below 20% (we are a bounty board, not a job board) | 
+
+  
+
+The single number that decides whether Foreguild is a business or a hobby is repeat poster rate. A first-time poster is curiosity. A second task from the same wallet is the only honest evidence that the review layer saved them something they valued.
+
+## 11 / Risks
+
+Named, priced, and mostly boring
+
+  Risk | Why it bites | Mitigation | 
+
+  
+    Poster–worker collusion | Two wallets manufacture settled volume to farm reputation or subsidies | Attestations weight by distinct counterparties; subsidy decays and is capped per wallet; GMV counts net of self-dealing clusters | 
+
+    Quality flood | Free submission turns every task into 50 plausible answers | Claim bonds, claim ceilings, deterministic tests first, market triage | 
+
+    Thin markets | Triage is only as good as its liquidity | Seeded liquidity, category-specific markets, and a fallback to full human review when liquidity is below threshold — never a silent fake signal | 
+
+    Arbitration cost | Kleros fees can exceed a $40 task | Escalation only above a minimum task value; small tasks resolved by poster with a bond-backed appeal, not by court | 
+
+    Data licensing consent | Selling work product without clear rights is a legal and reputational hazard | Opt-in at task creation, revenue split with the worker, and nothing licensable by default | 
+
+    Stale listings | Observed on poidh: acceptingClaims true on a closed bounty | Every open task carries an on-chain expiry and requires live escrow; the API reads escrow balance, not a cached flag | 
+
+  
+
+## 12 / What we measure
+
+One tree, four branches
+
+  - Revenue: settled GMV, blended take, revenue per settled task, data-licensing revenue per verified pair.
+
+  - Review efficiency: submissions per task, review minutes per settled task, share of tasks decided by test alone, audit failure rate.
+
+  - Trust: dispute rate per 100 tasks, override rate, median time-to-acceptance, bond forfeitures.
+
+  - Retention: repeat poster rate, repeat worker rate, attestations per wallet, category concentration (a healthy board is not 80% one category).
+
+If forced to one dashboard number, it is revenue per review-minute. It is the only metric that simultaneously captures whether the work was valuable and whether we were cheap at judging it — and it is the exact quantity this plan exists to maximise.
+
+## 13 / Why this plan, and what would change it
+
+Most plans for an AI job board answer "how do we get agents to do work". That question is already answered by the market: they arrive within minutes for $2. The unanswered question is how a buyer can trust the output without reading everything, and that is a pricing and market-design problem — the one area where Foreguild's parent, Seer, has a real edge that a generic marketplace cannot copy.
+
+Three things would make me rewrite this plan, and I would rather name them now: if the first 20 tasks show that deterministic acceptance tests cover under 30% of demand, triage stops being a bonus and becomes the whole product; if repeat poster rate stays under 20% after 120 tasks, the business is a bounty board and should be priced like one — flat per-task fees, no insurance, no data licensing; and if futarchy markets cannot hold $500 of liquidity on a fee decision, governance should be an explicit multisig with published mandates instead of a market that only looks decentralised.
+
+  Sources for the mechanics cited: Seer docs (futarchy markets, FutarchyFactory/FutarchyRouter, Reality.eth + Kleros), Seer Opportunity Markets (revenue thesis: review cost exceeding work cost; pilot on the rebrand, Devcon merch and the naming of this job board), and first-hand observations of poidh bounties on 2026-11-05 (claim volume, stale acceptingClaims listings, and a honeypot form field). Financial figures are planning assumptions, not forecasts.
+
+  Submitted through poidh to qualify for the 0.5 ETH bounty; the plan also stands alone as an HTML document for Seer's USDC prize.

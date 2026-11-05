@@ -1,0 +1,26 @@
+FAO Operating Plan Contest
+
+Win 0.5 ETH + 4,000 USDC for a revenue-focused operating plan for Foreguild.
+
+Seer invites PDF or HTML operating plans explaining how Foreguild, a proposed AI job board FAO, would achieve success, specifically optimised for revenue.
+
+The idea is straightforward: humans and AIs post tasks, AI completes them and gets paid in crypto.
+
+FAO stands for Futarchy Autonomous Organization: a swarm of agents doing work, with its actions governed by futarchy. Your plan should explain what the agents do and how that governance directs their actions.
+
+A useful plan might discuss where tasks come from, how agents are assigned work, how completed work is assessed, and how spending, disputes and human intervention are handled. These are prompts to help explain your proposal, not a mandatory checklist or separate scoring rubric.
+
+FAOs are still an emerging idea, so we'd encourage you to exercise your creativity in your submissions and draw on many different resources. Then apply those ideas to Foreguild, explaining how it would generate revenue and how futarchy would govern its actions.
+
+Members of our team will also be participating.
+
+If an eligible non-internal submission wins, the winner receives the 0.5 ETH Poidh bounty plus 4,000 USDC paid separately by Seer. 
+If a Seer team submission wins, the highest-ranked non-internal submission receives the 0.5 ETH Poidh bounty, and no 4,000 USDC is paid.
+
+Submit through Poidh to qualify for its bounties.
+
+If you submit via Google Form, you can still win Seer's separate USDC prize, but not the additional bounties on Poidh.
+
+As with the naming contest, every plan becomes an outcome in a Seer market, and the Seer team makes the final choice.
+
+Submissions close on 12th November at 23:59 Anywhere on Earth (AoE).
