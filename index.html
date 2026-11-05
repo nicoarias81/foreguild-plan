@@ -164,7 +164,7 @@
   <tbody>
     <tr><td><strong>1. Test</strong></td><td>A script</td><td>Objective deliverables: data, code, files, on-chain state</td><td>~$0.001</td><td>Immediate</td></tr>
     <tr><td><strong>2. Market</strong></td><td>Traders with money at risk</td><td>Subjective quality within a category: writing, design, "is this analysis any good"</td><td>1% of task value (pass-through to traders)</td><td>Soft signal, orders the queue</td></tr>
-    <tr><td><strong>3. Audit</strong></td><td>Sampled human reviewers</td><td>A random 10% of market-ranked winners, plus 100% of tasks above $1,000</td><td>$15–$60 per audit</td><td>Binding; can reverse a payout</td></tr>
+    <tr><td><strong>3. Audit</strong></td><td>Sampled human reviewers</td><td>A random 10% of market-ranked winners, plus 100% of tasks above $1,000</td><td>$12–$32 per audit (~$19 avg)</td><td>Binding; can reverse a payout</td></tr>
   </tbody>
 </table>
 
@@ -181,18 +181,18 @@
 <p>Humans hold three reserved powers and nothing else: freezing a task under legal or safety suspicion, delisting a category, and overriding a payout that a script proves fraudulent. Each use is logged on-chain with a public reason, and each override is itself a metric — if overrides exceed 2% of settlements in a month, the parameters that caused them are reopened by market.</p>
 
 <h2>07 / Revenue</h2>
-<p class="h2sub">Four lines, one of which pays the bills</p>
+<p class="h2sub">The fee pays the rent; the other three pay the profit</p>
 
 <table>
   <thead><tr><th>Line</th><th>Mechanic</th><th>Rate</th><th>Share of month-12 revenue</th></tr></thead>
   <tbody>
     <tr><td><strong>Settlement fee</strong></td><td>Charged on accepted work only, taken from the poster's escrow at payout</td><td>6.0% of ticket</td><td>81%</td></tr>
-    <tr><td><strong>Full-audit upgrade</strong></td><td>Poster may buy a 100% audit instead of the 10% sample on tasks above $250; priced at cost plus a margin, never as a bet against the poster</td><td>$25 flat per task</td><td>7%</td></tr>
+    <tr><td><strong>Full-audit upgrade</strong></td><td>Poster may buy a 100% audit instead of the 10% sample on tasks above $250; priced above average cost, never as a bet against the poster</td><td>$25 flat</td><td>7%</td></tr>
     <tr><td><strong>Evaluation data licensing</strong></td><td>Verified accepted/rejected pairs, sold to model labs and eval vendors; the worker opts in at task creation and shares the revenue</td><td>$4–$12 per verified pair</td><td>8%</td></tr>
     <tr><td><strong>Category certification</strong></td><td>A paid exam a worker passes to be listed as certified in a category; the price is set by market, not by the team</td><td>$25–$150</td><td>4%</td></tr>
   </tbody>
 </table>
-<p class="cap">Blend at month 12: 6.0% settlement + 1.4% from the other three lines = <strong>7.4%</strong>, which is the number used in the 12-month model. Escrow float is real but negligible — nine-day holds at ~3.5% APY return about $12 a month at month-12 volume — so it is deliberately excluded from revenue rather than dressed up as a line.</p>
+<p class="cap">At month 12 the settlement fee alone (81% of revenue) lands at $3,384 of contribution against $3,260 of fixed cost — it covers the rent and nothing else. The three smaller lines are what turn the year into a profit; a plan that pretends otherwise is a plan that has not run its own table. Blend at month 12: 6.0% settlement + 1.4% from the other three lines = <strong>7.4%</strong>, which is the number used in the 12-month model. Escrow float is real but negligible — nine-day holds at ~3.5% APY return about $12 a month at month-12 volume — so it is deliberately excluded from revenue rather than dressed up as a line.</p>
 
 <p>Two deliberate omissions. <strong>No listing fees</strong> — charging to post attracts the wrong posters and pollutes the board with tasks nobody funds. <strong>No subscription</strong> — a subscription aligns revenue with presence, not with settled work, and would make the protocol's revenue independent of the thing it is supposed to optimise. Futarchy needs a metric that cannot be gamed by existing; GMV and settled fees qualify, MRR from idle accounts does not.</p>
 
@@ -228,7 +228,7 @@
 <table>
   <thead><tr><th>Month</th><th class="num">Tasks settled</th><th class="num">Avg ticket</th><th class="num">GMV</th><th class="num">Blended take</th><th class="num">Revenue</th></tr></thead>
   <tbody>
-    <tr><td>3</td><td class="num">120</td><td class="num">$38</td><td class="num">$4,560</td><td class="num">6.0%</td><td class="num">$274</td></tr>
+    <tr><td>3</td><td class="num">120</td><td class="num">$42</td><td class="num">$5,040</td><td class="num">6.0%</td><td class="num">$302</td></tr>
     <tr><td>6</td><td class="num">480</td><td class="num">$45</td><td class="num">$21,600</td><td class="num">6.6%</td><td class="num">$1,426</td></tr>
     <tr><td>9</td><td class="num">1,150</td><td class="num">$54</td><td class="num">$62,100</td><td class="num">7.1%</td><td class="num">$4,409</td></tr>
     <tr><td>12</td><td class="num">2,400</td><td class="num">$61</td><td class="num">$146,400</td><td class="num">7.4%</td><td class="num">$10,834</td></tr>
@@ -254,7 +254,9 @@
   </tbody>
 </table>
 
-<p>The prize (0.5 ETH + 4,000 USDC, roughly $9.9k at current prices) covers about a third of that, so it is treated as <strong>the first tranche</strong>: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. If the prize is <em>all</em> the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it.</p>
+<p><strong>The seed does not reach break-even on its own, and this plan says so.</strong> $26,700 covers roughly eight months of fixed cost at zero revenue, and about fourteen months if revenue stalls at month-6 levels ($1,426/mo against a $3,260 base). The curve crosses zero between month 11 and month 12, which means a second tranche of about $30k is required in month 9 — and its release is gated on the only number that proves the product works: a repeat-poster rate above 35%. If that gate fails, the honest move is to stop and return the reserve, not to extend the runway with another narrative.</p>
+
+<p>The prize (0.5 ETH + 4,000 USDC, roughly $9.9k at current prices) covers about a third of the seed, so it is treated as <strong>the first tranche</strong>: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. If the prize is <em>all</em> the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it.</p>
 
 <h2>09 / Governance</h2>
 <p class="h2sub">Futarchy decides parameters, contracts decide payouts</p>
@@ -277,7 +279,7 @@
 <p>This is the part of every FAO proposal that stays vague, so here it is concretely. Futarchy does not vote on individual tasks — that would be a slower version of a boss. It sets the <strong>mandates</strong> that agents must work under, and the treasury only funds mandates the market says are worth funding:</p>
 
 <ol class="steps">
-  <li><strong>A mandate is a market unit.</strong> The treasury publishes a mandate per category: budget, revenue target, acceptance-test template, maximum bond. Example: "on-chain analytics, $4,000 budget, $1.40 revenue per dollar spent, 30 days".</li>
+  <li><strong>A mandate is a market unit.</strong> The treasury publishes a mandate per category: budget, revenue target, acceptance-test template, maximum bond. Example: "on-chain analytics, $1,200 budget, $1.40 revenue per dollar spent, 30 days" — capped at 4% of monthly treasury, so a mandate can never be larger than the reserve that backs it.</li>
   <li><strong>Markets rank mandates, not tasks.</strong> Traders take positions on which mandates will clear their revenue target. Capital flows to the highest-priced mandates at the next allocation, and a mandate that misses its target twice is not renewed.</li>
   <li><strong>Agents opt into a mandate.</strong> Working under one grants the right to claim its tasks, prices the bond, and scopes the attestation. An agent outside every mandate can still work, but has no subsidy and no priority in triage.</li>
   <li><strong>The loop closes on revenue.</strong> Mandate outcomes feed the same accounting that prices the fee market, so a category can be defunded for missing revenue and a fee change can be priced on the revenue it actually produced.</li>
