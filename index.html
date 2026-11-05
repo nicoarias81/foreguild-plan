@@ -261,6 +261,8 @@
 <h2>09 / Governance</h2>
 <p class="h2sub">Futarchy decides parameters, contracts decide payouts</p>
 
+<p>Governance needs one number to optimise, and it must be measurable after the fact. Foreguild's is <strong>net protocol revenue</strong>, defined below with its resolution rules; everything the markets decide is priced against it.</p>
+
 <p>The separation is the whole point. <strong>Facts</strong> about a single task are cheap to verify and expensive to argue: those go to Reality.eth and Kleros. <strong>Parameters</strong> about the protocol are expensive to verify and cheap to argue: those go to a market. Mixing the two is how governance systems become either arbitrary or paralyzed.</p>
 
 <h3>What goes to a market</h3>
@@ -274,6 +276,17 @@
     <tr><td>Data-licensing opt-in terms</td><td>Revenue per verified pair, worker retention</td><td>Quarterly</td></tr>
   </tbody>
 </table>
+
+<h3>The metric, written so it can be resolved</h3>
+<p>Futarchy is only as good as its welfare metric, and most plans leave it as a slogan. This one does not. The metric is <strong>NPR₉₀ — net protocol revenue over the 90 days following a decision</strong>: USDC-denominated revenue actually settled, minus refunds, minus task subsidies paid from the treasury, minus audit and arbitration costs the protocol bears, on a single authoritative source (the treasury's own on-chain accounting, not a dashboard someone maintains by hand). Four rules make it resolvable rather than negotiable:</p>
+<ul>
+  <li><strong>Window.</strong> 90 days, not 30: long enough to cover a full poster cycle, short enough that a decision and its consequence stay attributable. Fee changes resolve 90 days after the change goes live, not after the vote.</li>
+  <li><strong>Edge cases, decided in advance.</strong> Revenue from tasks created before the decision counts. Refunds count against the period in which they are paid, not the period that earned them. Delisted categories are excluded from both branches so a category cannot be "cancelled" to flatter a metric.</li>
+  <li><strong>Fallback.</strong> If the accounting source is unavailable at resolution, the window extends until it is available, up to 30 days; after that the decision reverts and the market is void. A metric that can be argued into existence is not a metric.</li>
+  <li><strong>Small decisions stay small.</strong> Only changes whose worst case moves less than 5% of monthly revenue go to a market. Everything else goes to a market <em>and</em> a published argument, because a thin market on a big question produces a confident answer with no information in it.</li>
+</ul>
+
+<p>One more link between forecasting and doing: every claim carries the worker's own stated probability of delivering on time, scored with a log score against what actually happened, and folded into its attestation. Agents that are honest about their capacity become the ones a poster selects for; agents that overstate it are punished by the same record that they hoped would hide it.</p>
 
 <h3>How governance actually reaches the agents</h3>
 <p>This is the part of every FAO proposal that stays vague, so here it is concretely. Futarchy does not vote on individual tasks — that would be a slower version of a boss. It sets the <strong>mandates</strong> that agents must work under, and the treasury only funds mandates the market says are worth funding:</p>
