@@ -71,6 +71,7 @@
 
 <div class="box">
 <p><strong>The bet, in one line:</strong> Foreguild charges for <em>settled, verified work</em> — not for listings, not for subscriptions — and its gross margin comes from making verification cheaper than the work it verifies. Target: <strong>$146,400 of GMV in month 12 at a 7.4% blended take</strong>, which is $10,834 of monthly revenue against a fixed cost base of $3,260 — break-even at roughly 1,450 settled tasks per month at that blend (2,310 if only the settlement fee counted), crossed in month 11.</p>
+<p><strong>The constraint nobody publishes:</strong> human audit is a fixed cost per task, so the model only clears at a <strong>$37.50 average ticket</strong>. Below that, Foreguild drops the audit and batches settlement instead of pretending a $2 task can carry a $19 review.</p>
 </div>
 
 <h2>01 / The problem</h2>
@@ -164,7 +165,7 @@
   <tbody>
     <tr><td><strong>1. Test</strong></td><td>A script</td><td>Objective deliverables: data, code, files, on-chain state</td><td>~$0.001</td><td>Immediate</td></tr>
     <tr><td><strong>2. Market</strong></td><td>Traders with money at risk</td><td>Subjective quality within a category: writing, design, "is this analysis any good"</td><td>1% of task value (pass-through to traders)</td><td>Soft signal, orders the queue</td></tr>
-    <tr><td><strong>3. Audit</strong></td><td>Sampled human reviewers</td><td>A random 10% of market-ranked winners, plus 100% of tasks above $1,000</td><td>$12–$32 per audit (~$19 avg)</td><td>Binding; can reverse a payout</td></tr>
+    <tr><td><strong>3. Audit</strong></td><td>Sampled human reviewers</td><td>A random 10% of market-ranked winners in the audited lane (tickets ≥$40), 100% of tasks above $1,000; the small-task lane is settled without human audit</td><td>$12–$32 per audit (~$19 avg)</td><td>Binding; can reverse a payout</td></tr>
   </tbody>
 </table>
 
@@ -236,7 +237,81 @@
 </table>
 <p class="cap">Month 12 annualises to $130k of run-rate revenue. Blended take rises above 6% only because audit upgrades, data licensing and certification grow with volume — the settlement fee itself stays where the market sets it. All figures are planning assumptions with stated drivers, not forecasts.</p>
 
-<h2>08 / Cost &amp; treasury</h2>
+<h2>08 / The ledger, party by party</h2>
+<p class="h2sub">Seven parties touch a settled task; the money has to work for each of them, not just for the protocol</p>
+
+<p>Every plan shows the protocol's P&amp;L, because the protocol writes it. The harder table — the one that decides whether anything happens at all — is what each of the <em>other</em> six parties gets, and whether that is enough to bring them back tomorrow. Below is one settled $61 task with every dollar traced. The ledger closes: $61.61 in from the poster, $61.61 out to the people who did the work, ranked it, audited it, or settled it.</p>
+
+<table>
+  <thead><tr><th>Party</th><th>Puts in</th><th>Takes out</th><th class="num">Net per task</th><th class="num">% of ticket</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Poster</strong></td><td>$61.61 — the $61 ticket plus the 1% triage fee</td><td>The deliverable, a signed attestation, an appeal right</td><td class="num">−$61.61</td><td class="num">101%</td></tr>
+    <tr><td><strong>Worker agent</strong> (the wallet that runs it)</td><td>Its labour, a 2% bond of $1.22 posted at start — refundable</td><td>$57.34 released from escrow</td><td class="num">+$56.44</td><td class="num">92.5%</td></tr>
+    <tr><td><strong>Model provider</strong></td><td>Tokens and compute</td><td>~$0.90 of inference per task</td><td class="num">+$0.90</td><td class="num">1.5%</td></tr>
+    <tr><td><strong>Triage traders</strong></td><td>Capital and attention on the ranking market</td><td>The whole 1% pool</td><td class="num">+$0.61, shared</td><td class="num">1.0%</td></tr>
+    <tr><td><strong>Auditor</strong> (10% sample)</td><td>~40 minutes of human review</td><td>$19 per audited task → $1.90 expected per task</td><td class="num">$0 at pool level</td><td class="num">3.1% to labour</td></tr>
+    <tr><td><strong>Dispute jurors</strong> (2% escalate)</td><td>A staked answer on Reality.eth, a seat if it goes to Kleros</td><td>The arbitration fee, paid out of the losing side's bond</td><td class="num">$0 unless escalated</td><td class="num">—</td></tr>
+    <tr><td><strong>Foreguild</strong></td><td>Escrow, settlement, and the audit it paid for</td><td>The 6% settlement fee</td><td class="num">+$1.41</td><td class="num">2.3%</td></tr>
+  </tbody>
+</table>
+<p class="cap">The protocol keeps <strong>39% of the fee it charges</strong>; the other 61% goes to the thing that makes the fee defensible — human audit and settlement cost. That number is meant to look thin. A marketplace that keeps most of its take is taxing its workers, and workers leave those first.</p>
+
+<h3>Why each party stays</h3>
+<table>
+  <thead><tr><th>Party</th><th>What it gets</th><th>Its own break-even</th><th>What would push it out</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Poster</strong></td><td>The same deliverable for 59% less: a comparable task from a human on a freelance platform is ~3 hours at $50/hr, $150+, before the platform's 20%</td><td>Any task a human would charge more than $62 for</td><td>Rework higher than 1 in 5, or one bad audit that lets garbage through</td></tr>
+    <tr><td><strong>Worker agent</strong></td><td>92.5% of the ticket; inference is 1.5% of it</td><td><strong>A $1.30 ticket.</strong> Anthropic's own worked example prices an hour-long agent session with 50k input and 15k output tokens at $0.58 — with retries, call it $0.90</td><td>Bonds larger than the work (2% is not), or payouts slower than a day</td></tr>
+    <tr><td><strong>Auditor</strong></td><td>$19 for 40 minutes, ≈$28/hr, no client acquisition, no invoicing</td><td>Any hour that would otherwise sit idle</td><td>Audits batched into unpaid 3-hour blocks</td></tr>
+    <tr><td><strong>Triage trader</strong></td><td>1% of every ticket; at month 12 that is a $1,464/mo pool</td><td>Real but small: a desk holding $500 and capturing 10% of flow earns ~$146/mo — 29% monthly on capital, $1.7k a year</td><td>Thin flow below $40 tickets, where the pool is pennies</td></tr>
+    <tr><td><strong>Model provider</strong></td><td>1.5% of GMV as pure inference demand, growing with tasks</td><td>Always — it is paid per token</td><td>Nothing; it is the only party paid whether or not the work is good</td></tr>
+    <tr><td><strong>Jurors</strong></td><td>Arbitration fees, and only on the 2% that escalate</td><td>Deliberately not a living: the court is designed to be mostly idle</td><td>Dispute rates high enough to make the court a job</td></tr>
+    <tr><td><strong>Foreguild</strong></td><td>$1.41 per task, $2.26 at the blended take</td><td>2,312 tasks/mo on fee alone, 1,445 at the blend</td><td>An audit sample above 15% — see below</td></tr>
+    <tr><td><strong>Seer</strong></td><td>Operator of the triage and governance markets</td><td>At 2% of resolved volume, a few hundred dollars a month at month-12 volume</td><td>Nothing economic. Seer's interest here is strategic — many well-formed markets, not fee income — and it is worth saying so rather than dressing up a rounding error as a business line</td></tr>
+  </tbody>
+</table>
+
+<p>One line in that table is worth pulling out, because it explains the world this plan has to live in: <strong>a worker is profitable at a $1.30 ticket.</strong> That is not a footnote, it is the reason bounty boards fill with $2 tasks and 30 agents claiming them — the supply side went to zero marginal cost years ago, and any board that prices work by what it costs a human to produce it is mispricing the supply. Foreguild's ticket floor is not set by worker cost. It is set by the cost of <em>verification</em>.</p>
+
+<h3>The two numbers that decide whether any of the above holds</h3>
+<p>The ledger is stable along most dimensions and violently sensitive along two. First, the audit sample — the rate at which settled work is re-reviewed by a human. Second, the ticket floor — because the audit is a fixed cost per audited task, it does not shrink with the ticket, and below a certain size it eats the entire fee.</p>
+
+<div class="two">
+  <div>
+    <table>
+      <thead><tr><th>Audit sample</th><th class="num">Contribution/task</th><th class="num">Break-even</th></tr></thead>
+      <tbody>
+        <tr><td>5%</td><td class="num">+$2.36</td><td class="num">1,381 tasks</td></tr>
+        <tr><td><strong>10% (base case)</strong></td><td class="num"><strong>+$1.41</strong></td><td class="num"><strong>2,312 tasks</strong></td></tr>
+        <tr><td>15%</td><td class="num">+$0.46</td><td class="num">7,087 tasks</td></tr>
+        <tr><td>20%</td><td class="num">−$0.49</td><td class="num">never</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <table>
+      <thead><tr><th>Avg ticket</th><th class="num">Fee at 6%</th><th class="num">Audit</th><th class="num">Contribution</th></tr></thead>
+      <tbody>
+        <tr><td>$2.25</td><td class="num">$0.14</td><td class="num">$1.90</td><td class="num">−$2.12</td></tr>
+        <tr><td>$15</td><td class="num">$0.90</td><td class="num">$1.90</td><td class="num">−$1.35</td></tr>
+        <tr><td>$25</td><td class="num">$1.50</td><td class="num">$1.90</td><td class="num">−$0.75</td></tr>
+        <tr><td><strong>$38</strong></td><td class="num">$2.28</td><td class="num">$1.90</td><td class="num"><strong>+$0.03</strong></td></tr>
+        <tr><td>$61 (base case)</td><td class="num">$3.66</td><td class="num">$1.90</td><td class="num">+$1.41</td></tr>
+        <tr><td>$150</td><td class="num">$9.00</td><td class="num">$1.90</td><td class="num">+$6.75</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<p><strong>The floor is $37.50.</strong> Under it, a 6% fee cannot pay for a 10% audit sample plus gas, no matter how many tasks arrive — volume makes it worse, not better. Most of the public bounty boards run at exactly that size, $2 to $25, which is why "we will audit everything" is not a policy a plan can promise at those prices and stay solvent.</p>
+
+<p>So Foreguild runs two lanes, and the split is a design constraint rather than a pricing trick. <strong>The audited lane</strong> starts at $40: 6% fee, 10% human sample, full attestation. <strong>The small-task lane</strong> covers $5–$40: 4% fee, no human audit, settlement batched so gas falls to about $0.02 a task. It contributes <strong>$0.58 a task — 97% of its fee</strong> — and it would need 5,621 tasks a month to carry the fixed base on its own. It is not there for the P&amp;L. It is there because every small settled task produces a verified accepted/rejected pair, which is the data the licensing line sells and the cheapest acquisition channel a poster funnel has. A plan that hid this lane would be quietly claiming to audit work it cannot afford to audit.</p>
+
+<p>Where the model is <em>not</em> fragile matters too. Inference could quadruple and it would cost the worker $3.60 out of $56.44 and the protocol nothing — AI prices are the least dangerous variable in this plan, despite being the most discussed. Bonds could double and workers would still keep 90% of the ticket. The plan is fragile on two parameters and comfortable on the rest, and both fragile ones — the audit sample and the $40 lane split — are choices where a wrong setting stays invisible for months while quietly inverting the unit economics.</p>
+
+<p>That is the argument for governing them instead of deciding them. Audit rate and lane boundary trade safety against margin, they are measured monthly, and nobody — including the team writing this — can say today which setting is right at month-9 volume. Put both to a market with a resolution date and let the traders who pay for being wrong own the number. The alternatives are a committee guessing, or a founder quietly moving the sample from 10% to 15% when a customer complains and never telling anyone what it cost.</p>
+
+<h2>09 / Cost &amp; treasury</h2>
 <p class="h2sub">What a seed round buys, and what the prize alone buys</p>
 
 <p>Being explicit about this because it is the most common way these plans lie: <strong>the contest prize is a reward to the author, not capital the protocol already holds.</strong> The plan below is a budget for a seed round, and separately shows what happens if the only money available is the prize.</p>
@@ -258,7 +333,7 @@
 
 <p>The prize (0.5 ETH + 4,000 USDC, roughly $9.9k at current prices) covers about a third of the seed, so it is treated as <strong>the first tranche</strong>: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. If the prize is <em>all</em> the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it.</p>
 
-<h2>09 / Governance</h2>
+<h2>10 / Governance</h2>
 <p class="h2sub">Futarchy decides parameters, contracts decide payouts</p>
 
 <p>Governance needs one number to optimise, and it must be measurable after the fact. Foreguild's is <strong>net protocol revenue</strong>, defined below with its resolution rules; everything the markets decide is priced against it.</p>
@@ -311,7 +386,7 @@
 <p><strong>The honest risk:</strong> futarchy markets are thin. A parameter market with $300 of liquidity produces a signal that is easy to distort and hard to trust, and a protocol that pretends otherwise is worse than one with a multisig. Mitigation, in order: seed liquidity from the treasury (budgeted above), gate futarchy to decisions where a wrong call costs under 5% of monthly revenue, and keep a two-of-three human veto that is <em>public and time-boxed</em>. The goal for year one is not "governance is solved". It is "each decision was made with money at risk and a written argument, on a record we can read afterwards" — which is already better than the alternative.</p>
 </div>
 
-<h2>10 / The first 90 days</h2>
+<h2>11 / The first 90 days</h2>
 <p class="h2sub">Weekly milestones with kill criteria</p>
 
 <table>
@@ -328,7 +403,7 @@
 
 <p>The single number that decides whether Foreguild is a business or a hobby is <strong>repeat poster rate</strong>. A first-time poster is curiosity. A second task from the same wallet is the only honest evidence that the review layer saved them something they valued.</p>
 
-<h2>11 / Risks</h2>
+<h2>12 / Risks</h2>
 <p class="h2sub">Named, priced, and mostly boring</p>
 
 <table>
@@ -343,7 +418,7 @@
   </tbody>
 </table>
 
-<h2>12 / What we measure</h2>
+<h2>13 / What we measure</h2>
 <p class="h2sub">One tree, four branches</p>
 
 <ul>
@@ -355,7 +430,7 @@
 
 <p>If forced to one dashboard number, it is <strong>revenue per review-minute</strong>. It is the only metric that simultaneously captures whether the work was valuable and whether we were cheap at judging it — and it is the exact quantity this plan exists to maximise.</p>
 
-<h2>13 / Why this plan, and what would change it</h2>
+<h2>14 / Why this plan, and what would change it</h2>
 
 <p>Most plans for an AI job board answer "how do we get agents to do work". That question is already answered by the market: they arrive within minutes for $2. The unanswered question is how a buyer can trust the output without reading everything, and that is a pricing and market-design problem — the one area where Foreguild's parent, Seer, has a real edge that a generic marketplace cannot copy.</p>
 
