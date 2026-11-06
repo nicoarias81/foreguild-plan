@@ -64,6 +64,7 @@
     <span>Author: @ariasnico</span>
     <span>Seed target: ~$26.7k, of which the contest prize is the first tranche</span>
     <span>Horizon: 12 months from first paid task</span>
+    <span>Written after reading all 22 entries already on the board</span>
   </div>
 </header>
 
@@ -73,6 +74,49 @@
 <p><strong>The bet, in one line:</strong> Foreguild charges for <em>settled, verified work</em> — not for listings, not for subscriptions — and its gross margin comes from making verification cheaper than the work it verifies. Target: <strong>$146,400 of GMV in month 12 at a 7.4% blended take</strong>, which is $10,834 of monthly revenue against a fixed cost base of $3,260 — break-even at roughly 1,450 settled tasks per month at that blend (2,310 if only the settlement fee counted), crossed in month 11.</p>
 <p><strong>The constraint nobody publishes:</strong> human audit is a fixed cost per task, so the model only clears at a <strong>$37.50 average ticket</strong>. Below that, Foreguild drops the audit and batches settlement instead of pretending a $2 task can carry a $19 review.</p>
 </div>
+
+<h2>00 / Read the room</h2>
+<p class="h2sub">Twenty-two entries already on the board agree on six things. None of them prices the worker's own cost.</p>
+
+<p>This plan was written after reading every claim on this bounty. The convergence is worth stating plainly, because it tells you what the judges will have seen twenty times by the time this page loads.</p>
+
+<table>
+  <thead><tr><th>What the field proposes</th><th class="num">of 22</th><th>Typical form</th></tr></thead>
+  <tbody>
+    <tr><td>Futarchy over one welfare metric</td><td class="num">22</td><td>90-day revenue, named four different ways — NSR-90, CMV₉₀, GMV₉₀, RNGMV-90</td></tr>
+    <tr><td>A take rate on task value</td><td class="num">16</td><td>8–10%, with a per-task floor of $0.25–$0.40</td></tr>
+    <tr><td>Bonds and slashing</td><td class="num">13</td><td>10–20% worker stake, forfeited when acceptance fails</td></tr>
+    <tr><td>Escrow plus a dispute ladder</td><td class="num">14</td><td>Rejected worker escalates with a bond to Reality.eth, Kleros as backstop</td></tr>
+    <tr><td>Break-even around month five</td><td class="num">12</td><td>1,500–2,100 tasks/month on a $9–10.5k monthly cost base</td></tr>
+    <tr><td>“Start with Seer’s own backlog”</td><td class="num">6</td><td>The first demand wedge is the sponsor’s own paid work</td></tr>
+  </tbody>
+</table>
+<p class="cap">Median entry: about 950 characters. Twenty of the 22 attach an HTML or PDF plan; none uses a table inside the claim itself. The vocabulary is saturated — <em>bonded</em>, <em>outcome</em>, <em>revenue-first</em>, <em>guild</em>, <em>90-day</em>.</p>
+
+<p>The consensus is coherent, and it is a plan for a <strong>dollar-priced labour market</strong>: take a slice of the ticket, make workers post a bond, let a market set the parameters, break even in month five. Its defect is arithmetic, not taste.</p>
+
+<h3>The worker's cost does not shrink with the ticket</h3>
+
+<p>A worker is a model plus tools. What it spends per task is <strong>tokens</strong>, and tokens cost the same whether the ticket is $2 or $400. The ratio of cost to ticket therefore collapses as tasks get smaller, so a percentage fee with a floor taxes hardest exactly where the margin is thinnest:</p>
+
+<table>
+  <thead><tr><th>Task</th><th class="num">Ticket</th><th class="num">Worker's inference</th><th class="num">8% + $0.25 floor</th><th class="num">This plan</th></tr></thead>
+  <tbody>
+    <tr><td>Agent-to-agent call (3k in / 300 out)</td><td class="num">$0.05</td><td class="num">$0.0135</td><td class="num">$0.25 — 500% of the ticket</td><td class="num">$0.00075 (1.5%)</td></tr>
+    <tr><td>Small task (40k / 4k)</td><td class="num">$2.00</td><td class="num">$0.18</td><td class="num">$0.25 — 12.5%</td><td class="num">$0.12 (6%)</td></tr>
+    <tr><td>Standard task (60k / 12k)</td><td class="num">$61</td><td class="num">$0.36</td><td class="num">$4.88 — 8%</td><td class="num">$3.66 (6%)</td></tr>
+    <tr><td>Heavy agentic loop (800k / 60k)</td><td class="num">$400</td><td class="num">$3.30</td><td class="num">$32.00 — 8%</td><td class="num">$24.00 (6%)</td></tr>
+  </tbody>
+</table>
+<p class="cap">Inference priced at $3 per million input tokens and $15 per million output. The two fee columns are what the <em>worker</em> pays, not the protocol's margin. Our column is explained in section 07: a percentage on the contract rail, a smaller percentage on a metered rail, and no floor on either.</p>
+
+<div class="box">
+<p><strong>The floor is the bug.</strong> At $0.25 per task, a $0.05 agent-to-agent call pays five times its own ticket. Every entry on this board that names a floor rules out, by construction, the one segment that grows without a sales team: <strong>agents buying from agents</strong>, at a cent or less per call.</p>
+</div>
+
+<p>Six entries noticed that the first buyer is Seer itself, and one routes poidh's public feed. They are right, and they stop one step short: a sponsor's backlog is a <em>wedge</em>, not a market. Machines are the market, and machines never sign a $61 contract.</p>
+
+<p>So this plan keeps the consensus where it is correct — verified outcomes, market-assisted review, futarchy on a metric that can actually be resolved — and changes the two things the field treats as constants: <strong>the fee is charged as a share of verified value with no per-task floor, and the smallest work settles on a metered rail instead of an escrow contract.</strong> Everything else here is the consequence of those two choices.</p>
 
 <h2>01 / The problem</h2>
 <p class="h2sub">Judging is more expensive than doing</p>
@@ -171,6 +215,12 @@
 
 <p>Layer 2 is where Foreguild differs from every other AI job board, and it is worth being precise about why it works. Reviewing submissions is a <em>prediction problem</em>: which of these will the poster accept? Markets are better than people at aggregating dispersed judgment, and they are dramatically better than people at doing it repeatedly without fatigue. The poster keeps the final call — the market only decides what they read first. That asymmetry matters: it means a wrong market costs the poster a few minutes, while a wrong human queue costs them the afternoon.</p>
 
+<h3>Who writes the test</h3>
+
+<p>Layer 1 is only as good as the test, and a test written by the same party that wrote the deliverable is worth nothing: it passes by construction. So test authorship is a paid, adversarial role rather than a chore. The poster escrows a draft test, and anyone may submit a <strong>failing</strong> test — a script that the currently accepted best deliverable does not pass — for a share of the ticket (2–5%, capped at $40). A ratified failing test does one of two things: it tightens the spec for the next round, or it reverses a payout that should never have cleared.</p>
+
+<p>This is the only part of the loop that money can buy from strangers, and it is why a receipt can be trusted by a buyer who cannot read the code. The market decides which submission is best; the adversarial test decides whether "best" is good enough.</p>
+
 <div class="box">
 <p><strong>Evidence over intuition.</strong> Seer already runs opportunity markets where traders price submissions against a sponsor's final decision, and the contest brief says plainly that this submission, like the naming contest before it, becomes an outcome in a Seer market. Foreguild's assessment layer is that same machine pointed at work instead of names: a pattern the judges already operate, rather than one this plan invented.</p>
 </div>
@@ -236,6 +286,24 @@
   </tbody>
 </table>
 <p class="cap">Month 12 annualises to $130k of run-rate revenue. Blended take rises above 6% only because audit upgrades, data licensing and certification grow with volume — the settlement fee itself stays where the market sets it. All figures are planning assumptions with stated drivers, not forecasts.</p>
+
+<h3>The price of the worker is not the price of the task</h3>
+
+<p>If the fee is a share of the ticket, revenue follows the buyer's budget while the worker's cost follows model prices — two curves that do not move together, and the mismatch is absorbed by whoever has less bargaining power. Foreguild splits the rail instead of averaging the error:</p>
+
+<table>
+  <thead><tr><th>Rail</th><th>Who uses it</th><th class="num">Ticket</th><th class="num">Fee</th><th>What guarantees the receipt</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Contract</strong></td><td>A poster with an outcome and an acceptance test</td><td class="num">$1 and up</td><td class="num">6.0%, no floor</td><td>Escrow, adversarial test, sampled human audit above $40</td></tr>
+    <tr><td><strong>Metered</strong></td><td>An agent buying single calls from another agent</td><td class="num">$0.001–$1.00</td><td class="num">1.5%, no floor</td><td>Deterministic test only; settled in batches over 402-style payment challenges</td></tr>
+  </tbody>
+</table>
+
+<p>The metered rail has no fixed per-call charge, because a fixed charge is the floor wearing a different hat: at $0.05 a $0.0002 fee would be 0.4% of the ticket, but at $0.001 it would be 20%. Instead the rail carries one percentage and one settlement threshold — a buyer's balance settles when it crosses $0.50, roughly ten calls at five cents — so the transaction cost is amortised instead of front-loaded onto the smallest jobs.</p>
+
+<p>The lane is assigned at posting time and cannot be switched, which closes the obvious arbitrage: a $61 task cannot be split into 61 metered calls, because the metered rail is capped at $1 by construction. That cap <em>is</em> the price of sub-cent settlement, and it is worth paying.</p>
+
+<p>What this does to the model is narrow and deliberate: nothing in the twelve-month table moves, because the contract rail carries all of it and the metered rail is upside that is not counted in revenue. <strong>What moves is the minimum viable ticket.</strong> On the contract rail it is $37.50, because human audit is a fixed $19. On the metered rail the only audit is a test that costs fractions of a cent, so the floor falls to <strong>$0.02</strong> — and below that the binding constraint is the model's price, not ours, which is exactly where the constraint belongs.</p>
 
 <h2>08 / The ledger, party by party</h2>
 <p class="h2sub">Seven parties touch a settled task; the money has to work for each of them, not just for the protocol</p>
@@ -415,6 +483,9 @@
     <tr><td><strong>Arbitration cost</strong></td><td>Kleros fees can exceed a $40 task</td><td>Escalation only above a minimum task value; small tasks resolved by poster with a bond-backed appeal, not by court</td></tr>
     <tr><td><strong>Data licensing consent</strong></td><td>Selling work product without clear rights is a legal and reputational hazard</td><td>Opt-in at task creation, revenue split with the worker, and nothing licensable by default</td></tr>
     <tr><td><strong>Stale listings</strong></td><td>Observed on poidh: <code>acceptingClaims</code> true on a closed bounty</td><td>Every open task carries an on-chain expiry and requires live escrow; the API reads escrow balance, not a cached flag</td></tr>
+    <tr><td><strong>Inference price shock</strong></td><td>Worker margin is a function of token prices; a 3× move reprices every category at once and the take rate that was fair becomes predatory</td><td>The fee is a share of verified value, never a fixed per-task sum, and the metered rail reprices per call; category economics are a futarchy parameter, not a code change</td></tr>
+    <tr><td><strong>Wash trading on the metered rail</strong></td><td>Sub-cent calls are cheap to fabricate and would inflate volume, reputation and the metric futarchy optimises</td><td>Metered volume carries no reputation weight until a distinct counterparty attests it; per-payer caps per day; the governance metric counts verified margin, not call count</td></tr>
+    <tr><td><strong>The two rails diverge</strong></td><td>If metered volume grows faster than contract volume, blended take falls even as the board looks healthy</td><td>Report both rails separately and never blend them into one number; contract-rail break-even is the bar the plan is judged against, metered revenue is reported as upside</td></tr>
   </tbody>
 </table>
 
