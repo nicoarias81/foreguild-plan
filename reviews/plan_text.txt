@@ -584,7 +584,7 @@ One more link between forecasting and doing: every claim carries the worker's ow
 
 Two people and a $26.7k seed cannot honestly pretend a market decides anything: at that size futarchy adds a second place to argue, not a check on power. So the default for the first six months is advisory-first: a passing market publishes the mandate the team must follow, and the team holds a 2-of-3 veto it has to exercise in writing, on the record, within 48 hours. Binding decisions begin only when a market clears a depth threshold — and the threshold is set from measurement, not taste.
 
-We measured Seer's own board on 8 November 2026 with tools/seer_depth.py, against the public endpoint behind app.seer.pm (the same source the API documents, 3,051 markets fetched in 31 pages):
+We measured Seer's own board on 8 November 2026 with tools/seer_depth.py and tools/trader_depth.py, against the public endpoints behind app.seer.pm (the same ones the API documents, 3,051 markets fetched in 31 pages, then one leaderboard call per funded market):
 
  
 - 3,051 markets, of which 1,153 are conditional — a branch of a parent question, which is where a fee decision would live.
@@ -594,8 +594,14 @@ We measured Seer's own board on 8 November 2026 with tools/seer_depth.py, agains
 - Conditional markets are the thinnest. 125 of the 1,153 are funded; median funded liquidity $25.91; three clear $1,000, and exactly one clears $3,000 ($7,598). The whole conditional set holds $13,446.
  
 - Volume is a different story: 556 markets have traded, median $46, 90th percentile $5,091, total $4.33M, with 42 above $10k. People price questions here. They do not yet park capital in them.
+ 
+- And the traders do arrive, just not everywhere. Counting one address per row from each market's PnL leaderboard (tools/trader_depth.py, 68 markets above $50 of liquidity): 62 have at least one trader, the median funded market has 9, thirteen have 20 or more, and the busiest has 50. Every one of those 68 is a conditional branch, so this is the right population to ask.
 
-So the board today is a commitment device, not a binding mechanism: it can price a proposal, and it cannot enforce a decision over a small treasury. We adopt a threshold that matches what exists — a decision binds when the market holds ≥$3,000 of liquidity and ≥20 distinct traders in the 72 hours before it opens. One conditional market clears the liquidity half of that today; the trader half we cannot read from the public endpoint, so it stays unverified until the trade log is published with it — and we would rather say that than round it into a yes. Until both hold, futarchy is advisory and the multisig is accountable by name; when the threshold trips, the veto is deleted by the same market that satisfied it. Measuring this and acting on it is the cheapest answer to the obvious objection that a plan praising futarchy would never turn it off.
+So the board today is half a mechanism. Liquidity is the half that is missing: funded conditional markets are thin, and the median one holds $25. Trader attention is the half that exists: on a question people care about, twenty-plus addresses will price it, and two markets clear both halves of a depth threshold at once — the National Rally candidacy ($7,185 of liquidity, 49 traders) and the National Assembly seat count ($6,791, 49). The catch is that both are branches of the same French election, which is exactly what a news cycle looks like and exactly what disappears when it ends.
+
+We set the threshold from that: a decision binds when the market holds ≥$3,000 of liquidity and ≥20 addresses with non-zero volume, counted on the leaderboard when the question opens. Two of 68 markets clear it today, both by inheriting a hot parent. That is the tactic, stated plainly: the first fee market is a branch of whichever parent is carrying traders at the time, because a fee branch on a cold parent is a market with no one in it. If no parent qualifies, futarchy stays advisory, the veto stays, and the count is published with the monthly books — the numbers above are reproducible with one script, which is the only reason they are worth putting in a plan.
+
+Two honest limits on that measurement. An address with volume above zero is not a person: market makers and airdrop farmers count, so 49 traders is an upper bound on distinct humans, and the leaderboard only exposes an all-time view, so "in the last 72 hours" cannot be read from it — we say "when the question opens" instead of pretending to a window the source does not give. Until both hold, futarchy is advisory and the multisig is accountable by name; when the threshold trips, the veto is deleted by the same market that satisfied it.
 
 ### How governance actually reaches the agents
 
@@ -732,6 +738,8 @@ Every number below is reproducible from the repository, and the scripts fail lou
 - python3 tools/field_stats.py --check — the 50-entry convergence table in section 00, against data/claims_2026-11-08.json.
  
 - python3 tools/seer_depth.py — Seer's board as measured on 8 November 2026 (3,051 markets); writes data/seer_depth_2026-11-08.json.
+ 
+- python3 tools/trader_depth.py — distinct traders per funded market, from the PnL leaderboard; writes data/trader_depth_2026-11-08.json. --check re-asserts the figures in section 10 without touching the network.
  
  
 
