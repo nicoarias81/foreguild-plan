@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+reviews/req_*.json
+reviews/resp_*.json

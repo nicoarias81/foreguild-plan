@@ -1,0 +1,741 @@
+Foreguild — Revenue-First Operating Plan
+
+ Submission · Seer / Foreguild operating plan contest
+ Foreguild: sell the receipt, not the review
+ 
+
+A revenue-first operating plan for an AI job board whose agents do the work, whose reviewers are markets, and whose parameters are governed by futarchy.
+ 
+ Author: @ariasnico
+ Financing: ~$56.7k total — ~$26.7k seed now, ~$30k tranche gated at month 5
+ Horizon: 12 months from first paid task
+ Written after reading all 50 entries already on the board
+ 
+
+Foreguild's scarce resource is not agents. It is attention. On every open task, five to fifty agents will produce something plausible, and a human then has to read all of it to find the one that is real. That is the cost that kills AI work marketplaces: review scales linearly with submissions, while the value of the task does not. This plan makes review the product, prices it, and turns the parts that can be traded into markets.
+
+The bet, in one line: Foreguild charges for settled, verified work — not for listings, not for subscriptions — and its gross margin comes from making verification cheaper than the work it verifies. Target: $146,400 of GMV in month 12 at a 7.4% blended take, which is $10,834 of monthly revenue against a fixed cost base of $3,260 — break-even at roughly 1,450 settled tasks per month at that blend (2,310 if only the settlement fee counted), crossed in month 11.
+
+The constraint nobody publishes: human audit is a fixed cost per task, so the model only clears at a $37.50 average ticket. Below that, Foreguild drops the audit and batches settlement instead of pretending a $2 task can carry a $19 review.
+
+### 00 / Read the room
+
+Fifty entries are on the board. They converge on five design choices, and not one of them prices the worker's own cost.
+
+This page was written after reading every claim on this bounty, the last of them at 07:25 UTC on 8 November 2026 — with the dump of all fifty in the repository, because "twenty-two entries already agree" is the kind of sentence a judge has to take on trust. The convergence below is counted: one regex per row, run over the claim bodies by tools/field_stats.py.
+
+ 
+| What the field proposes | of 50 | Typical form | 
+ 
+ 
+| Futarchy over one welfare metric | 40 | 26 name a concrete 90-day revenue number — NSR-90, NFR₉₀, CMV₉₀, GMV₉₀, “net fee revenue”, “net settled revenue” | 
+ 
+| Named roles for the agent swarm | 13 | Scout, planner, worker, verifier, auditor — 37 claims mention agents without naming a role set | 
+ 
+| A percentage take on task value | 26 | 6–10% of the ticket; six add an explicit per-task floor ($0.25 to $0.40) | 
+ 
+| Escrow plus a dispute ladder | 14 | A rejected worker escalates with a bond; Reality.eth resolves, Kleros as backstop | 
+ 
+| Bonds and slashing | 11 | 10–20% worker stake, forfeited when acceptance fails | 
+ 
+| A dispute section with a resolution path | 26 | Reality.eth question, loser pays, one round, appeal capped | 
+ 
+| A risk section with mitigations | 15 | Collusion, thin markets, arbitration cost | 
+ 
+| A phased roadmap with milestones | 29 | 90 days, three or four phases | 
+ 
+| Links out of the claim | 46 | An HTML page, a repository, a PDF; four keep everything inline | 
+ 
+| Prices the worker's own inference | 0 | No claim subtracts tokens from the worker's margin: all price the ticket, none price the cost of producing it | 
+ 
+| A market deployed on-chain | 2 | One pair of Seer markets on Base, unfunded by its author's own admission; one measurement of Seer's board | 
+ 
+
+Counted over the 50 claim bodies at 07:25 UTC on 8 November 2026, titles excluded: tools/field_stats.py plus data/claims_2026-11-08.json are in the repository. Median entry: 1,010 characters. The longest is 3,308, the shortest 20 — a two-line claim that still names a metric. None uses a table inside the claim. The vocabulary is saturated: bonded, outcome, revenue-first, guild, 90-day.
+
+### What arrived in the last 48 hours, and what we took from it
+
+The entries that landed after the previous revision of this page are better than the field they joined in four respects. Naming that is cheaper than pretending otherwise, and it is the only way the "what we would change" list at the end means anything.
+
+ 
+- A live deployment. One entrant put a pair of futarchy markets — the parent question and one branch — on Base, and says in its own claim that they have no liquidity yet. That is the honest version of "we shipped it", and we adopt the practice: publish the first fee market at launch, with the liquidity named in the same sentence.
+ 
+- A runnable model. Another entrant ships a script and a data dump so its numbers can be recomputed. This page now meets that standard: tools/model.py recomputes every figure in sections 07 to 09 from the drivers, and --check fails when a number on the page drifts.
+ 
+- A preflight gate before a human sees the work. A third runs a rubric check first, which is what makes a sampled audit affordable. Adopted as T0 in section 06.
+ 
+- A buyer-side metric. A fourth reports what the buyer nets next to what the protocol takes, on the grounds that a fee metric alone can always be improved by taxing the buyer. Adopted: section 13 reports both.
+
+What we did not adopt: option-style instruments on the metric (a market on a market is a governance liability at this size), a $150 minimum prize (it excludes precisely the segment the metered rail exists for), and any number we could not recompute from a public source.
+
+The consensus is coherent, and it is a plan for a dollar-priced labour market: take a slice of the ticket, make workers post a bond, let a market set the parameters, break even in month five. Its defect is arithmetic, not taste.
+
+### The worker's cost does not shrink with the ticket
+
+A worker is a model plus tools. What it spends per task is tokens, and tokens cost the same whether the ticket is $2 or $400. The ratio of cost to ticket therefore collapses as tasks get smaller, so a percentage fee with a floor taxes hardest exactly where the margin is thinnest:
+
+ 
+| Task | Ticket | Worker's inference | 8% + $0.25 floor | This plan | 
+ 
+ 
+| Agent-to-agent call (3k in / 300 out) | $0.05 | $0.0135 | $0.25 — 500% of the ticket | $0.00075 (1.5%) | 
+ 
+| Small task (40k / 4k) | $2.00 | $0.18 | $0.25 — 12.5% | $0.12 (6%) | 
+ 
+| Standard task (60k / 12k) | $61 | $0.36 | $4.88 — 8% | $3.66 (6%) | 
+ 
+| Heavy agentic loop (800k / 60k) | $400 | $3.30 | $32.00 — 8% | $24.00 (6%) | 
+ 
+
+Inference priced at $3 per million input tokens and $15 per million output. The two fee columns are what the worker pays, not the protocol's margin. Our column is explained in section 07: a percentage on the contract rail, a smaller percentage on a metered rail, and no floor on either.
+
+The floor is the bug. At $0.25 per task, a $0.05 agent-to-agent call pays five times its own ticket. Every entry on this board that names a floor rules out, by construction, the one segment that grows without a sales team: agents buying from agents, at a cent or less per call.
+
+Two entries start from Seer's own backlog, and one from poidh's public feed. Both are the right first customer and the wrong second one: a sponsor's backlog is a wedge, not a market. Machines are the market, and machines never sign a $61 contract.
+
+So this plan keeps the consensus where it is correct — verified outcomes, market-assisted review, futarchy on a metric that can actually be resolved — and changes the two things the field treats as constants: the fee is charged as a share of verified value with no per-task floor, and the smallest work settles on a metered rail instead of an escrow contract. Everything else here is the consequence of those two choices.
+
+### 01 / The problem
+
+Judging is more expensive than doing
+
+Seer already wrote the thesis on its own site: with AI, the cost of reviewing work is more than the time it takes to do it. Foreguild inherits that problem on every single task. Three failure modes are not hypothetical — they are observable today on the closest thing we have to a live version of this market, poidh, where agents race to answer bounties:
+
+ 
+- Acceptance is not validity. A bounty API can report acceptingClaims: true with deadline: null on a bounty that was actually closed weeks earlier. An agent that trusted the field and asked its owner to fund a claim on 0.5 ETH bounties #38 and #39 discovered both were already settled. The listing looked fine; the data lied.
+ 
+- Automation gets farmed by forms. An agent submitting an app to a catalog filled every field it found. One field was a honeypot: tabindex="-1", autocomplete="off", invisible to a human tabbing through. Every bot self-identified; every honest human looked identical.
+ 
+- Volume is instantaneous. A bounty posted with a $2 pot collected two substantive, well-written claims inside 40 minutes — from agents, unprompted, with no marketing. Supply is not the constraint. Reading it is.
+
+So the operating question is not "how do we attract agents?" It is "how do we decide, cheaply and defensibly, which of these submissions deserves the money?" Every design choice below answers that question, because that answer is what a buyer is actually paying for.
+
+### 02 / What Foreguild is
+
+A job board where the deliverable is the product
+
+Foreguild is a proposed FAO — a Futarchy Autonomous Organization: a swarm of agents doing work, with its actions governed by futarchy. Concretely, the protocol has three sides and one constitution:
+
+ 
+ 
+
+### Three sides
+ 
+ 
+- Posters — a human or an agent with a task and a budget. They publish a spec with an acceptance test and escrow the payment.
+ 
+- Workers — agents (and humans pretending to be none) that claim, build, and submit a deliverable plus a machine-checkable receipt.
+ 
+- Jurors — anyone willing to put money behind a judgment about which submission is real. Their P&L is the review subsidy.
+ 
+ 
+ 
+ 
+
+### One constitution
+ 
+ 
+- Treasury and parameters live on-chain; the escrow contract holds funds, not the team.
+ 
+- Decisions that change the economics (fee schedule, category whitelist, audit budget) go through futarchy markets on Gnosis.
+ 
+- Facts that change a single payout go through Reality.eth, with Kleros as the backstop.
+ 
+ 
+
+We deliberately do not position Foreguild as a general-purpose labor marketplace. Competing with Scale, Mercor or Toloka for RLHF annotation means competing on enterprise sales, NDA-encumbered data and a trust brand that a new protocol does not have. Foreguild starts where none of those can follow: work whose truth is already on-chain or publicly verifiable, so that "did this get done?" is answerable by a script rather than by an account manager.
+
+### 03 / Demand
+
+Where the first paid tasks come from, in order
+
+Every category below is ranked by time-to-first-dollar, not by total addressable market. The first three are demand we can reach with a DM and settle in a week.
+
+ 
+| Wave | Source of tasks | Typical ticket | Why it converts | 
+ 
+ 
+| 1 | Crypto-native deliverables: dashboards, on-chain analyses, audits of public repos, docs, data pipelines, arbitrage/bounty solving | $40–$400 | Payment and proof already on-chain; buyer already has a wallet; no procurement | 
+ 
+| 2 | Protocol grants with a deliverable — DAOs that fund work but hate managing it | $300–$3,000 | Foreguild replaces a grants committee with escrow plus a market; the DAO keeps veto rights | 
+ 
+| 3 | Seer's own backlog (and any FAO's): research, market curation, integrations, translations | $50–$500 | Dogfooding that also proves the assessment layer to the people judging it | 
+ 
+| 4 | Evaluation data for model labs — verified accepted/rejected work pairs | $2k–$20k/order | Highest-margin revenue line; only credible after wave 1–2 produces volume | 
+ 
+| 5 | Agent-native demand: one agent hiring another to unblock itself | $5–$80 | Compounding, but needs reputation and fast settlement first | 
+ 
+
+Ticket sizes are planning assumptions, calibrated against observed poidh bounties ($2–$1,208) and typical DAO grant sizes; they are not measured Foreguild data.
+
+### The cold-start offer
+
+For the first 90 days the pitch to a poster is not "a marketplace". It is: "Post a task, escrow the money, and we will return either a verified deliverable or your money — and you only read the three submissions the market ranked highest." That is a service promise backed by a contract, and it is the only pitch a small protocol will accept from an unproven board.
+
+### 04 / Supply
+
+Agents need three things: a spec, a receipt, and a reputation that travels
+
+Supply arrives free in the narrow sense that nobody has to be recruited: the poidh observation of two quality claims in 40 minutes is our best evidence so far, and it is one observation, not a measurement. What supply lacks is memory: an agent's track record dies with each marketplace. Foreguild issues a portable, on-chain work attestation per settled task: task category, acceptance outcome, whether the deliverable survived audit, and the juror consensus. It is a non-transferable record, priced into every future bid.
+
+ 
+- Stake to submit. A worker stakes a small bond — 2% of the task value, floor $0.10, waived below $5, where the escrow is already the collateral — forfeited on a failed audit or a proven fake receipt. This converts spam from free to metered without excluding good agents.
+ 
+- Bids are commitments. A claim is a promise of delivery by a deadline; missing it costs the bond, not the poster's time.
+ 
+- Reputation is per-category, not global. An agent that is excellent at on-chain analytics and mediocre at copywriting should be visible as exactly that. Global scores collapse to noise, and noise is what makes review expensive again.
+
+### 05 / Assignment
+
+Specs that can be tested, auctions that price themselves
+
+A task is only postable if it ships with an acceptance test: a command, a query, a rubric, or a market. Foreguild refuses tasks that cannot be tested, and that refusal is a feature — it is the single biggest quality filter available, and it costs nothing to enforce.
+
+ 
+- Post with escrow and a test. The poster writes the spec, attaches the acceptance test, and funds the escrow. Fee is charged on settlement, never on posting.
+ 
+- Workers claim, not bid blind. Claiming locks a bond and a deadline. Unlimited claims are allowed only while the task is under-subscribed; after a threshold (default: 5 claims), new claims must beat the current best by a stated margin, which stops low-effort flooding.
+ 
+- Deterministic checks run first. Tests execute in a sandbox: does the query return the right rows, does the repo build, does the dashboard load, does the hash match. Anything that fails is rejected with a machine-readable reason — no juror time spent, no argument.
+ 
+- Survivors go to a market. The remaining submissions are listed in an opportunity market — Seer's own primitive: traders stake on which submission the poster will accept, and price becomes the triage order.
+ 
+- Human review is bounded. The poster reads the top k by price (default k = 3), not all n. In the common case n = 20 and k = 3, the poster's own reading drops by 85% without any model in the loop — the traders' reading is paid out of the 1% pool and counted separately in section 06.
+
+### 06 / Assessment
+
+Three layers, each cheaper than the one above it
+
+ 
+| Layer | Who decides | Covers | Cost | Finality | 
+ 
+ 
+| 1. Test | A script | Objective deliverables: data, code, files, on-chain state | ~$0.001 | Immediate | 
+ 
+| 2. Market | Traders with money at risk | Subjective quality within a category: writing, design, "is this analysis any good" | 1% of task value (pass-through to traders) | Soft signal, orders the queue | 
+ 
+| 3. Audit | Sampled human reviewers | A random 10% of market-ranked winners in the audited lane (tickets ≥$40), 100% of tasks above $1,000; the small-task lane is settled without human audit | $14–$38 per audit, $19 median (15–40 min at $57/h) | Binding; can reverse a payout | 
+ 
+
+Layer 2 is where Foreguild differs from every other AI job board, and it is worth being precise about why it works. Reviewing submissions is a prediction problem: which of these will the poster accept? Markets are better than people at aggregating dispersed judgment, and they are dramatically better than people at doing it repeatedly without fatigue. The poster keeps the final call — the market only decides what they read first. That asymmetry matters: it means a wrong market costs the poster a few minutes, while a wrong human queue costs them the afternoon.
+
+### Who writes the test
+
+Layer 1 is only as good as the test, and a test written by the same party that wrote the deliverable is worth nothing: it passes by construction. So test authorship is a paid, adversarial role rather than a chore. The poster escrows a draft test, and anyone may submit a failing test — a script that the currently accepted best deliverable does not pass — for a share of the ticket (2–5%, capped at $40). A ratified failing test does one of two things: it tightens the spec for the next round, or it reverses a payout that should never have cleared.
+
+This is the only part of the loop that money can buy from strangers, and it is why a receipt can be trusted by a buyer who cannot read the code. The market decides which submission is best; the adversarial test decides whether "best" is good enough.
+
+Evidence over intuition. Seer already runs opportunity markets where traders price submissions against a sponsor's final decision, and the contest brief says plainly that this submission, like the naming contest before it, becomes an outcome in a Seer market. Foreguild's assessment layer is that same machine pointed at work instead of names: a pattern the judges already operate, rather than one this plan invented.
+
+### Disputes
+
+Disagreement is priced, not adjudicated for free. A rejected worker can escalate by posting a bond (default: 20% of task value, minimum $5) and opening a Reality.eth question with the acceptance test as its resolution criteria. Kleros arbitrates contested answers. Loser pays the bond to the winner plus the arbitration fee; the protocol takes nothing from disputes, so it has no incentive to manufacture them. Escalation is capped at one round per task — the failure mode of every arbitration system is becoming a second marketplace.
+
+### Human intervention
+
+Humans hold three reserved powers and nothing else: freezing a task under legal or safety suspicion, delisting a category, and overriding a payout that a script proves fraudulent. Each use is logged on-chain with a public reason, and each override is itself a metric — if overrides exceed 2% of settlements in a month, the parameters that caused them are reopened by market.
+
+### 07 / Revenue
+
+The fee pays the rent; the other three pay the profit
+
+ 
+| Line | Mechanic | Rate | Share of month-12 revenue | 
+ 
+ 
+| Settlement fee | Charged on accepted work only, taken from the poster's escrow at payout | 6.0% of ticket | 81% | 
+ 
+| Full-audit upgrade | Poster may buy a 100% audit instead of the 10% sample on tasks above $250; priced above average cost, never as a bet against the poster | $25 flat | 7% | 
+ 
+| Evaluation data licensing | Verified accepted/rejected pairs, sold to model labs and eval vendors; the worker opts in at task creation and shares the revenue | $4–$12 per verified pair | 8% | 
+ 
+| Category certification | A paid exam a worker passes to be listed as certified in a category; the price is set by market, not by the team | $25–$150 | 4% | 
+ 
+
+At month 12 the settlement fee alone (81% of revenue) lands at $3,384 of contribution against $3,260 of fixed cost — it covers the rent and nothing else. The three smaller lines are what turn the year into a profit; a plan that pretends otherwise is a plan that has not run its own table. Blend at month 12: 6.0% settlement + 1.4% from the other three lines = 7.4%, which is the number used in the 12-month model. Escrow float is real: nine-day holds at ~3.5% APY on month-12 GMV are about $128 a month, 1.2% of month-12 revenue. It is disclosed and excluded — a return on other people's money is not revenue from settled work, and booking it would make the metric depend on how slowly we pay.
+
+Two deliberate omissions. No listing fees — charging to post attracts the wrong posters and pollutes the board with tasks nobody funds. No subscription — a subscription aligns revenue with presence, not with settled work, and would make the protocol's revenue independent of the thing it is supposed to optimise. Futarchy needs a metric that cannot be gamed by existing; GMV and settled fees qualify, MRR from idle accounts does not.
+
+### The triage fee is a pass-through, not a margin
+
+Ranking submissions costs traders money and risk, so the poster pays 1% of the ticket into the triage market, and 100% of it is paid out to the participants in that market. Foreguild presents it net: the 1% is collected and paid out in the same transaction, so it never appears in revenue or in the cost base and never flatters the margin. This matters for the arithmetic: an earlier draft of this plan counted that 1%–2% as margin and produced a contribution figure that could not be reconciled with the revenue table. The honest split is below.
+
+### Unit economics at the steady state
+
+ 
+ Settlement fee (6% × $61)$3.66
+ Triage fee (1%) — pass-through$0.00 net
+ Amortised audit (10% sample × $19 avg)−$1.90
+ Gas + sandbox compute−$0.35
+ Contribution, fee only$1.41 (38.5%)
+ 
+ 
+ 
+
+Fixed costs are deliberately small: two part-time people and the infrastructure that cannot be metered per task (indexer, RPC, dashboards). Gas and sandbox compute are metered per task and already sit in the contribution line, so they are not double-counted in the fixed base.
+ 
+ Team (2 part-time)$3,000/mo
+ Indexer, RPC, hosting$260/mo
+ Fixed base$3,260/mo
+ Break-even, fee only~2,310 tasks/mo
+ Contribution at 7.4% blend$2.26/task (50%)
+ Break-even at that blend~1,440 tasks/mo
+ Month-12 contribution$5,434/mo → profit ~$2,174
+ 
+ 
+
+The two contribution figures are not a contradiction, they are two points on the same curve: $1.41 is the margin if the settlement fee were the only revenue line (6% of ticket), and $2.26 is the margin once audit upgrades, data licensing and certification add 1.4 points of take. Break-even is 2,312 tasks/month in the first case and 1,440 in the second — the growth curve crosses both between month 11 and month 12, which is why the model shows a small profit only at the end of year one.
+
+### Where those four numbers come from
+
+ 
+- $61 is month-12 GMV divided by month-12 tasks: $146,400 ÷ 2,400. It falls out of the wave mix, and tools/model.py prints it on any run.
+ 
+- $19 is one human audit: 20 minutes × $57/hour. The same reviewer at 15 to 40 minutes spans $14 to $38, and that is the band the audit-rate market in section 10 is asked to trade against — not a number the team picked.
+ 
+- $0.35 is gas $0.04, sandbox compute $0.06 and $0.25 of marginal per-task infrastructure — RPC reads, attestation storage, bond carry. The fixed $260/month indexer, RPC and dashboard base sits in the $3,260, not here; charging it twice would be the easiest way to make this plan look expensive.
+ 
+- The 10% sample is the audit share: the market ranks, the sample audits. Every task above $1,000 is audited in full, and the poster buys that audit as part of the $25 upgrade, so the obligation does not sit in this line.
+
+### What the $61 average is made of
+
+An average ticket is a mix, not a forecast, and the mix is the weakest thing in this plan. Month 12 assumes 60% of tasks at $40–$80 (average ~$60, the audited lane's floor), 30% at $5–$25 (average ~$12, the small-task lane) and 10% above $150 (average ~$220) — which yields $61.60, the $61 in the table. Two of those three bands are above anything the public boards show today: poidh's live bounties run $2 to $25, and none of them has an acceptance test.
+
+So the honest version of the load-bearing assumption is: posters will write acceptance tests for $40-plus work, and enough of them will do it without a sales team. If they do not, the average falls toward $20, the fee line falls with it, and the twelve-month table is wrong by roughly two thirds rather than by ten percent. That is why the first prediction in section 13 is dated at day 90 with a count of settled tasks rather than a revenue figure — the count is what the mix assumption gets tested on, and it is visible long before the revenue is.
+
+One more deliberate conservatism: the unit economics charge a human audit to every task ($1.90), while the mix implies an audit on 60% of them at a 10% sample — about $1.14. The model therefore overstates audit cost by roughly $0.76 a task, which is why the month-12 profit survives the small lane turning out larger than planned. The direction of the error is the side a judge should want it on.
+
+### Why 6% and not 8%
+
+Every entrant on this bounty named a take between 6% and 10%, and the gap is small enough that it is usually settled by taste. It should be settled by the only two quantities that differ: what the worker keeps, and what the audit costs.
+
+ 
+| Rate | Fee on a $61 task | Worker keeps | Protocol keeps after audit + infra | What the rate buys | 
+ 
+ 
+| 4% | $2.44 | $58.20 (95.4%) | $0.19 | Nothing — the audit eats the whole fee | 
+ 
+| 6% — this plan | $3.66 | $56.98 (93.4%) | $1.41 | A solvent audit and a 38.5% gross margin | 
+ 
+| 8% | $4.88 | $55.76 (91.4%) | $2.63 | $1.22 more per task, paid by the worker's margin | 
+ 
+| 10% | $6.10 | $54.54 (89.4%) | $3.85 | The same audit, at the price of being the expensive board | 
+ 
+
+Worker-side inference on this task is $0.36, 0.6% of the ticket. That asymmetry is the whole argument: the worker's cost is nearly fixed per task while the ticket varies by two orders of magnitude, so the defensible rate is the lowest one that still pays for the review. An 8% board and a 6% board differ by $1.22 on a $61 task — not enough to win a buyer, enough to lose a worker who compares take-home.
+
+### What a private call costs elsewhere
+
+A floor is where this arithmetic breaks, so here is the comparison, with the alternatives named on this bounty:
+
+ 
+| Pricing | Cost of one $0.05 call | As % of the ticket | What it rules out | 
+ 
+ 
+| $2.00 per verdict | $2.0000 | 4,000% | Every call under $2, which is most of them | 
+ 
+| $0.40 per-task floor | $0.4000 | 800% | Every call under $0.40 | 
+ 
+| $0.25 per-task floor | $0.2500 | 500% | Every call under $0.25 | 
+ 
+| 1.5% metered, no floor | $0.0008 | 1.5% | Nothing: the fee is proportional to the value moved | 
+ 
+
+A floor is a bet that no task is worth less than the floor. The metered rail takes the opposite side: calls under $1 settle in batches of 500 against one settlement, so the fixed cost is paid once per batch instead of once per call.
+
+### The desk that pays for itself, and the one that would not
+
+Seer's own review work is the first client, not a subsidy. In months 1–6 Foreguild adjudicates Seer's poidh bounties on a desk contract: 10% of the settled prize, of which 6 points are the settlement fee already in the table and 4 cover the desk's gas and audit at cost. It is capped at 15% of month-6 revenue, it is priced per settled task like every other line, and if Seer stops posting bounties the line goes to zero rather than being replaced by a grant. That is the difference between a client and a sponsor: a client can leave.
+
+### The 12-month model
+
+ 
+| Month | Tasks settled | Avg ticket | GMV | Blended take | Revenue | 
+ 
+ 
+| 3 | 120 | $42 | $5,040 | 6.0% | $302 | 
+ 
+| 6 | 480 | $45 | $21,600 | 6.6% | $1,426 | 
+ 
+| 9 | 1,150 | $54 | $62,100 | 7.1% | $4,409 | 
+ 
+| 12 | 2,400 | $61 | $146,400 | 7.4% | $10,834 | 
+ 
+
+Month 12 annualises to $130k of run-rate revenue. Blended take rises above 6% only because audit upgrades, data licensing and certification grow with volume — the settlement fee itself stays where the market sets it. All figures are planning assumptions with stated drivers, not forecasts.
+
+### The price of the worker is not the price of the task
+
+If the fee is a share of the ticket, revenue follows the buyer's budget while the worker's cost follows model prices — two curves that do not move together, and the mismatch is absorbed by whoever has less bargaining power. Foreguild splits the rail instead of averaging the error:
+
+ 
+| Rail | Who uses it | Ticket | Fee | What guarantees the receipt | 
+ 
+ 
+| Metered | An agent buying single calls from another agent | $0.001–$1.00 | 1.5%, no floor | Deterministic test only; settled in batches over 402-style payment challenges | 
+ 
+| Small-task | A poster with a test but no budget for a human audit | $1–$40 | 6.0%, no floor | Deterministic test, the poster's own spot check, an attestation signed by the worker; gas batched to ~$0.02 | 
+ 
+| Audited | A poster with an outcome and an acceptance test, and the budget to have it checked | $40 and up | 6.0%, no floor | Escrow, adversarial test, 10% sampled human audit (100% above $1,000) | 
+ 
+
+The metered rail has no fixed per-call charge, because a fixed charge is the floor wearing a different hat: at $0.05 a $0.0002 fee would be 0.4% of the ticket, but at $0.001 it would be 20%. Instead the rail carries one percentage and one settlement threshold — a buyer's balance settles when it crosses $0.50, roughly ten calls at five cents — so the transaction cost is amortised instead of front-loaded onto the smallest jobs.
+
+Three rails, one rate on the contract side. The lanes differ in what it takes to prove a receipt, not in what the protocol charges for it: a 6% fee on a $20 task is $1.20, which is not a tax, whereas the metered rail runs at 1.5% because 6% of a $0.05 call is $0.003 — less than the cost of settling it. The lane is assigned at posting time and cannot be switched, which closes the obvious arbitrage: a $61 task cannot be split into 61 metered calls, because the metered rail is capped at $1 by construction. That cap is the price of sub-cent settlement, and it is worth paying.
+
+What this does to the model is narrow and deliberate: nothing in the twelve-month table moves, because the contract rail carries all of it and the metered rail is upside that is not counted in revenue. What moves is the minimum viable ticket. On the contract rail it is $37.50, because human audit is a fixed $19. On the metered rail the only audit is a test that costs fractions of a cent, so the floor falls to $0.02 — and below that the binding constraint is the model's price, not ours, which is exactly where the constraint belongs.
+
+### 08 / The ledger, party by party
+
+Seven parties touch a settled task; the money has to work for each of them, not just for the protocol
+
+Every plan shows the protocol's P&L, because the protocol writes it. The harder table — the one that decides whether anything happens at all — is what each of the other six parties gets, and whether that is enough to bring them back tomorrow. Below is one settled $61 task with every dollar traced. The ledger closes: $61.61 in from the poster, $61.61 out to the people who did the work, ranked it, audited it, or settled it.
+
+ 
+| Party | Puts in | Takes out | Net per task | % of ticket | 
+ 
+ 
+| Poster | $61.61 — the $61 ticket plus the 1% triage fee | The deliverable, a signed attestation, an appeal right | −$61.61 | 101% | 
+ 
+| Worker agent (the wallet that runs it) | Its labour, a 2% bond of $1.22 posted at start — refundable | $57.34 released from escrow, less $0.36 of inference | +$56.98 | 92.5% | 
+ 
+| Model provider | Tokens and compute | ~$0.36 of inference per task (60k in, 12k out at $3/$15 per million) | +$0.36 | 0.6% | 
+ 
+| Triage traders | Capital and attention on the ranking market | The whole 1% pool | +$0.61, shared | 1.0% | 
+ 
+| Auditor (10% sample) | ~20 minutes of human review | $19 per audited task → $1.90 expected per task | $0 at pool level | 3.1% to labour | 
+ 
+| Dispute jurors (2% escalate) | A staked answer on Reality.eth, a seat if it goes to Kleros | The arbitration fee, paid out of the losing side's bond | $0 unless escalated | — | 
+ 
+| Foreguild | Escrow, settlement, and the audit it paid for | The 6% settlement fee | +$1.41 | 2.3% | 
+ 
+
+The protocol keeps 39% of the fee it charges; the other 61% goes to the thing that makes the fee defensible — human audit and settlement cost. That number is meant to look thin. A marketplace that keeps most of its take is taxing its workers, and workers leave those first.
+
+### Why each party stays
+
+ 
+| Party | What it gets | Its own break-even | What would push it out | 
+ 
+ 
+| Poster | The same deliverable for 59% less: a comparable task from a human on a freelance platform is ~3 hours at $50/hr, $150+ by that estimate, before the platform's 20% | Any task a human would charge more than $62 for | Rework higher than 1 in 5, or one bad audit that lets garbage through | 
+ 
+| Worker agent | 92.5% of the ticket; inference is 0.6% of it | A $0.39 ticket. An hour-long session at 50k input and 15k output tokens costs $0.38 at published $3/$15 per-million prices; with retries call it $0.36 for the standard task | Bonds larger than the work (2% is not), or payouts slower than a day | 
+ 
+| Auditor | $19 for 20 minutes, ≈$57/hr, no client acquisition, no invoicing | Any hour that would otherwise sit idle | Audits batched into unpaid 3-hour blocks | 
+ 
+| Triage trader | 1% of every ticket; at month 12 that is a $1,464/mo pool | Real but small: a desk holding $500 and capturing 10% of flow earns ~$146 in a month like month 12 — one month's flow on that capital, not a yield, and zero in the months before it | Thin flow below $40 tickets, where the pool is pennies | 
+ 
+| Model provider | 0.6% of GMV as pure inference demand, growing with tasks | Always — it is paid per token | Nothing; it is the only party paid whether or not the work is good | 
+ 
+| Jurors | Arbitration fees, and only on the 2% that escalate | Deliberately not a living: the court is designed to be mostly idle | Dispute rates high enough to make the court a job | 
+ 
+| Foreguild | $1.41 per task, $2.26 at the blended take | 2,312 tasks/mo on fee alone, 1,440 at the blend | An audit sample above 15% — see below | 
+ 
+| Seer | Operator of the triage and governance markets | No cut of the 6%: the 1% triage fee is paid to the traders who rank, not to Seer | Nothing economic. Seer's interest here is strategic — many well-formed markets, not fee income — and it is worth saying so rather than dressing up a rounding error as a business line | 
+ 
+
+One line in that table is worth pulling out, because it explains the world this plan has to live in: a worker is profitable at a $0.39 ticket. That is not a footnote, it is the reason bounty boards fill with $2 tasks and 30 agents claiming them — the supply side went to zero marginal cost years ago, and any board that prices work by what it costs a human to produce it is mispricing the supply. Foreguild's ticket floor is not set by worker cost. It is set by the cost of verification.
+
+### The two numbers that decide whether any of the above holds
+
+The ledger is stable along most dimensions and violently sensitive along two. First, the audit sample — the rate at which settled work is re-reviewed by a human. Second, the ticket floor — because the audit is a fixed cost per audited task, it does not shrink with the ticket, and below a certain size it eats the entire fee.
+
+ 
+ 
+ 
+| Audit sample | Contribution/task | Break-even | 
+ 
+ 
+| 5% | +$2.36 | 1,381 tasks | 
+ 
+| 10% (base case) | +$1.41 | 2,312 tasks | 
+ 
+| 15% | +$0.46 | 7,087 tasks | 
+ 
+| 20% | −$0.49 | never | 
+ 
+ 
+ 
+ 
+ 
+ 
+| Avg ticket | Fee at 6% | Audit | Contribution | 
+ 
+ 
+| $2.25 | $0.14 | $1.90 | −$2.12 | 
+ 
+| $15 | $0.90 | $1.90 | −$1.35 | 
+ 
+| $25 | $1.50 | $1.90 | −$0.75 | 
+ 
+| $38 | $2.28 | $1.90 | +$0.03 | 
+ 
+| $61 (base case) | $3.66 | $1.90 | +$1.41 | 
+ 
+| $150 | $9.00 | $1.90 | +$6.75 | 
+ 
+ 
+ 
+
+The floor is $37.50. Under it, a 6% fee cannot pay for a 10% audit sample plus gas, no matter how many tasks arrive — volume makes it worse, not better. Most of the public bounty boards run at exactly that size, $2 to $25, which is why "we will audit everything" is not a policy a plan can promise at those prices and stay solvent.
+
+So Foreguild runs two contract lanes and a metered rail, and the split is a design constraint rather than a pricing trick. The audited lane starts at $40: 6% fee, 10% human sample, full attestation. The small-task lane covers $1–$40 at the same 6%, no human sample, settlement batched so gas falls to about $0.02 a task. At a $19 median ticket it contributes $1.12 a task — 98% of its fee — and it would need 2,900 tasks a month to carry the fixed base on its own. It is not there for the P&L. It is there because every small settled task produces a verified accepted/rejected pair, which is the data the licensing line sells and the cheapest acquisition channel a poster funnel has. A plan that hid this lane would be quietly claiming to audit work it cannot afford to audit.
+
+Where the model is not fragile matters too. Inference could quadruple and it would cost the worker $1.44 out of $56.98 and the protocol nothing — AI prices are the least dangerous variable in this plan, despite being the most discussed. Bonds could double and workers would still keep 90% of the ticket. The plan is fragile on two parameters and comfortable on the rest, and both fragile ones — the audit sample and the $40 lane split — are choices where a wrong setting stays invisible for months while quietly inverting the unit economics.
+
+That is the argument for governing them instead of deciding them. Audit rate and lane boundary trade safety against margin, they are measured monthly, and nobody — including the team writing this — can say today which setting is right at month-9 volume. Put both to a market with a resolution date and let the traders who pay for being wrong own the number. The alternatives are a committee guessing, or a founder quietly moving the sample from 10% to 15% when a customer complains and never telling anyone what it cost.
+
+### 09 / Cost & treasury
+
+What a seed round buys, and what the prize alone buys
+
+Being explicit about this because it is the most common way these plans lie: the contest prize is a reward to the author, not capital the protocol already holds. The plan below is a budget for a seed round, and separately shows what happens if the only money available is the prize.
+
+ 
+| Bucket | Amount | Purpose | 
+ 
+ 
+| Team, first 90 days (2 part-time) | $9,000 | Contracts/ops lead and growth lead; the rest of the work is bountied through Foreguild itself | 
+ 
+| Contracts + escrow audit | $6,500 | Escrow, attestations, market integration; one external review before real value moves | 
+ 
+| Seed liquidity for triage markets | $4,000 | Bootstrap pricing on the first ~150 tasks so a market exists before traders do | 
+ 
+| Infra, indexer, RPC, Kleros bonds | $3,200 | Ninety days of the non-team cost base plus dispute bonds | 
+ 
+| Task subsidy (capped, decaying) | $2,000 | Pays the settlement fee on the first tasks only; decays to zero by week 14 | 
+ 
+| Reserve | $2,000 | Untouched; funds one dispute storm or one bad month | 
+ 
+| Total seed | $26,700 | $14,200 of operating cash after the one-offs — 4.4 months at zero revenue; the revenue curve carries it to month 5 | 
+ 
+
+The total requirement is $56,700 — $26,700 now and ~$30,000 at month 5 — and the seed does not reach break-even on its own, so this plan says which month it runs out. Of the $26,700, $12,500 is committed on day one and is never available as operating cash: $6,500 of audit contracts, $4,000 locked as launch liquidity, $2,000 of capped task subsidy. Of those $10,500 of contracts and liquidity, the prize covers $9,900 and the $600 difference is founders' money — small enough to state and too easy to round away. The operating balance is $14,200, which bottoms at $1,312 at the end of month 4; month 5's burn crosses zero. So the second tranche of about $30k closes by the end of month 5 or not at all — and its release is gated on the only number that proves the product works, a repeat-poster rate above 35%.
+
+ 
+| Month | Revenue | Contribution | Fixed | Net | Closing cash | 
+ 
+ 
+| 1 | $72 | $4 | $3,260 | −$3,256 | $10,944 | 
+ 
+| 3 | $302 | $32 | $3,260 | −$3,228 | $4,472 | 
+ 
+| 4 | $640 | $100 | $3,260 | −$3,160 | $1,312 — trough without the tranche | 
+ 
+| 5 | $1,014 | $204 | $3,260 | −$3,056 | $28,256 — tranche lands here | 
+ 
+| 6 | $1,426 | $346 | $3,260 | −$2,914 | $25,342 | 
+ 
+| 9 | $4,409 | $1,822 | $3,260 | −$1,438 | $19,278 | 
+ 
+| 10 | $6,354 | $2,829 | $3,260 | −$431 | $18,847 | 
+ 
+| 11 | $8,494 | $4,031 | $3,260 | +$771 | $19,618 | 
+ 
+| 12 | $10,834 | $5,434 | $3,260 | +$2,174 | $21,792 | 
+ 
+
+Closing cash is operating cash only: the $4,000 of launch liquidity sits in the markets, is recoverable, and is not counted as available. The monthly P&L turns positive in month 11; the closing balance never goes negative because the tranche lands before month 5's burn does — remove the tranche and cash is exhausted during month 5.
+
+The prize (0.5 ETH + 4,000 USDC, roughly $9.9k at current prices) covers about a third of the seed, so it is treated as the first tranche: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. If the prize is all the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it. Either way the seed buys proof, not a company: $26,700 is what it costs to find out whether posters will pay 6% for a receipt, and the plan is built so that the answer arrives at month 5 instead of month 12.
+
+### 10 / Governance
+
+Futarchy decides parameters, contracts decide payouts
+
+Governance needs one number to optimise, and it must be measurable after the fact. Foreguild's is net protocol revenue, defined below with its resolution rules; everything the markets decide is priced against it.
+
+The separation is the whole point. Facts about a single task are cheap to verify and expensive to argue: those go to Reality.eth and Kleros. Parameters about the protocol are expensive to verify and cheap to argue: those go to a market. Mixing the two is how governance systems become either arbitrary or paralyzed.
+
+### What goes to a market
+
+ 
+| Decision | Metric the market optimises | Cadence | 
+ 
+ 
+| Settlement fee (branch: 4% / 6% / 8% / 10%) | 30-day trailing protocol revenue, net of subsidy | Monthly | 
+ 
+| Category whitelist (add/remove) | Contribution margin per category | Monthly | 
+ 
+| Audit sample rate & audit budget | Post-audit failure rate at constant cost | Quarterly | 
+ 
+| Claim threshold and bond sizes | Median time-to-acceptance, spam rejection rate | Quarterly | 
+ 
+| Data-licensing opt-in terms | Revenue per verified pair, worker retention | Quarterly | 
+ 
+
+### The metric, written so it can be resolved
+
+Futarchy is only as good as its welfare metric, and most plans leave it as a slogan. This one does not. The metric is NPR — net protocol revenue over the window the question declares: NPR₃₀ for a fee change, NPR₉₀ for a mandate. USDC-denominated revenue actually settled, minus refunds, minus task subsidies paid from the treasury, minus audit and arbitration costs the protocol bears, on a single authoritative source (the treasury's own on-chain accounting, not a dashboard someone maintains by hand). Four rules make it resolvable rather than negotiable:
+
+ 
+- Two windows, on purpose. A fee decision resolves 30 days after the change goes live, because a fee shows up in revenue inside one billing cycle and is attributable at 30. A mandate — which changes the mix of work, not the price of settling it — resolves at 90 days, because a quarter is the shortest window in which a shift in the mix is distinguishable from noise. Deciding which window applies before the question opens is the part that keeps the rule honest.
+ 
+- Edge cases, decided in advance. Revenue from tasks created before the decision counts. Refunds count against the period in which they are paid, not the period that earned them. Delisted categories are excluded from both branches so a category cannot be "cancelled" to flatter a metric.
+ 
+- Fallback. If the accounting source is unavailable at resolution, the window extends until it is available, up to 30 days; after that the decision reverts and the market is void. A metric that can be argued into existence is not a metric.
+ 
+- The boundary is impact, not taste. Changes whose worst case moves less than 2% of monthly revenue are decided by the team and logged; everything above 2% goes to a market and a published argument, because a thin market on a big question produces a confident answer with no information in it. A two-point fee move is a third of take, so it goes to a market — the 5% threshold that would let it skip one is exactly the kind of exception that makes governance decorative.
+
+One more link between forecasting and doing: every claim carries the worker's own stated probability of delivering on time, scored with a log score against what actually happened, and folded into its attestation. Agents that are honest about their capacity become the ones a poster selects for; agents that overstate it are punished by the same record that they hoped would hide it.
+
+### Advisory by default, binding when a market can carry it
+
+Two people and a $26.7k seed cannot honestly pretend a market decides anything: at that size futarchy adds a second place to argue, not a check on power. So the default for the first six months is advisory-first: a passing market publishes the mandate the team must follow, and the team holds a 2-of-3 veto it has to exercise in writing, on the record, within 48 hours. Binding decisions begin only when a market clears a depth threshold — and the threshold is set from measurement, not taste.
+
+We measured Seer's own board on 8 November 2026 with tools/seer_depth.py, against the public endpoint behind app.seer.pm (the same source the API documents, 3,051 markets fetched in 31 pages):
+
+ 
+- 3,051 markets, of which 1,153 are conditional — a branch of a parent question, which is where a fee decision would live.
+ 
+- 437 markets hold any liquidity. Median liquidity among the funded: $1.13; the 90th percentile is $332. Eighteen clear $1,000; none clears $10,000. Total liquidity on the board: $63,522.
+ 
+- Conditional markets are the thinnest. 125 of the 1,153 are funded; median funded liquidity $25.91; three clear $1,000, and exactly one clears $3,000 ($7,598). The whole conditional set holds $13,446.
+ 
+- Volume is a different story: 556 markets have traded, median $46, 90th percentile $5,091, total $4.33M, with 42 above $10k. People price questions here. They do not yet park capital in them.
+
+So the board today is a commitment device, not a binding mechanism: it can price a proposal, and it cannot enforce a decision over a small treasury. We adopt a threshold that matches what exists — a decision binds when the market holds ≥$3,000 of liquidity and ≥20 distinct traders in the 72 hours before it opens. One conditional market clears the liquidity half of that today; the trader half we cannot read from the public endpoint, so it stays unverified until the trade log is published with it — and we would rather say that than round it into a yes. Until both hold, futarchy is advisory and the multisig is accountable by name; when the threshold trips, the veto is deleted by the same market that satisfied it. Measuring this and acting on it is the cheapest answer to the obvious objection that a plan praising futarchy would never turn it off.
+
+### How governance actually reaches the agents
+
+This is the part of every FAO proposal that stays vague, so here it is concretely. Futarchy does not vote on individual tasks — that would be a slower version of a boss. It sets the mandates that agents must work under, and the treasury only funds mandates the market says are worth funding:
+
+ 
+- A mandate is a market unit. The treasury publishes a mandate per category: budget, revenue target, acceptance-test template, maximum bond. Example: "on-chain analytics, $1,200 budget, $1.40 revenue per dollar spent, 30 days" — capped at 4% of monthly treasury, so a mandate can never be larger than the reserve that backs it.
+ 
+- Markets rank mandates, not tasks. Traders take positions on which mandates will clear their revenue target. Capital flows to the highest-priced mandates at the next allocation, and a mandate that misses its target twice is not renewed.
+ 
+- Agents opt into a mandate. Working under one grants the right to claim its tasks, prices the bond, and scopes the attestation. An agent outside every mandate can still work, but has no subsidy and no priority in triage.
+ 
+- The loop closes on revenue. Mandate outcomes feed the same accounting that prices the fee market, so a category can be defunded for missing revenue and a fee change can be priced on the revenue it actually produced.
+
+So the chain is: market → mandate budget → which tasks exist → which agents may claim them → what a payout requires. That is how futarchy "directs the swarm" without pretending that a prediction market can review a pull request.
+
+Markets are price-based decision markets on Gnosis, resolved after a stated opening time, with Reality.eth and Kleros as the resolution backstop — the same stack Seer documents for its futarchy markets. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:
+
+ 
+- Opening time ≥ one full accounting period. A market that resolves before the metric window closes measures noise. Fee markets resolve 30 days after the change goes live.
+ 
+- Minimum bond sized to the treasury, not to the trader. A bond that is cheap relative to the decision invites griefing; a bond that is expensive silences the informed. Start at 0.05 ETH and let the bond-size market move it.
+
+The honest risk: futarchy markets are thin. A parameter market with $300 of liquidity produces a signal that is easy to distort and hard to trust, and a protocol that pretends otherwise is worse than one with a multisig. Mitigation, in order: seed liquidity from the treasury (budgeted above), gate futarchy to decisions where a wrong call costs under 5% of monthly revenue, and keep a two-of-three human veto that is public and time-boxed. The goal for year one is not "governance is solved". It is "each decision was made with money at risk and a written argument, on a record we can read afterwards" — which is already better than the alternative.
+
+### 11 / The first 90 days
+
+Weekly milestones with kill criteria
+
+ 
+| Weeks | Milestone | Kill criterion | 
+ 
+ 
+| 1–2 | Escrow + attestation contracts on Gnosis testnet; acceptance-test runner for 3 deliverable types (SQL/query, repo build, file hash) | No external task posted by day 14 | 
+ 
+| 3–4 | 20 tasks sourced from Seer's backlog and two friendly DAOs; fee waived; every task must have a test | <10 of 20 tasks settle | 
+ 
+| 5–6 | Opportunity-market integration: top-3 triage on every subjective task; measure review-time saved against a control week of full review | Review time not reduced by ≥40% | 
+ 
+| 7–8 | First paid settlement at 6%; first dispute resolved end-to-end through Reality.eth | Zero paid tasks by day 56 | 
+ 
+| 9–10 | First advisory futarchy market live: settlement fee 4% / 6% / 8% / 10%, resolved on trailing revenue | No market reaches $3,000 of liquidity with 20 traders by month 12 — then the fee stays a multisig decision and the advisory record is published with the books | 
+ 
+| 11–12 | 120 tasks/month, 30+ distinct posters, first repeat poster rate above 35% | Repeat rate below 20% (we are a bounty board, not a job board) | 
+ 
+
+The single number that decides whether Foreguild is a business or a hobby is repeat poster rate. A first-time poster is curiosity. A second task from the same wallet is the only honest evidence that the review layer saved them something they valued.
+
+### 12 / Risks
+
+Named, priced, and mostly boring
+
+ 
+| Risk | Why it bites | Mitigation | 
+ 
+ 
+| Poster–worker collusion | Two wallets manufacture settled volume to farm reputation or subsidies | Attestations weight by distinct counterparties; subsidy decays and is capped per wallet; GMV counts net of self-dealing clusters | 
+ 
+| Quality flood | Free submission turns every task into 50 plausible answers | Claim bonds, claim ceilings, deterministic tests first, market triage | 
+ 
+| Thin markets | Triage is only as good as its liquidity | Seeded liquidity, category-specific markets, and a fallback to full human review when liquidity is below threshold — never a silent fake signal | 
+ 
+| Arbitration cost | Kleros fees can exceed a $40 task | Escalation only above a minimum task value; small tasks resolved by poster with a bond-backed appeal, not by court | 
+ 
+| Data licensing consent | Selling work product without clear rights is a legal and reputational hazard | Opt-in at task creation, revenue split with the worker, and nothing licensable by default | 
+ 
+| Stale listings | Observed on poidh: acceptingClaims true on a closed bounty | Every open task carries an on-chain expiry and requires live escrow; the API reads escrow balance, not a cached flag | 
+ 
+| Inference price shock | Worker margin is a function of token prices; a 3× move reprices every category at once and the take rate that was fair becomes predatory | The fee is a share of verified value, never a fixed per-task sum, and the metered rail reprices per call; category economics are a futarchy parameter, not a code change | 
+ 
+| Wash trading on the metered rail | Sub-cent calls are cheap to fabricate and would inflate volume, reputation and the metric futarchy optimises | Metered volume carries no reputation weight until a distinct counterparty attests it; per-payer caps per day; the governance metric counts verified margin, not call count | 
+ 
+| The two rails diverge | If metered volume grows faster than contract volume, blended take falls even as the board looks healthy | Report both rails separately and never blend them into one number; contract-rail break-even is the bar the plan is judged against, metered revenue is reported as upside | 
+ 
+
+### 13 / What we measure
+
+Four branches for the protocol, two for the buyer — a fee metric alone can always be improved by taxing the buyer.
+
+ 
+- Revenue: settled GMV, blended take, revenue per settled task, data-licensing revenue per verified pair.
+ 
+- Review efficiency: submissions per task, review minutes per settled task, share of tasks decided by a test alone, audit failure rate.
+ 
+- Buyer side: all-in cost per accepted task (fee + audit upgrade + the buyer's own review minutes) against the accepted bid, and the first-pass payment rate — share of tasks paid on the first submission, no dispute, no rework.
+ 
+- Trust: dispute rate per 100 tasks, override rate, median time-to-acceptance, bond forfeitures.
+ 
+- Retention: repeat poster rate, share of new buyers who post a second task within 30 days, repeat worker rate, category concentration (a healthy board is not 80% one category).
+ 
+- Shortlist quality: recall@5 of the ranked shortlist against the worker the poster eventually paid, and the median rank of that worker — the only honest test of whether triage is worth what it costs.
+
+If forced to one dashboard number, it is revenue per review-minute. It is the only metric that simultaneously captures whether the work was valuable and whether we were cheap at judging it — and it is the exact quantity this plan exists to maximise.
+
+### Six predictions, dated, so they can be scored
+
+Written on 8 November 2026, before any of them could be known. Each is falsifiable on a date, and each is the kind of claim the numbers above would catch us on:
+
+ 
+| # | Prediction | By | Falsified if | 
+ 
+ 
+| 1 | 40 tasks settled on the board, at least 25 from posters outside the team | 2027-02-15 | fewer than 20 settled | 
+ 
+| 2 | ≥70% of settled tasks decided by a deterministic test with no human read | 2027-02-15 | under 50% | 
+ 
+| 3 | First-pass payment rate ≥85% of settled tasks | 2027-02-15 | under 75% | 
+ 
+| 4 | ≥35% of posters post a second task within 60 days | 2027-04-15 | under 20% | 
+ 
+| 5 | Median all-in buyer cost ≤1.6× the accepted bid | 2027-04-15 | above 2.5× | 
+ 
+| 6 | One fee decision resolved by a market holding ≥$3,000 and ≥20 traders | 2027-08-15 | no market reaches the threshold | 
+ 
+
+Prediction 6 is the honest cost of section 10: if the board never gets deep enough, the answer is that futarchy stays advisory and we say so — not that the threshold moves to meet the market. Predictions 1 to 5 fail with us, not against a competitor, and the monthly books are the record.
+
+### 14 / Why this plan, and what would change it
+
+Most plans for an AI job board answer "how do we get agents to do work". That question is already answered by the market: they arrive within minutes for $2. The unanswered question is how a buyer can trust the output without reading everything, and that is a pricing and market-design problem — the one area where Foreguild's parent, Seer, has a real edge that a generic marketplace cannot copy.
+
+Three things would make me rewrite this plan, and I would rather name them now: if the first 20 tasks show that deterministic acceptance tests cover under 30% of demand, triage stops being a bonus and becomes the whole product; if repeat poster rate stays under 20% after 120 tasks, the business is a bounty board and should be priced like one — flat per-task fees, no audit upgrades, no data licensing; and if no fee market ever reaches $3,000 of liquidity with 20 traders — the threshold in section 10, set from today's measured board — governance should be an explicit multisig with published mandates instead of a market that only looks decentralised.
+
+ 
+
+### How to check this page
+ 
+
+Every number below is reproducible from the repository, and the scripts fail loudly when a figure on this page drifts from its drivers:
+ 
+ 
+- python3 tools/model.py --check — unit economics, 12-month ledger, break-even, cash curve and float, from the drivers in the file.
+ 
+- python3 tools/field_stats.py --check — the 50-entry convergence table in section 00, against data/claims_2026-11-08.json.
+ 
+- python3 tools/seer_depth.py — Seer's board as measured on 8 November 2026 (3,051 markets); writes data/seer_depth_2026-11-08.json.
+ 
+ 
+
+Sources for the mechanics cited: Seer docs (futarchy markets, FutarchyFactory/FutarchyRouter, Reality.eth + Kleros), Seer Opportunity Markets (revenue thesis: review cost exceeding work cost; pilot on the rebrand, Devcon merch and the naming of this job board), and first-hand observation of poidh bounties on 2026-11-05 and 2026-11-08 (claim volume, stale acceptingClaims listings, and a honeypot form field). Financial figures are planning assumptions, not forecasts; where a figure is derived, the derivation is on the page or in a script.
+ 
+
+Submitted through poidh to qualify for the 0.5 ETH bounty; the plan also stands alone as an HTML document for Seer's USDC prize.
