@@ -4,7 +4,7 @@
   "search": "https://app.seer.pm/.netlify/functions/markets-search",
   "leaderboard": "https://app.seer.pm/.netlify/functions/get-market-pnl-leaderboard"
  },
- "definition": "a trader is an address whose volume on the market is above zero; rows with volume 0 are liquidity or the creator",
+ "definition": "a trader is an address whose volume on the market is above zero (rows with volume 0 are liquidity or the creator); a branch is a market that appears in the server's conditional view (showConditionalMarkets), because every market in the unfiltered view carries a parentMarket id",
  "summary": {
   "markets_scanned": 68,
   "markets_with_traders": 62,
@@ -14,7 +14,16 @@
   "median_traders_all": 9.0,
   "median_traders_positive": 10.0,
   "total_distinct_address_rows": 1030,
-  "liquidity_floor_usd": 50.0
+  "liquidity_floor_usd": 50.0,
+  "branches_in_sample": 5,
+  "parents_in_sample": 63,
+  "branch_traders_median": 5,
+  "parent_traders_median": 9,
+  "clears_3k_and_20_traders": 2,
+  "clearing_market_ids": [
+   "0xe1793927eb763864967426fe7750ab0dc6f019f3",
+   "0xabe35cf0953169d9384f5953633f02996b4802f9"
+  ]
  },
  "markets": [
   {
@@ -31,7 +40,7 @@
   {
    "id": "0xe1793927eb763864967426fe7750ab0dc6f019f3",
    "name": "Will Marine Le Pen be the National Rally\u2019s candidate in the next French presidential elect",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 7184.86,
    "volume_usd": 49821.34,
    "ranked": 50,
@@ -42,7 +51,7 @@
   {
    "id": "0xabe35cf0953169d9384f5953633f02996b4802f9",
    "name": "How many seats in France\u2019s National Assembly will [party bloc] win in the next French legi",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 6791.4,
    "volume_usd": 1323.75,
    "ranked": 50,
@@ -53,7 +62,7 @@
   {
    "id": "0x99dc260548acafe5fac7fc81f4d4d01198161567",
    "name": "Which of the following submissions will win Part II of the Seer Rebrand Contest?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 2338.21,
    "volume_usd": 441.86,
    "ranked": 16,
@@ -64,7 +73,7 @@
   {
    "id": "0x4446a16765a38a2d1a712d0d4ebf27b3efbdd50a",
    "name": "How many people will be deported (removals, returns & expulsions) from the United States d",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1558.62,
    "volume_usd": 109635.24,
    "ranked": 29,
@@ -75,7 +84,7 @@
   {
    "id": "0x5ce8330ed46ce27b2ef79079bbcfaca5024eb859",
    "name": "When will Kleros V2 be released? (Beta with staking caps does not count, merge of V1 not r",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1254.17,
    "volume_usd": 611.96,
    "ranked": 7,
@@ -97,7 +106,7 @@
   {
    "id": "0x022f8516fb5af0a6a86a37d48494ceb407298bc2",
    "name": "Will Polymarket's API allow retrieval of fees paid data per individual positions by Januar",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1173.46,
    "volume_usd": 156.59,
    "ranked": 13,
@@ -108,7 +117,7 @@
   {
    "id": "0xfe8abb3b55acca31e74243349573801c379507b3",
    "name": "Will Polymarket publicly release a fix for the negative-risk mint/merge share cost basis a",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1171.9,
    "volume_usd": 165.25,
    "ranked": 15,
@@ -119,7 +128,7 @@
   {
    "id": "0xbde8f9b2148e74431faea5d9cf2a815ef6518b42",
    "name": "Will Polymarket use an oracle other than UMA to resolve at least one subjective market bef",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1133.92,
    "volume_usd": 477.29,
    "ranked": 22,
@@ -130,7 +139,7 @@
   {
    "id": "0x38b161f9f6ffbda19a11c32dd73db3f61b00003a",
    "name": "Will Polymarket's public API provide a documented endpoint providing total fees paid by in",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1128.46,
    "volume_usd": 53.21,
    "ranked": 7,
@@ -141,7 +150,7 @@
   {
    "id": "0xc57764377e06fa317457a123b2c25f031c088e17",
    "name": "Will any Kurdish militant group launch a confirmed armed attack inside Iran in 2026?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1121.84,
    "volume_usd": 727.87,
    "ranked": 23,
@@ -152,7 +161,7 @@
   {
    "id": "0xe639cd2cb0a3b3ae6b277d226cd0983a3ffa5af3",
    "name": "What name will be adopted for Seer's Risk Pricing product (risk.seer.pm)?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1118.93,
    "volume_usd": 99.74,
    "ranked": 6,
@@ -163,7 +172,7 @@
   {
    "id": "0x736feaf877de6523ca001ab3e3a229e80d7af00b",
    "name": "How many Polymarket clarification notes published before January 1, 2027 will cause a mark",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1114.57,
    "volume_usd": 88.89,
    "ranked": 13,
@@ -174,7 +183,7 @@
   {
    "id": "0x0b5f90febc2fc44c43985b2a712f159ca059d93a",
    "name": "Will a legally binding treaty or agreement transferring sovereignty over Greenland from De",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1101.53,
    "volume_usd": 687.52,
    "ranked": 42,
@@ -185,7 +194,7 @@
   {
    "id": "0x9510c9bad4b5831f86d771403365a83f619e8aeb",
    "name": "Will the United States enter into armed hostilities with a NATO country over Greenland in ",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1100.46,
    "volume_usd": 1160.46,
    "ranked": 50,
@@ -207,7 +216,7 @@
   {
    "id": "0xcef8554bad70c8f46b4242662286d0f03ce77899",
    "name": "Will a court rule against Polymarket in a lawsuit over an incorrect market resolution by t",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 1085.96,
    "volume_usd": 13.9,
    "ranked": 7,
@@ -218,7 +227,7 @@
   {
    "id": "0xe659d844b813ae908473e9d0f0981a5c33cf638f",
    "name": "Will Polymarket distribute a transferable Polymarket cryptocurrency token to existing user",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 966.55,
    "volume_usd": 624.92,
    "ranked": 21,
@@ -229,7 +238,7 @@
   {
    "id": "0xe820d073f8885f4a24328ba9fbb8a745114bb647",
    "name": "Will the Digital Asset Market Clarity Act be approved by the U.S. Senate, excluding commit",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 920.79,
    "volume_usd": 967.49,
    "ranked": 24,
@@ -240,7 +249,7 @@
   {
    "id": "0x0a2e852ade1b60ceae19e2d9a6f0a97da2d0dc06",
    "name": "Will Donald Trump issue an official presidential pardon for Ghislaine Maxwell by December ",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 885.75,
    "volume_usd": 759.56,
    "ranked": 16,
@@ -251,7 +260,7 @@
   {
    "id": "0x64810950f44f2408350894e8db3d6bfa0dc6c820",
    "name": "Will Tesla publicly launch a fully autonomous robotaxi service that is available to the ge",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 844.82,
    "volume_usd": 2824.65,
    "ranked": 10,
@@ -273,7 +282,7 @@
   {
    "id": "0xa112ca6d12f4c7ec12029a8ba5da97e2597f3f0a",
    "name": "What will be the average Ethereum BASEFEE (in gwei) for the period 1\u201331 January 2027 (UTC)",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 829.56,
    "volume_usd": 143.3,
    "ranked": 12,
@@ -284,7 +293,7 @@
   {
    "id": "0x2324741962ff5b8331dbbdc88de8cf1c06fa5ca8",
    "name": "What will be the average Ethereum BASEFEE (in gwei) for the period 1\u201331 January 2027 (UTC)",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 829.56,
    "volume_usd": 143.3,
    "ranked": 1,
@@ -295,7 +304,7 @@
   {
    "id": "0xaeabbfb58a69f335fe719db937f5e9a787274d50",
    "name": "Will the United States government conduct a direct military action against Iran that is of",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 826.74,
    "volume_usd": 1511.96,
    "ranked": 10,
@@ -306,7 +315,7 @@
   {
    "id": "0x331fd8a553284a6de015ccdb0a5936687c8ed69b",
    "name": "Will the United States government announce new sanctions related to the killing of protest",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 822.1,
    "volume_usd": 887.91,
    "ranked": 13,
@@ -317,7 +326,7 @@
   {
    "id": "0x394c593c402fff1754fcc4d5d953dc6ff0dc6c21",
    "name": "Will the U.S. Securities and Exchange Commission initiate a new enforcement action against",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 803.91,
    "volume_usd": 292.33,
    "ranked": 5,
@@ -328,7 +337,7 @@
   {
    "id": "0xa3754ac18a9acf386d385ab256245b0253884767",
    "name": "  Which layer 2 will have the highest TVL by Q2 2026?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 785.32,
    "volume_usd": 2122.98,
    "ranked": 8,
@@ -339,7 +348,7 @@
   {
    "id": "0x2c04736e1698d13a554cca3558e7bfe9f5334a00",
    "name": "Who will win the 2026 South Sudanese presidential election?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 783.31,
    "volume_usd": 108.06,
    "ranked": 11,
@@ -350,7 +359,7 @@
   {
    "id": "0x500a8eab1ca5dc7cbf9d72f3b0160e94f1e19377",
    "name": "Which agentic payment protocol will have the most volume by June 30, 2026?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 766.15,
    "volume_usd": 1173.31,
    "ranked": 13,
@@ -361,7 +370,7 @@
   {
    "id": "0x20a3b1c26680ddcb29739d15597f5380961bc2d2",
    "name": "What will be the official retail launch price (in USD) of the new Valve Steam Machine? [US",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 765.41,
    "volume_usd": 1406.47,
    "ranked": 31,
@@ -372,7 +381,7 @@
   {
    "id": "0x059bd73f3fd3a5972ebc4d38b4c863cd742a75ec",
    "name": "Will 1X Technologies (1X.tech) publicly release the \u2018Neo Home Robot\u2019 for consumer purchase",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 765.28,
    "volume_usd": 965.06,
    "ranked": 14,
@@ -383,7 +392,7 @@
   {
    "id": "0x9bf596e87583da92c5a793f14d12aea6c36f4afb",
    "name": "Will Polymarket reverse UMA\u2019s final resolution of the market \u201cTrump declassifies UFO files",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 742.46,
    "volume_usd": 558.64,
    "ranked": 14,
@@ -394,7 +403,7 @@
   {
    "id": "0x67ea7fc200ff1c2a8817c1efd4b56cdd6ef0a060",
    "name": "Will GTA 6 achieve the highest first-day unit sales of any GTA game? ",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 735.35,
    "volume_usd": 306.66,
    "ranked": 11,
@@ -405,7 +414,7 @@
   {
    "id": "0x612f809c9a09c2cd64aaa37fa9e858391707bc1e",
    "name": "Will Sam Bankman-Fried receive a U.S. presidential pardon in 2026?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 592.95,
    "volume_usd": 193.24,
    "ranked": 17,
@@ -416,7 +425,7 @@
   {
    "id": "0x21e5fc95afe520e0e26acccb28daed15d48e2555",
    "name": "Which blockchain will have the highest total value locked (TVL) in euro-pegged stablecoins",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 508.4,
    "volume_usd": 2803.38,
    "ranked": 14,
@@ -427,7 +436,7 @@
   {
    "id": "0x6e9664bb63fc353caefddb5c80f7b39bf90742fc",
    "name": "Who will win the 2026 Guinea-Bissau presidential election?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 479.95,
    "volume_usd": 613.41,
    "ranked": 10,
@@ -438,7 +447,7 @@
   {
    "id": "0x9b039a24ca352bcb258a80927e1b237902f74d07",
    "name": "Who will win the 2026 Gambian presidential election?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 475.55,
    "volume_usd": 65.09,
    "ranked": 10,
@@ -460,7 +469,7 @@
   {
    "id": "0x0d0c347a07f45b2e25260d91b6cbf4a18898ea17",
    "name": "Will the \u201cYes to Fair Federal Taxation for Married Couples\u201d initiative pass in Switzerland",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 414.53,
    "volume_usd": 310.7,
    "ranked": 11,
@@ -471,7 +480,7 @@
   {
    "id": "0x94f25c100d7bc0c9e3dedb30474dd64b1fb8689c",
    "name": "Which two candidates will face each other in the second round of the next French president",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 379.7,
    "volume_usd": 1.93,
    "ranked": 7,
@@ -482,7 +491,7 @@
   {
    "id": "0xa69da06169d0e48c91810bcba0a14e82979549d0",
    "name": "Will the \u201cSafeguarding Swiss Neutrality\u201d initiative pass in the September 2026 Swiss feder",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 379.39,
    "volume_usd": 41.44,
    "ranked": 13,
@@ -493,7 +502,7 @@
   {
    "id": "0x07c5a013b44e0dbf72a30b45f13af1e9dbb3970d",
    "name": "Will Alice Weidel become the next Chancellor of Germany after the February 2025 election?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 331.56,
    "volume_usd": 59591.53,
    "ranked": 28,
@@ -504,7 +513,7 @@
   {
    "id": "0xb03a2a591c8cfcf9e5082caf7d07ace57b5a117e",
    "name": "Who will win Beninese presidential election in 2026?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 311.78,
    "volume_usd": 20971.41,
    "ranked": 21,
@@ -515,7 +524,7 @@
   {
    "id": "0xfc5e5544bf8856ccf95857fef54cde00c8cb63ce",
    "name": "Will the United States deploy its own ground combat troops inside land territory of Iran i",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 279.74,
    "volume_usd": 652.51,
    "ranked": 14,
@@ -526,7 +535,7 @@
   {
    "id": "0x206b6bba8420d1be721bd9b89345bce41e095e9a",
    "name": "Which party will win the most seats in New Zealand general election in 2026?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 256.55,
    "volume_usd": 285.01,
    "ranked": 17,
@@ -537,7 +546,7 @@
   {
    "id": "0xf5f00e9c8f45b0bbff4b62f28c4c31db0b4d780d",
    "name": "Will Jeffrey Epstein be confirmed alive by a credible authority (such as a U.S. federal ag",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 184.37,
    "volume_usd": 0.0,
    "ranked": 1,
@@ -548,7 +557,7 @@
   {
    "id": "0x95149fcc1eb9ec665a5984c33927b991dd66a355",
    "name": "Who will win Brazilian presidential election in 2026?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 120.94,
    "volume_usd": 2369.31,
    "ranked": 25,
@@ -559,7 +568,7 @@
   {
    "id": "0x64619526ca4ac214491dbb2ef45ba7276e9ff671",
    "name": "Will the \"No to ten-million Switzerland\" initiative pass in the June 2026 Swiss federal re",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 113.5,
    "volume_usd": 60.48,
    "ranked": 3,
@@ -570,7 +579,7 @@
   {
    "id": "0x829c911551d4cb55dfbeef1447dc7b879088dbcb",
    "name": "By December 31, 2026, will at least 6 of the following 8 wallet applications officially su",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 112.61,
    "volume_usd": 89.04,
    "ranked": 11,
@@ -581,7 +590,7 @@
   {
    "id": "0xe20779a9a69a11eec73862611fd25056b06652f7",
    "name": "Winner of the run-off in the 2024 Romanian presidential election?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 88.67,
    "volume_usd": 121248.75,
    "ranked": 28,
@@ -592,7 +601,7 @@
   {
    "id": "0x7d72aa56ecdda207005fd7a02dbfd33f92d0def7",
    "name": "Will the Labor Force Participation Rate fall strictly below 50% in any of the reports befo",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 85.31,
    "volume_usd": 170.04,
    "ranked": 10,
@@ -603,7 +612,7 @@
   {
    "id": "0xe193b6732ace3b8a07f390d3a7d7e208bfcc3e30",
    "name": "Will at least one arrest in connection with the October 2025 Louvre jewel heist be officia",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 84.28,
    "volume_usd": 0.0,
    "ranked": 2,
@@ -614,7 +623,7 @@
   {
    "id": "0xf5d7466feb3e3477585bc76619c065d94ea18c97",
    "name": "Will at least one arrest in connection with the October 2025 Louvre jewel heist be officia",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 84.28,
    "volume_usd": 821.88,
    "ranked": 5,
@@ -625,7 +634,7 @@
   {
    "id": "0x07c2a2a5db689115d05a743301d099fd5557d66b",
    "name": "Will at least one arrest in connection with the October 2025 Louvre jewel heist be officia",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 84.28,
    "volume_usd": 0.0,
    "ranked": 4,
@@ -636,7 +645,7 @@
   {
    "id": "0x31cb54c49479243333594eb7343d31f6bd1ddfd3",
    "name": "Which party or joint electoral list will win the most seats in Israeli Knesset election in",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 81.49,
    "volume_usd": 6981.92,
    "ranked": 21,
@@ -647,7 +656,7 @@
   {
    "id": "0xf29e74d31aa30b94400bd065dd2a097c4f96c369",
    "name": "Will Bitcoin (BTC) drop below $70,000 USD on any of the following exchanges: Coinbase, Kra",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 75.88,
    "volume_usd": 1491.97,
    "ranked": 15,
@@ -658,7 +667,7 @@
   {
    "id": "0x9446c7cd29be9b0f5b7f05bfdc8a81cf83341a17",
    "name": " Which property will be selected for evaluation as part of the 'RealT Prediction Experimen",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 74.99,
    "volume_usd": 0.0,
    "ranked": 11,
@@ -669,7 +678,7 @@
   {
    "id": "0xa77dd0d6988f0f79b056d3196fa67f2488370909",
    "name": "The HICP inflation rate in the European Union for 2025? [Annual average rate of change, 1 ",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 73.12,
    "volume_usd": 5427.89,
    "ranked": 27,
@@ -680,7 +689,7 @@
   {
    "id": "0xe159351136a4aee30f648cc0d711162b40374154",
    "name": "Will the USA offensively use any type of nuclear device against Iran before November 10, 2",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 69.61,
    "volume_usd": 64.44,
    "ranked": 6,
@@ -691,7 +700,7 @@
   {
    "id": "0x9ef70c6acd328fdbf08e0efdfd3460ff2680bc7f",
    "name": "By December 31, 2027, will both FOCIL (EIP-7805) and Frame Transactions (EIP-8141) have be",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 69.27,
    "volume_usd": 0.68,
    "ranked": 8,
@@ -702,7 +711,7 @@
   {
    "id": "0x88146415c797aed96fd8bdf3808af8b0838af31e",
    "name": "Will Alternative for Germany (AfD) be part of the governing coalition formed following the",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 59.1,
    "volume_usd": 30555.87,
    "ranked": 15,
@@ -713,7 +722,7 @@
   {
    "id": "0xc8f57cd1ae6d668e906c2765987317ce7f6bc577",
    "name": "Will Eric Larchev\u00eaque announce creating a political movement or running for an election be",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 54.08,
    "volume_usd": 0.0,
    "ranked": 2,
@@ -724,7 +733,7 @@
   {
    "id": "0xe7583306741d4a56916db0e1f679c3bccf9425e1",
    "name": "Will Eric Larchev\u00eaque announce creating a political movement or running for an election be",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 54.08,
    "volume_usd": 0.0,
    "ranked": 13,
@@ -735,7 +744,7 @@
   {
    "id": "0xf5c306872e0117f2ee043f2b63001911dab0f22a",
    "name": "Will Eric Larchev\u00eaque announce creating a political movement or running for an election be",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 54.08,
    "volume_usd": 14955.75,
    "ranked": 16,
@@ -746,7 +755,7 @@
   {
    "id": "0x2ff966fbd2a4247db21fed9abf5bef628f43670e",
    "name": "Who will win the 2024 U.S. Presidential Election?",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 50.98,
    "volume_usd": 544082.76,
    "ranked": 0,
@@ -757,7 +766,7 @@
   {
    "id": "0xf90faca0788922aea19f68eb57dd89a0263287a8",
    "name": "How many seats will [party name] win in Hungarian parliamentary election (members of Natio",
-   "conditional": true,
+   "conditional": false,
    "liquidity_usd": 50.76,
    "volume_usd": 1117.9,
    "ranked": 8,

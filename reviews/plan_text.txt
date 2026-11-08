@@ -243,7 +243,7 @@ The fee pays the rent; the other three pay the profit
 | Line | Mechanic | Rate | Share of month-12 revenue | 
  
  
-| Settlement fee | Charged on accepted work only, taken from the poster's escrow at payout | 6.0% of ticket | 81% | 
+| Settlement fee | Charged on accepted work only, deducted from the payout: the poster's price is the ticket and the worker nets 94% of it, so the fee is stated once and borne once | 6.0% of ticket | 81% | 
  
 | Full-audit upgrade | Poster may buy a 100% audit instead of the 10% sample on tasks above $250; priced above average cost, never as a bet against the poster | $25 flat | 7% | 
  
@@ -252,7 +252,7 @@ The fee pays the rent; the other three pay the profit
 | Category certification | A paid exam a worker passes to be listed as certified in a category; the price is set by market, not by the team | $25–$150 | 4% | 
  
 
-At month 12 the settlement fee alone (81% of revenue) lands at $3,384 of contribution against $3,260 of fixed cost — it covers the rent and nothing else. The three smaller lines are what turn the year into a profit; a plan that pretends otherwise is a plan that has not run its own table. Blend at month 12: 6.0% settlement + 1.4% from the other three lines = 7.4%, which is the number used in the 12-month model. Escrow float is real: nine-day holds at ~3.5% APY on month-12 GMV are about $128 a month, 1.2% of month-12 revenue. It is disclosed and excluded — a return on other people's money is not revenue from settled work, and booking it would make the metric depend on how slowly we pay.
+At month 12 the settlement fee alone (81% of revenue) lands at $3,384 of contribution against $3,260 of fixed cost — it covers the rent and nothing else. The three smaller lines are what turn the year into a profit; a plan that pretends otherwise is a plan that has not run its own table. Blend at month 12: 6.0% settlement + 1.4% from the other three lines = 7.4%, which is the number used in the 12-month model. Escrow float is real: nine-day holds at ~3.5% APY on month-12 GMV are about $128 a month, 1.2% of month-12 revenue. It is disclosed and excluded — a return on other people's money is not revenue from settled work, and booking it would make the metric depend on how slowly we pay. The 1.4 extra points deserve the same treatment, so here it is: the three smaller lines are carried at gross revenue with no direct cost modelled, which means the honest profit figure is the fee-only one — +$124 in month 12, break-even in month 12 rather than month 11 — and the $2,050 gap between the two paths is an assumption about ancillary margin, not a measurement. A $25 audit upgrade on a $19 audit is $6 of margin, not $25.
 
 Two deliberate omissions. No listing fees — charging to post attracts the wrong posters and pollutes the board with tasks nobody funds. No subscription — a subscription aligns revenue with presence, not with settled work, and would make the protocol's revenue independent of the thing it is supposed to optimise. Futarchy needs a metric that cannot be gamed by existing; GMV and settled fees qualify, MRR from idle accounts does not.
 
@@ -284,14 +284,14 @@ Fixed costs are deliberately small: two part-time people and the infrastructure 
  
  
 
-The two contribution figures are not a contradiction, they are two points on the same curve: $1.41 is the margin if the settlement fee were the only revenue line (6% of ticket), and $2.26 is the margin once audit upgrades, data licensing and certification add 1.4 points of take. Break-even is 2,312 tasks/month in the first case and 1,440 in the second — the growth curve crosses both between month 11 and month 12, which is why the model shows a small profit only at the end of year one.
+The two contribution figures are not a contradiction, they are two points on the same curve: $1.41 is the margin if the settlement fee were the only revenue line (6% of ticket), and $2.26 is the margin once audit upgrades, data licensing and certification add 1.4 points of take. Break-even is 2,312 tasks/month in the first case and 1,440 in the second: the blended path turns positive in month 11 (+$771) and the fee-only path only in month 12 (+$124). Both cross at the end of year one, which is the only sense in which this plan is profitable inside the twelve months it models.
 
 ### Where those four numbers come from
 
  
 - $61 is month-12 GMV divided by month-12 tasks: $146,400 ÷ 2,400. It falls out of the wave mix, and tools/model.py prints it on any run.
  
-- $19 is one human audit: 20 minutes × $57/hour. The same reviewer at 15 to 40 minutes spans $14 to $38, and that is the band the audit-rate market in section 10 is asked to trade against — not a number the team picked.
+- $19 is one human audit: 20 minutes × $57/hour. The same reviewer at 15 to 40 minutes spans $14 to $38, and that is the band the audit-rate market in section 10 is asked to trade against. It is an assumption about a market wage and a stopwatch, not a measurement: section 13 times the first twenty audits and reprices this line if the stopwatch disagrees.
  
 - $0.35 is gas $0.04, sandbox compute $0.06 and $0.25 of marginal per-task infrastructure — RPC reads, attestation storage, bond carry. The fixed $260/month indexer, RPC and dashboard base sits in the $3,260, not here; charging it twice would be the easiest way to make this plan look expensive.
  
@@ -303,7 +303,7 @@ An average ticket is a mix, not a forecast, and the mix is the weakest thing in 
 
 So the honest version of the load-bearing assumption is: posters will write acceptance tests for $40-plus work, and enough of them will do it without a sales team. If they do not, the average falls toward $20, the fee line falls with it, and the twelve-month table is wrong by roughly two thirds rather than by ten percent. That is why the first prediction in section 13 is dated at day 90 with a count of settled tasks rather than a revenue figure — the count is what the mix assumption gets tested on, and it is visible long before the revenue is.
 
-One more deliberate conservatism: the unit economics charge a human audit to every task ($1.90), while the mix implies an audit on 60% of them at a 10% sample — about $1.14. The model therefore overstates audit cost by roughly $0.76 a task, which is why the month-12 profit survives the small lane turning out larger than planned. The direction of the error is the side a judge should want it on.
+One more deliberate conservatism: the unit economics charge a human audit to every task ($1.90), while the mix implies an audit on 70% of them at a 10% sample — the $40–80 band and the $150+ band are both in the audited lane — about $1.33. The model therefore overstates audit cost by roughly $0.57 a task, which is why the month-12 profit survives the small lane turning out larger than planned. The direction of the error is the side a judge should want it on.
 
 ### Why 6% and not 8%
 
@@ -595,13 +595,13 @@ We measured Seer's own board on 8 November 2026 with tools/seer_depth.py and too
  
 - Volume is a different story: 556 markets have traded, median $46, 90th percentile $5,091, total $4.33M, with 42 above $10k. People price questions here. They do not yet park capital in them.
  
-- And the traders do arrive, just not everywhere. Counting one address per row from each market's PnL leaderboard (tools/trader_depth.py, 68 markets above $50 of liquidity): 62 have at least one trader, the median funded market has 9, thirteen have 20 or more, and the busiest has 50. Every one of those 68 is a conditional branch, so this is the right population to ask.
+- And the traders do arrive, just not everywhere. Counting one address per row from each market's PnL leaderboard (tools/trader_depth.py, 68 markets above $50 of liquidity): 62 have at least one trader, the median market has 9, thirteen have 20 or more, and the busiest has 50. The split is the interesting part: 63 of the 68 are the parent questions people actually argue about (median 9 traders) and 5 are branches (median 5). Attention stays on the question; the branch inherits a fraction of it, never all of it.
 
-So the board today is half a mechanism. Liquidity is the half that is missing: funded conditional markets are thin, and the median one holds $25. Trader attention is the half that exists: on a question people care about, twenty-plus addresses will price it, and two markets clear both halves of a depth threshold at once — the National Rally candidacy ($7,185 of liquidity, 49 traders) and the National Assembly seat count ($6,791, 49). The catch is that both are branches of the same French election, which is exactly what a news cycle looks like and exactly what disappears when it ends.
+So the board today is half a mechanism. Liquidity is the half that is missing: funded branches are thin, and their median holds $25. Trader attention is the half that exists: on a question people care about, twenty or more addresses will price it, and two markets clear both halves of a depth threshold at once — the National Rally candidacy ($7,185 of liquidity, 49 traders) and the National Assembly seat count ($6,791, 49). Both are the parent question, and both are French-election questions: that is what a news cycle looks like, and what disappears when the cycle ends. The pair also makes the inheritance gap measurable instead of rhetorical — the Le Pen candidacy market has 49 traders, and its own child, who the National Rally nominates, is the deepest branch on the board at $7,598 and carries 9.
 
-We set the threshold from that: a decision binds when the market holds ≥$3,000 of liquidity and ≥20 addresses with non-zero volume, counted on the leaderboard when the question opens. Two of 68 markets clear it today, both by inheriting a hot parent. That is the tactic, stated plainly: the first fee market is a branch of whichever parent is carrying traders at the time, because a fee branch on a cold parent is a market with no one in it. If no parent qualifies, futarchy stays advisory, the veto stays, and the count is published with the monthly books — the numbers above are reproducible with one script, which is the only reason they are worth putting in a plan.
+We set the threshold from that: a decision binds when the market holds ≥$3,000 of liquidity and ≥20 addresses with non-zero volume, counted on the leaderboard when the question opens. Two of 68 markets clear it today, and neither is a branch. That also kills the shortcut this section was tempted by: hanging a fee branch under a hot election parent would resolve on nothing — the parent's outcome does not determine the fee question — so the traders whose attention we wanted would price a question that has no bearing on the fee and ignore the branch. The fee market therefore gets its own parent ("what should the audited-lane fee be?") with the fee alternatives as its branches, and the attention is bought rather than inherited: liquidity seeded from the treasury at the level above, plus a trader subsidy equal to the audit-rate market's, with the achieved count published monthly against the threshold. If no parent qualifies, futarchy stays advisory, the veto stays, and the count is published with the monthly books — the numbers above are reproducible with one script, which is the only reason they are worth putting in a plan.
 
-Two honest limits on that measurement. An address with volume above zero is not a person: market makers and airdrop farmers count, so 49 traders is an upper bound on distinct humans, and the leaderboard only exposes an all-time view, so "in the last 72 hours" cannot be read from it — we say "when the question opens" instead of pretending to a window the source does not give. Until both hold, futarchy is advisory and the multisig is accountable by name; when the threshold trips, the veto is deleted by the same market that satisfied it.
+Three honest limits on that measurement. A branch here means a market the conditional view returns: the field exists on every market in the unfiltered view, so "has a parent id" tests nothing and we do not use it. An address with volume above zero is not a person: market makers and airdrop farmers count, so 49 traders is an upper bound on distinct humans, and the leaderboard only exposes an all-time view, so "in the last 72 hours" cannot be read from it — we say "when the question opens" instead of pretending to a window the source does not give. Until both hold, futarchy is advisory and the multisig is accountable by name; when the threshold trips, the veto is deleted by the same market that satisfied it.
 
 ### How governance actually reaches the agents
 
@@ -625,7 +625,7 @@ Markets are price-based decision markets on Gnosis, resolved after a stated open
  
 - Minimum bond sized to the treasury, not to the trader. A bond that is cheap relative to the decision invites griefing; a bond that is expensive silences the informed. Start at 0.05 ETH and let the bond-size market move it.
 
-The honest risk: futarchy markets are thin. A parameter market with $300 of liquidity produces a signal that is easy to distort and hard to trust, and a protocol that pretends otherwise is worse than one with a multisig. Mitigation, in order: seed liquidity from the treasury (budgeted above), gate futarchy to decisions where a wrong call costs under 5% of monthly revenue, and keep a two-of-three human veto that is public and time-boxed. The goal for year one is not "governance is solved". It is "each decision was made with money at risk and a written argument, on a record we can read afterwards" — which is already better than the alternative.
+The honest risk: futarchy markets are thin. A parameter market with $300 of liquidity produces a signal that is easy to distort and hard to trust, and a protocol that pretends otherwise is worse than one with a multisig. Mitigation, in order: seed liquidity from the treasury (budgeted above), gate futarchy to exactly the decisions the 2% rule in section 10 routes to it, and never let a market make a call whose worst case the treasury cannot absorb, and keep a two-of-three human veto that is public and time-boxed. The goal for year one is not "governance is solved". It is "each decision was made with money at risk and a written argument, on a record we can read afterwards" — which is already better than the alternative.
 
 ### 11 / The first 90 days
 
@@ -701,7 +701,7 @@ If forced to one dashboard number, it is revenue per review-minute. It is the on
 Written on 8 November 2026, before any of them could be known. Each is falsifiable on a date, and each is the kind of claim the numbers above would catch us on:
 
  
-| # | Prediction | By | Falsified if | 
+| # | Prediction | By | Kill criterion | 
  
  
 | 1 | 40 tasks settled on the board, at least 25 from posters outside the team | 2027-02-15 | fewer than 20 settled | 
@@ -717,7 +717,7 @@ Written on 8 November 2026, before any of them could be known. Each is falsifiab
 | 6 | One fee decision resolved by a market holding ≥$3,000 and ≥20 traders | 2027-08-15 | no market reaches the threshold | 
  
 
-Prediction 6 is the honest cost of section 10: if the board never gets deep enough, the answer is that futarchy stays advisory and we say so — not that the threshold moves to meet the market. Predictions 1 to 5 fail with us, not against a competitor, and the monthly books are the record.
+Prediction 6 is the honest cost of section 10: if the board never gets deep enough, the answer is that futarchy stays advisory and we say so — not that the threshold moves to meet the market. Missing a target while clearing its kill criterion is reported as a miss, not a pass: the target is what this plan promised, the kill criterion is only where the business is dead. Predictions 1 to 5 fail with us, not against a competitor, and the monthly books are the record.
 
 ### 14 / Why this plan, and what would change it
 

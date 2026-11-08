@@ -120,6 +120,14 @@ def main():
     op_cash0 = SEED - CONTRACTS - LIQUIDITY - SUBSIDY
     runway_zero = op_cash0 / FIXED_MONTH
     neg = next((r["month"] for r in cash_rows if r["closing"] < 0), None)
+    # The settlement fee alone, same variable cost: the conservative path the
+    # page quotes next to the blended one. If these two diverge, the profit in
+    # the table is ancillary margin, and the page has to say so.
+    fee_only = [r["tasks"] * r["ticket"] * FEE_CONTRACT
+                - r["tasks"] * (AUDIT_SAMPLE * AUDIT_COST + PER_TASK_INFRA) - FIXED_MONTH
+                for r in rows]
+    fee_pos = next((r["month"] for r, v in zip(rows, fee_only) if v > 0), None)
+    blend_pos = next((r["month"] for r in rows if r["net"] > 0), None)
 
     print("UNIT ECONOMICS  $61 standard task")
     for k, v in u.items():
@@ -133,6 +141,8 @@ def main():
     print(f"MONTH-12     revenue ${m12['revenue']:.0f}  contribution ${m12['contribution']:.0f}  "
           f"per task ${per_task_12:.2f}  profit ${m12['net']:.0f}")
     print(f"CASH         operating at t0 ${op_cash0:.0f} ({runway_zero:.1f} months at zero revenue)")
+    print(f"FEE-ONLY     net at m12 ${fee_only[-1]:.0f}; turns positive in month {fee_pos}; "
+          f"blended path turns positive in month {blend_pos}")
     print(f"             trough ${trough:.0f} at m{trough_month}; first negative month {neg}")
     print(f"             closing m12 ${cash_rows[-1]['closing']:.0f}")
     print(f"FLOAT        ${float_month:.1f}/month at month-12 GMV (3.5% APY, 9-day hold)")
@@ -151,20 +161,23 @@ def main():
 
     pinned = {
         "contribution": 1.41, "contribution_pct_of_fee": 38.5,
-        "m12_revenue": 10834, "m12_contribution": 5424, "m12_profit": 2164,
-        "m12_per_task": 2.26, "breakeven_fee": 2312, "breakeven_blend": 1442,
-        "float_month": 128.0,
+        "m12_revenue": 10834, "m12_contribution": 5434, "m12_profit": 2174,
+        "m12_per_task": 2.26, "breakeven_fee": 2312, "breakeven_blend": 1440,
+        "float_month": 128.0, "fee_only_net_m12": 124, "fee_only_turn": 12,
+        "blend_turn": 11,
     }
     got = {"contribution": u["contribution"], "contribution_pct_of_fee": u["contribution_pct_of_fee"],
            "m12_revenue": m12["revenue"], "m12_contribution": m12["contribution"],
            "m12_profit": m12["net"], "m12_per_task": round(per_task_12, 2),
            "breakeven_fee": round(breakeven_fee, 0), "breakeven_blend": round(breakeven_blend, 0),
-           "float_month": round(float_month, 0)}
+           "float_month": round(float_month, 0),
+           "fee_only_net_m12": round(fee_only[-1], 0), "fee_only_turn": fee_pos,
+           "blend_turn": blend_pos}
 
     if "--check" in sys.argv:
         bad = 0
         for k, want in pinned.items():
-            tol = max(0.03 * abs(want), 2)
+            tol = 1.0 if isinstance(want, int) else 0.02
             ok = abs(got[k] - want) <= tol
             print(("OK   " if ok else "FAIL ") + f"{k:24} page={want} model={got[k]}")
             bad += 0 if ok else 1
