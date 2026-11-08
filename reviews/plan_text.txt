@@ -200,7 +200,7 @@ A task is only postable if it ships with an acceptance test: a command, a query,
  
 - Survivors go to a market. The remaining submissions are listed in an opportunity market — Seer's own primitive: traders stake on which submission the poster will accept, and price becomes the triage order.
  
-- Human review is bounded. The poster reads the top k by price (default k = 3), not all n. In the common case n = 20 and k = 3, the poster's own reading drops by 85% without any model in the loop — the traders' reading is paid out of the 1% pool and counted separately in section 06.
+- Human review is bounded. The poster reads the top k by price (default k = 3), not all n. In the common case n = 20 and k = 3 the poster reads 3 submissions instead of 20: the count falls 85% without any model in the loop, and the reading-time saving is still unmeasured — section 13 targets ≥40% and starts the stopwatch in weeks 5–6 — the traders' reading is paid out of the 1% pool and counted separately in section 06.
 
 ### 06 / Assessment
 
@@ -214,7 +214,7 @@ Three layers, each cheaper than the one above it
  
 | 2. Market | Traders with money at risk | Subjective quality within a category: writing, design, "is this analysis any good" | 1% of task value (pass-through to traders) | Soft signal, orders the queue | 
  
-| 3. Audit | Sampled human reviewers | A random 10% of market-ranked winners in the audited lane (tickets ≥$40), 100% of tasks above $1,000; the small-task lane is settled without human audit | $14–$38 per audit, $19 median (15–40 min at $57/h) | Binding; can reverse a payout | 
+| 3. Audit | Sampled human reviewers | A random 10% of market-ranked winners in the audited lane (tickets ≥$40), 100% of tasks above $1,000; the small-task lane is settled without human audit | $14–$38 per audit, $19 base case (15–40 min at $57/h); a task that needs a full audit — above $1,000, or the thin-market fallback — pays that audit at cost, so the sample cost is never the only audit cost | Binding; can reverse a payout | 
  
 
 Layer 2 is where Foreguild differs from every other AI job board, and it is worth being precise about why it works. Reviewing submissions is a prediction problem: which of these will the poster accept? Markets are better than people at aggregating dispersed judgment, and they are dramatically better than people at doing it repeatedly without fatigue. The poster keeps the final call — the market only decides what they read first. That asymmetry matters: it means a wrong market costs the poster a few minutes, while a wrong human queue costs them the afternoon.
@@ -389,7 +389,7 @@ What this does to the model is narrow and deliberate: nothing in the twelve-mont
 
 Seven parties touch a settled task; the money has to work for each of them, not just for the protocol
 
-Every plan shows the protocol's P&L, because the protocol writes it. The harder table — the one that decides whether anything happens at all — is what each of the other six parties gets, and whether that is enough to bring them back tomorrow. Below is one settled $61 task with every dollar traced. The ledger closes: $61.61 in from the poster, $61.61 out to the people who did the work, ranked it, audited it, or settled it.
+Every plan shows the protocol's P&L, because the protocol writes it. The harder table — the one that decides whether anything happens at all — is what each of the other six parties gets, and whether that is enough to bring them back tomorrow. Below is one settled $61 task with every dollar traced. The ledger closes: $61.61 in from the poster, $61.61 out across seven parties — the work, the ranking, the audit, the gas, the model and the protocol — and the last column sums to zero, which is the only reason to trust the other numbers in it.
 
  
 | Party | Puts in | Takes out | Net per task | % of ticket | 
@@ -403,11 +403,13 @@ Every plan shows the protocol's P&L, because the protocol writes it. The harder 
  
 | Triage traders | Capital and attention on the ranking market | The whole 1% pool | +$0.61, shared | 1.0% | 
  
-| Auditor (10% sample) | ~20 minutes of human review | $19 per audited task → $1.90 expected per task | $0 at pool level | 3.1% to labour | 
+| Auditor (10% sample) | ~20 minutes of human review | $19 per audited task → $1.90 expected per task | +$1.90 | 3.1% | 
  
 | Dispute jurors (2% escalate) | A staked answer on Reality.eth, a seat if it goes to Kleros | The arbitration fee, paid out of the losing side's bond | $0 unless escalated | — | 
  
-| Foreguild | Escrow, settlement, and the audit it paid for | The 6% settlement fee | +$1.41 | 2.3% | 
+| Infrastructure | Gas and sandbox compute | $0.35 a task, batched | +$0.35 | 0.6% | 
+ 
+| Foreguild | Escrow and settlement, plus $2.25 of the fee it collects, paid straight out to audit and gas | The 6% settlement fee: $3.66 in, $1.41 kept | +$1.41 | 2.3% | 
  
 
 The protocol keeps 39% of the fee it charges; the other 61% goes to the thing that makes the fee defensible — human audit and settlement cost. That number is meant to look thin. A marketplace that keeps most of its take is taxing its workers, and workers leave those first.
@@ -480,7 +482,7 @@ The ledger is stable along most dimensions and violently sensitive along two. Fi
 
 The floor is $37.50. Under it, a 6% fee cannot pay for a 10% audit sample plus gas, no matter how many tasks arrive — volume makes it worse, not better. Most of the public bounty boards run at exactly that size, $2 to $25, which is why "we will audit everything" is not a policy a plan can promise at those prices and stay solvent.
 
-So Foreguild runs two contract lanes and a metered rail, and the split is a design constraint rather than a pricing trick. The audited lane starts at $40: 6% fee, 10% human sample, full attestation. The small-task lane covers $1–$40 at the same 6%, no human sample, settlement batched so gas falls to about $0.02 a task. At a $19 median ticket it contributes $1.12 a task — 98% of its fee — and it would need 2,900 tasks a month to carry the fixed base on its own. It is not there for the P&L. It is there because every small settled task produces a verified accepted/rejected pair, which is the data the licensing line sells and the cheapest acquisition channel a poster funnel has. A plan that hid this lane would be quietly claiming to audit work it cannot afford to audit.
+So Foreguild runs two contract lanes and a metered rail, and the split is a design constraint rather than a pricing trick. The audited lane starts at $40: 6% fee, 10% human sample, full attestation. The small-task lane covers $1–$40 at the same 6%, no human sample, settlement batched so gas falls to about $0.02 a task. At the $12 average the mix assigns it, it contributes $0.70 a task — 97% of its fee — and it would need about 4,660 tasks a month to carry the fixed base on its own. It is not there for the P&L. It is there because every small settled task produces a verified accepted/rejected pair, which is the data the licensing line sells and the cheapest acquisition channel a poster funnel has. A plan that hid this lane would be quietly claiming to audit work it cannot afford to audit.
 
 Where the model is not fragile matters too. Inference could quadruple and it would cost the worker $1.44 out of $56.98 and the protocol nothing — AI prices are the least dangerous variable in this plan, despite being the most discussed. Bonds could double and workers would still keep 90% of the ticket. The plan is fragile on two parameters and comfortable on the rest, and both fragile ones — the audit sample and the $40 lane split — are choices where a wrong setting stays invisible for months while quietly inverting the unit economics.
 
@@ -506,7 +508,7 @@ Being explicit about this because it is the most common way these plans lie: the
  
 | Task subsidy (capped, decaying) | $2,000 | Pays the settlement fee on the first tasks only; decays to zero by week 14 | 
  
-| Reserve | $2,000 | Untouched; funds one dispute storm or one bad month | 
+| Reserve | $2,000 | Part of operating cash until the tranche lands: the month-4 trough of −$1,312 sits inside it, so it is the buffer that keeps that trough from being a default — not a ring-fence | 
  
 | Total seed | $26,700 | $14,200 of operating cash after the one-offs — 4.4 months at zero revenue; the revenue curve carries it to month 5 | 
  
@@ -536,15 +538,15 @@ The total requirement is $56,700 — $26,700 now and ~$30,000 at month 5 — and
 | 12 | $10,834 | $5,434 | $3,260 | +$2,174 | $21,792 | 
  
 
-Closing cash is operating cash only: the $4,000 of launch liquidity sits in the markets, is recoverable, and is not counted as available. The monthly P&L turns positive in month 11; the closing balance never goes negative because the tranche lands before month 5's burn does — remove the tranche and cash is exhausted during month 5.
+Closing cash is operating cash only: the $4,000 of launch liquidity sits in the markets, is recoverable, and is not counted as available. The monthly P&L turns positive in month 11 on the blended take and in month 12 on the settlement fee alone; the closing balance never goes negative because the tranche lands before month 5's burn does — remove the tranche and cash is exhausted during month 5.
 
-The prize (0.5 ETH + 4,000 USDC, roughly $9.9k at current prices) covers about a third of the seed, so it is treated as the first tranche: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. If the prize is all the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it. Either way the seed buys proof, not a company: $26,700 is what it costs to find out whether posters will pay 6% for a receipt, and the plan is built so that the answer arrives at month 5 instead of month 12.
+The prize (0.5 ETH + 4,000 USDC, roughly $9.9k at current prices) covers about a third of the seed, so it is treated as the first tranche: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. That also fixes what cheque is being asked for, which the header should not leave to inference: $16,800 if the prize lands and $26,700 if it does not, with the month-5 tranche sized for the second case. If the prize is all the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it. Either way the seed buys proof, not a company: $26,700 is what it costs to find out whether posters will pay 6% for a receipt, and the plan is built so that the answer arrives at month 5 instead of month 12.
 
 ### 10 / Governance
 
 Futarchy decides parameters, contracts decide payouts
 
-Governance needs one number to optimise, and it must be measurable after the fact. Foreguild's is net protocol revenue, defined below with its resolution rules; everything the markets decide is priced against it.
+Governance needs one number to optimise, and it must be measurable after the fact. Foreguild's is net protocol revenue, defined below with its resolution rules; everything the markets decide is priced against it. Where a question names a narrower measure — contribution margin in a category, failure rate at constant cost, time-to-acceptance — that measure is a constraint the winning decision must satisfy, not a second resolution criterion: the market resolves against net protocol revenue over the stated window, so two markets cannot disagree about what winning means.
 
 The separation is the whole point. Facts about a single task are cheap to verify and expensive to argue: those go to Reality.eth and Kleros. Parameters about the protocol are expensive to verify and cheap to argue: those go to a market. Mixing the two is how governance systems become either arbitrary or paralyzed.
 
@@ -599,7 +601,7 @@ We measured Seer's own board on 8 November 2026 with tools/seer_depth.py and too
 
 So the board today is half a mechanism. Liquidity is the half that is missing: funded branches are thin, and their median holds $25. Trader attention is the half that exists: on a question people care about, twenty or more addresses will price it, and two markets clear both halves of a depth threshold at once — the National Rally candidacy ($7,185 of liquidity, 49 traders) and the National Assembly seat count ($6,791, 49). Both are the parent question, and both are French-election questions: that is what a news cycle looks like, and what disappears when the cycle ends. The pair also makes the inheritance gap measurable instead of rhetorical — the Le Pen candidacy market has 49 traders, and its own child, who the National Rally nominates, is the deepest branch on the board at $7,598 and carries 9.
 
-We set the threshold from that: a decision binds when the market holds ≥$3,000 of liquidity and ≥20 addresses with non-zero volume, counted on the leaderboard when the question opens. Two of 68 markets clear it today, and neither is a branch. That also kills the shortcut this section was tempted by: hanging a fee branch under a hot election parent would resolve on nothing — the parent's outcome does not determine the fee question — so the traders whose attention we wanted would price a question that has no bearing on the fee and ignore the branch. The fee market therefore gets its own parent ("what should the audited-lane fee be?") with the fee alternatives as its branches, and the attention is bought rather than inherited: liquidity seeded from the treasury at the level above, plus a trader subsidy equal to the audit-rate market's, with the achieved count published monthly against the threshold. If no parent qualifies, futarchy stays advisory, the veto stays, and the count is published with the monthly books — the numbers above are reproducible with one script, which is the only reason they are worth putting in a plan.
+We set the threshold from that: a decision binds when the market holds ≥$3,000 of liquidity and ≥20 addresses with non-zero volume, counted on the leaderboard on the day the decision is scheduled, not on the day the market is created — a market needs 72 hours of trading before the count means anything, and a market opened the morning of its own decision never binds. Two of 68 markets clear it today, and neither is a branch. That also kills the shortcut this section was tempted by: hanging a fee branch under a hot election parent would resolve on nothing — the parent's outcome does not determine the fee question — so the traders whose attention we wanted would price a question that has no bearing on the fee and ignore the branch. The fee market therefore gets its own parent ("what should the audited-lane fee be?") with the fee alternatives as its branches, and the attention is bought rather than inherited: liquidity carved out of the $4,000 launch liquidity the model already locks in markets, plus a share of the $2,000 cold-start subsidy, with the achieved count published monthly against the threshold. If no parent qualifies, futarchy stays advisory, the veto stays, and the count is published with the monthly books — the numbers above are reproducible with one script, which is the only reason they are worth putting in a plan.
 
 Three honest limits on that measurement. A branch here means a market the conditional view returns: the field exists on every market in the unfiltered view, so "has a parent id" tests nothing and we do not use it. An address with volume above zero is not a person: market makers and airdrop farmers count, so 49 traders is an upper bound on distinct humans, and the leaderboard only exposes an all-time view, so "in the last 72 hours" cannot be read from it — we say "when the question opens" instead of pretending to a window the source does not give. Until both hold, futarchy is advisory and the multisig is accountable by name; when the threshold trips, the veto is deleted by the same market that satisfied it.
 

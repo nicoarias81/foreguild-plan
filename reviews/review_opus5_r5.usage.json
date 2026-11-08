@@ -1,0 +1,20 @@
+{
+ "model": "anthropic/claude-opus-5",
+ "chars": 4877,
+ "finish_reason": "stop",
+ "usage": {
+  "completion_tokens": 8392,
+  "prompt_tokens": 22908,
+  "total_cost": 0.32434,
+  "completion_tokens_details": {
+   "reasoning_tokens": 6519
+  },
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 31300,
+  "currency": "USD",
+  "completion_cost": 0.2098,
+  "prompt_cost": 0.11454
+ }
+}

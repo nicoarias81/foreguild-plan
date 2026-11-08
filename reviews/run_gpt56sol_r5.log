@@ -1,0 +1,12 @@
+{"model": "openai/gpt-5.6-sol", "chars": 5177, "finish_reason": "stop", "usage": {"completion_tokens": 5338, "prompt_tokens": 15492, "total_cost": 0.184217, "completion_tokens_details": {"reasoning_tokens": 4041}, "prompt_tokens_details": {"cached_tokens": 0}, "total_tokens": 20830, "currency": "USD", "completion_cost": 0.10676, "prompt_cost": 0.077457, "token_cost_details": {"cache_write_tokens": 15489, "cache_write_tokens_cost": 0.077445}}}
+1. **The seed runs out before the stated tranche date if the reserve is actually untouchable.**  
+   - **Quotes:** “Reserve | $2,000 | Untouched”; “The operating balance is $14,200, which bottoms at $1,312 at the end of month 4”; “the second tranche of about $30k closes by the end of month 5.”  
+   - **What is wrong:** The $14,200 operating balance includes the $2,000 reserve:  
+     \[
+     \$26,700-\$12,500=\$14,200.
+     \]  
+     At the stated month-4 balance, unrestricted cash is therefore:  
+     \[
+     \$1,312-\$2,000=-\$688.
+     \]  
+     The plan breaches its reserve before month 5,

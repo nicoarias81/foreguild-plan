@@ -1,0 +1,7 @@
+{"model": "anthropic/claude-opus-5", "chars": 4877, "finish_reason": "stop", "usage": {"completion_tokens": 8392, "prompt_tokens": 22908, "total_cost": 0.32434, "completion_tokens_details": {"reasoning_tokens": 6519}, "prompt_tokens_details": {"cached_tokens": 0}, "total_tokens": 31300, "currency": "USD", "completion_cost": 0.2098, "prompt_cost": 0.11454}}
+## 1. Headline profitability contradicts the body, and the difference is uncosted
+
+**Quote (header):** "break-even at roughly 1,450 settled tasks per month at that blend (2,310 if only the settlement fee counted), crossed in month 11."
+**Quote (§07):** "the honest profit figure is the fee-only one — +$124 in month 12, break-even in month 12 rather than month 11 — and the $2,050 gap between the two paths is an assumption about ancillary margin, not a measurement."
+
+The blended contribution of $2.26/task, the "+$2,174" month-12 profit, the month-11 crossing and the whole cash curve all run on th
