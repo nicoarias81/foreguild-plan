@@ -64,7 +64,7 @@
     <span>Author: @ariasnico</span>
     <span>Financing: ~$56.7k total — ~$26.7k seed now, ~$30k tranche gated at month 5</span>
     <span>Horizon: 12 months from first paid task</span>
-    <span>Written after reading all 50 entries already on the board</span>
+    <span>Written after reading all 54 entries already on the board</span>
   </div>
 </header>
 
@@ -81,22 +81,22 @@
 <p>This page was written after reading every claim on this bounty, the last of them at 07:25 UTC on 8 November 2026 — with the dump of all fifty in the repository, because "twenty-two entries already agree" is the kind of sentence a judge has to take on trust. The convergence below is counted: one regex per row, run over the claim bodies by <code>tools/field_stats.py</code>.</p>
 
 <table>
-  <thead><tr><th>What the field proposes</th><th class="num">of 50</th><th>Typical form</th></tr></thead>
+  <thead><tr><th>What the field proposes</th><th class="num">of 54</th><th>Typical form</th></tr></thead>
   <tbody>
-    <tr><td>Futarchy over one welfare metric</td><td class="num">40</td><td>26 name a concrete 90-day revenue number — NSR-90, NFR₉₀, CMV₉₀, GMV₉₀, “net fee revenue”, “net settled revenue”</td></tr>
-    <tr><td>Named roles for the agent swarm</td><td class="num">13</td><td>Scout, planner, worker, verifier, auditor — 37 claims mention agents without naming a role set</td></tr>
-    <tr><td>A percentage take on task value</td><td class="num">26</td><td>6–10% of the ticket; six add an explicit per-task floor ($0.25 to $0.40)</td></tr>
-    <tr><td>Escrow plus a dispute ladder</td><td class="num">14</td><td>A rejected worker escalates with a bond; Reality.eth resolves, Kleros as backstop</td></tr>
-    <tr><td>Bonds and slashing</td><td class="num">11</td><td>10–20% worker stake, forfeited when acceptance fails</td></tr>
-    <tr><td>A dispute section with a resolution path</td><td class="num">26</td><td>Reality.eth question, loser pays, one round, appeal capped</td></tr>
-    <tr><td>A risk section with mitigations</td><td class="num">15</td><td>Collusion, thin markets, arbitration cost</td></tr>
-    <tr><td>A phased roadmap with milestones</td><td class="num">29</td><td>90 days, three or four phases</td></tr>
-    <tr><td>Links out of the claim</td><td class="num">46</td><td>An HTML page, a repository, a PDF; four keep everything inline</td></tr>
-    <tr><td><strong>Prices the worker's own inference</strong></td><td class="num">0</td><td>No claim subtracts tokens from the worker's margin: all price the ticket, none price the cost of producing it</td></tr>
+    <tr><td>Futarchy over one welfare metric</td><td class="num">44</td><td>29 name a concrete 90-day revenue number — NSR-90, NFR₉₀, CMV₉₀, GMV₉₀, “net fee revenue”, “net settled revenue”</td></tr>
+    <tr><td>Named roles for the agent swarm</td><td class="num">13</td><td>Scout, planner, worker, verifier, auditor — 41 claims mention agents without naming a role set</td></tr>
+    <tr><td>A percentage take on task value</td><td class="num">28</td><td>6–10% of the ticket; six add an explicit per-task floor ($0.25 to $0.40)</td></tr>
+    <tr><td>Escrow plus a dispute ladder</td><td class="num">16</td><td>A rejected worker escalates with a bond; Reality.eth resolves, Kleros as backstop</td></tr>
+    <tr><td>Bonds and slashing</td><td class="num">13</td><td>10–20% worker stake, forfeited when acceptance fails</td></tr>
+    <tr><td>A dispute section with a resolution path</td><td class="num">28</td><td>Reality.eth question, loser pays, one round, appeal capped</td></tr>
+    <tr><td>A risk section with mitigations</td><td class="num">16</td><td>Collusion, thin markets, arbitration cost</td></tr>
+    <tr><td>A phased roadmap with milestones</td><td class="num">30</td><td>90 days, three or four phases</td></tr>
+    <tr><td>Links out of the claim</td><td class="num">50</td><td>An HTML page, a repository, a PDF; four keep everything inline</td></tr>
+    <tr><td><strong>Prices the worker's own inference</strong></td><td class="num">0</td><td>No claim charges the worker for its own tokens: all price the ticket, none price what it costs to produce. The closest is 9441, whose fee formula nets out guardian compute cost before it lands on revenue</td></tr>
     <tr><td>A market deployed on-chain</td><td class="num">2</td><td>One pair of Seer markets on Base, unfunded by its author's own admission; one measurement of Seer's board</td></tr>
   </tbody>
 </table>
-<p class="cap">Counted over the 50 claim bodies at 07:25 UTC on 8 November 2026, titles excluded: <code>tools/field_stats.py</code> plus <code>data/claims_2026-11-08.json</code> are in the repository. Median entry: 1,010 characters. The longest is 3,308, the shortest 20 — a two-line claim that still names a metric. None uses a table inside the claim. The vocabulary is saturated: <em>bonded</em>, <em>outcome</em>, <em>revenue-first</em>, <em>guild</em>, <em>90-day</em>.</p>
+<p class="cap">Counted over the 54 claim bodies at 22:36 UTC on 8 November 2026, titles excluded: <code>tools/field_stats.py</code> plus <code>data/claims_2026-11-08.json</code> are in the repository, and <code>tools/dump_claims.py</code> rebuilds the dump from the poidh MCP endpoint, so the census is one command. Median entry: 988 characters. The longest is 3,308, the shortest 20 — a two-line claim that still names a metric. None uses a table inside the claim. The vocabulary is saturated: <em>bonded</em>, <em>outcome</em>, <em>revenue-first</em>, <em>guild</em>, <em>90-day</em>.</p>
 
 <h3>What arrived in the last 48 hours, and what we took from it</h3>
 
@@ -244,7 +244,7 @@
 </div>
 
 <h3>Disputes</h3>
-<p>Disagreement is priced, not adjudicated for free. A rejected worker can escalate by posting a bond (default: 20% of task value, minimum $5) and opening a Reality.eth question with the acceptance test as its resolution criteria. Kleros arbitrates contested answers. Loser pays the bond to the winner plus the arbitration fee; the protocol takes nothing from disputes, so it has no incentive to manufacture them. Escalation is capped at one round per task — the failure mode of every arbitration system is becoming a second marketplace.</p>
+<p>Disagreement is priced, not adjudicated for free. A rejected worker can escalate by posting a bond (default: 20% of task value, minimum $5) and opening a Reality.eth question with the acceptance test as its resolution criteria. Kleros arbitrates contested answers. Loser pays the bond to the winner plus the arbitration fee; the protocol takes nothing from disputes, so it has no incentive to manufacture them. Escalation is capped at one round per task — the failure mode of every arbitration system is becoming a second marketplace — and it is gated on size: a decision escalates only when the stake exceeds 8× the cost of the next step. Below that the bond-backed appeal is the last word, which is what keeps a $25 task from paying for a $40 jury.</p>
 
 <h3>Human intervention</h3>
 <p>Humans hold three reserved powers and nothing else: freezing a task under legal or safety suspicion, delisting a category, and overriding a payout that a script proves fraudulent. Each use is logged on-chain with a public reason, and each override is itself a metric — if overrides exceed 2% of settlements in a month, the parameters that caused them are reopened by market.</p>
@@ -387,6 +387,21 @@
   </tbody>
 </table>
 <p class="cap">The protocol keeps <strong>39% of the fee it charges</strong>; the other 61% goes to the thing that makes the fee defensible — human audit and settlement cost. That number is meant to look thin. A marketplace that keeps most of its take is taxing its workers, and workers leave those first.</p>
+
+<h3>The verification ratio</h3>
+<p>The number a reviewer puts beside every other plan on this board is not the take, it is the audit bill as a share of the fee — and how it moves with ticket size.</p>
+<table>
+  <thead><tr><th>Ticket</th><th class="num">Fee at 6%</th><th class="num">Expected audit</th><th class="num">Audit / fee</th><th class="num">Audit / GMV</th></tr></thead>
+  <tbody>
+    <tr><td>$61 — the model's median</td><td class="num">$3.66</td><td class="num">$1.90</td><td class="num">52%</td><td class="num">3.1%</td></tr>
+    <tr><td>$120</td><td class="num">$7.20</td><td class="num">$1.90</td><td class="num">26%</td><td class="num">1.6%</td></tr>
+    <tr><td>$158</td><td class="num">$9.48</td><td class="num">$1.90</td><td class="num">20%</td><td class="num">1.2%</td></tr>
+  </tbody>
+</table>
+<p class="cap">Ten per cent of tasks audited at $19, so the bill is flat per task and falls as a share of the fee as tickets grow. Crossing 20% is a <strong>mix decision</strong> — raise the average ticket — not a growth decision, and it is why the audited lane opens at $40 rather than at $0. One contrast will be drawn and is worth stating first: a plan that books verification as a <em>revenue</em> line (9497 has 6% of revenue from verification-as-a-service) is selling the audit; ours is a cost, 3.1% of GMV paid out once and never charged again. Recomputed by <code>tools/model.py</code> (<code>verification_ratio</code>) and pinned in <code>--check</code>.</p>
+
+<h3>Why not keep the ticket</h3>
+<p>The sharpest objection on this board comes from 9492: a 10% fee on a $120 task is $12, selling the work costs more than that, so do it in-house and keep the ticket. The answer is where the money has to sit before the work happens. Keeping the ticket means carrying the capital for every task — escrow, bond, compute — before the buyer pays, paying the cost of sale per buyer rather than per task, and being the single vendor a buyer can blame when a job fails. A marketplace exists because those three costs spread over many suppliers more cheaply than they concentrate in one. What is worth copying instead: an in-house agent pool that bids in the same auction at the same published price in lanes where supply is thin, and the Seer desk run as a contract rather than a department. Both are revenue; neither requires eliminating the worker who is better than our pool.</p>
 
 <h3>Why each party stays</h3>
 <table>
@@ -577,10 +592,10 @@
 <table>
   <thead><tr><th>Risk</th><th>Why it bites</th><th>Mitigation</th></tr></thead>
   <tbody>
-    <tr><td><strong>Poster–worker collusion</strong></td><td>Two wallets manufacture settled volume to farm reputation or subsidies</td><td>Attestations weight by distinct counterparties; subsidy decays and is capped per wallet; GMV counts net of self-dealing clusters</td></tr>
+    <tr><td><strong>Poster–worker collusion</strong></td><td>Two wallets manufacture settled volume to farm reputation or subsidies</td><td>Attestations weight by distinct counterparties; subsidy decays and is capped per wallet; GMV counts net of self-dealing clusters, and three agents of one operator count as <strong>one bidder with one combined exposure cap</strong> — in claims and in volume alike, so splitting a wallet does not buy a second seat</td></tr>
     <tr><td><strong>Quality flood</strong></td><td>Free submission turns every task into 50 plausible answers</td><td>Claim bonds, claim ceilings, deterministic tests first, market triage</td></tr>
     <tr><td><strong>Thin markets</strong></td><td>Triage is only as good as its liquidity</td><td>Seeded liquidity, category-specific markets, and a fallback to full human review when liquidity is below threshold — never a silent fake signal</td></tr>
-    <tr><td><strong>Arbitration cost</strong></td><td>Kleros fees can exceed a $40 task</td><td>Escalation only above a minimum task value; small tasks resolved by poster with a bond-backed appeal, not by court</td></tr>
+    <tr><td><strong>Arbitration cost</strong></td><td>Kleros fees can exceed a $40 task</td><td>Escalation gate: a decision escalates only when the stake exceeds <strong>8× the cost of the next step</strong>, and everything below it is final — a $25 task cannot buy a $40 arbitration. Small tasks are settled by the poster's bond-backed appeal, not by a court</td></tr>
     <tr><td><strong>Data licensing consent</strong></td><td>Selling work product without clear rights is a legal and reputational hazard</td><td>Opt-in at task creation, revenue split with the worker, and nothing licensable by default</td></tr>
     <tr><td><strong>Stale listings</strong></td><td>Observed on poidh: <code>acceptingClaims</code> true on a closed bounty</td><td>Every open task carries an on-chain expiry and requires live escrow; the API reads escrow balance, not a cached flag</td></tr>
     <tr><td><strong>Inference price shock</strong></td><td>Worker margin is a function of token prices; a 3× move reprices every category at once and the take rate that was fair becomes predatory</td><td>The fee is a share of verified value, never a fixed per-task sum, and the metered rail reprices per call; category economics are a futarchy parameter, not a code change</td></tr>
@@ -630,7 +645,7 @@
   <p>Every number below is reproducible from the repository, and the scripts fail loudly when a figure on this page drifts from its drivers:</p>
   <ul>
     <li><code>python3 tools/model.py --check</code> — unit economics, 12-month ledger, break-even, cash curve and float, from the drivers in the file.</li>
-    <li><code>python3 tools/field_stats.py --check</code> — the 50-entry convergence table in section 00, against <code>data/claims_2026-11-08.json</code>.</li>
+    <li><code>python3 tools/field_stats.py --check</code> — the 54-entry convergence table in section 00, against <code>data/claims_2026-11-08.json</code>.</li>
     <li><code>python3 tools/seer_depth.py</code> — Seer's board as measured on 8 November 2026 (3,051 markets); writes <code>data/seer_depth_2026-11-08.json</code>.</li>
     <li><code>python3 tools/trader_depth.py</code> — distinct traders per funded market, from the PnL leaderboard; writes <code>data/trader_depth_2026-11-08.json</code>. <code>--check</code> re-asserts the figures in section 10 without touching the network.</li>
   </ul>

@@ -9,7 +9,7 @@ A revenue-first operating plan for an AI job board whose agents do the work, who
  Author: @ariasnico
  Financing: ~$56.7k total — ~$26.7k seed now, ~$30k tranche gated at month 5
  Horizon: 12 months from first paid task
- Written after reading all 50 entries already on the board
+ Written after reading all 54 entries already on the board
  
 
 Foreguild's scarce resource is not agents. It is attention. On every open task, five to fifty agents will produce something plausible, and a human then has to read all of it to find the one that is real. That is the cost that kills AI work marketplaces: review scales linearly with submissions, while the value of the task does not. This plan makes review the product, prices it, and turns the parts that can be traded into markets.
@@ -25,33 +25,33 @@ Fifty entries are on the board. They converge on five design choices, and not on
 This page was written after reading every claim on this bounty, the last of them at 07:25 UTC on 8 November 2026 — with the dump of all fifty in the repository, because "twenty-two entries already agree" is the kind of sentence a judge has to take on trust. The convergence below is counted: one regex per row, run over the claim bodies by tools/field_stats.py.
 
  
-| What the field proposes | of 50 | Typical form | 
+| What the field proposes | of 54 | Typical form | 
  
  
-| Futarchy over one welfare metric | 40 | 26 name a concrete 90-day revenue number — NSR-90, NFR₉₀, CMV₉₀, GMV₉₀, “net fee revenue”, “net settled revenue” | 
+| Futarchy over one welfare metric | 44 | 29 name a concrete 90-day revenue number — NSR-90, NFR₉₀, CMV₉₀, GMV₉₀, “net fee revenue”, “net settled revenue” | 
  
-| Named roles for the agent swarm | 13 | Scout, planner, worker, verifier, auditor — 37 claims mention agents without naming a role set | 
+| Named roles for the agent swarm | 13 | Scout, planner, worker, verifier, auditor — 41 claims mention agents without naming a role set | 
  
-| A percentage take on task value | 26 | 6–10% of the ticket; six add an explicit per-task floor ($0.25 to $0.40) | 
+| A percentage take on task value | 28 | 6–10% of the ticket; six add an explicit per-task floor ($0.25 to $0.40) | 
  
-| Escrow plus a dispute ladder | 14 | A rejected worker escalates with a bond; Reality.eth resolves, Kleros as backstop | 
+| Escrow plus a dispute ladder | 16 | A rejected worker escalates with a bond; Reality.eth resolves, Kleros as backstop | 
  
-| Bonds and slashing | 11 | 10–20% worker stake, forfeited when acceptance fails | 
+| Bonds and slashing | 13 | 10–20% worker stake, forfeited when acceptance fails | 
  
-| A dispute section with a resolution path | 26 | Reality.eth question, loser pays, one round, appeal capped | 
+| A dispute section with a resolution path | 28 | Reality.eth question, loser pays, one round, appeal capped | 
  
-| A risk section with mitigations | 15 | Collusion, thin markets, arbitration cost | 
+| A risk section with mitigations | 16 | Collusion, thin markets, arbitration cost | 
  
-| A phased roadmap with milestones | 29 | 90 days, three or four phases | 
+| A phased roadmap with milestones | 30 | 90 days, three or four phases | 
  
-| Links out of the claim | 46 | An HTML page, a repository, a PDF; four keep everything inline | 
+| Links out of the claim | 50 | An HTML page, a repository, a PDF; four keep everything inline | 
  
-| Prices the worker's own inference | 0 | No claim subtracts tokens from the worker's margin: all price the ticket, none price the cost of producing it | 
+| Prices the worker's own inference | 0 | No claim charges the worker for its own tokens: all price the ticket, none price what it costs to produce. The closest is 9441, whose fee formula nets out guardian compute cost before it lands on revenue | 
  
 | A market deployed on-chain | 2 | One pair of Seer markets on Base, unfunded by its author's own admission; one measurement of Seer's board | 
  
 
-Counted over the 50 claim bodies at 07:25 UTC on 8 November 2026, titles excluded: tools/field_stats.py plus data/claims_2026-11-08.json are in the repository. Median entry: 1,010 characters. The longest is 3,308, the shortest 20 — a two-line claim that still names a metric. None uses a table inside the claim. The vocabulary is saturated: bonded, outcome, revenue-first, guild, 90-day.
+Counted over the 54 claim bodies at 22:36 UTC on 8 November 2026, titles excluded: tools/field_stats.py plus data/claims_2026-11-08.json are in the repository, and tools/dump_claims.py rebuilds the dump from the poidh MCP endpoint, so the census is one command. Median entry: 988 characters. The longest is 3,308, the shortest 20 — a two-line claim that still names a metric. None uses a table inside the claim. The vocabulary is saturated: bonded, outcome, revenue-first, guild, 90-day.
 
 ### What arrived in the last 48 hours, and what we took from it
 
@@ -229,7 +229,7 @@ Evidence over intuition. Seer already runs opportunity markets where traders pri
 
 ### Disputes
 
-Disagreement is priced, not adjudicated for free. A rejected worker can escalate by posting a bond (default: 20% of task value, minimum $5) and opening a Reality.eth question with the acceptance test as its resolution criteria. Kleros arbitrates contested answers. Loser pays the bond to the winner plus the arbitration fee; the protocol takes nothing from disputes, so it has no incentive to manufacture them. Escalation is capped at one round per task — the failure mode of every arbitration system is becoming a second marketplace.
+Disagreement is priced, not adjudicated for free. A rejected worker can escalate by posting a bond (default: 20% of task value, minimum $5) and opening a Reality.eth question with the acceptance test as its resolution criteria. Kleros arbitrates contested answers. Loser pays the bond to the winner plus the arbitration fee; the protocol takes nothing from disputes, so it has no incentive to manufacture them. Escalation is capped at one round per task — the failure mode of every arbitration system is becoming a second marketplace — and it is gated on size: a decision escalates only when the stake exceeds 8× the cost of the next step. Below that the bond-backed appeal is the last word, which is what keeps a $25 task from paying for a $40 jury.
 
 ### Human intervention
 
@@ -413,6 +413,27 @@ Every plan shows the protocol's P&L, because the protocol writes it. The harder 
  
 
 The protocol keeps 39% of the fee it charges; the other 61% goes to the thing that makes the fee defensible — human audit and settlement cost. That number is meant to look thin. A marketplace that keeps most of its take is taxing its workers, and workers leave those first.
+
+### The verification ratio
+
+The number a reviewer puts beside every other plan on this board is not the take, it is the audit bill as a share of the fee — and how it moves with ticket size.
+
+ 
+| Ticket | Fee at 6% | Expected audit | Audit / fee | Audit / GMV | 
+ 
+ 
+| $61 — the model's median | $3.66 | $1.90 | 52% | 3.1% | 
+ 
+| $120 | $7.20 | $1.90 | 26% | 1.6% | 
+ 
+| $158 | $9.48 | $1.90 | 20% | 1.2% | 
+ 
+
+Ten per cent of tasks audited at $19, so the bill is flat per task and falls as a share of the fee as tickets grow. Crossing 20% is a mix decision — raise the average ticket — not a growth decision, and it is why the audited lane opens at $40 rather than at $0. One contrast will be drawn and is worth stating first: a plan that books verification as a revenue line (9497 has 6% of revenue from verification-as-a-service) is selling the audit; ours is a cost, 3.1% of GMV paid out once and never charged again. Recomputed by tools/model.py (verification_ratio) and pinned in --check.
+
+### Why not keep the ticket
+
+The sharpest objection on this board comes from 9492: a 10% fee on a $120 task is $12, selling the work costs more than that, so do it in-house and keep the ticket. The answer is where the money has to sit before the work happens. Keeping the ticket means carrying the capital for every task — escrow, bond, compute — before the buyer pays, paying the cost of sale per buyer rather than per task, and being the single vendor a buyer can blame when a job fails. A marketplace exists because those three costs spread over many suppliers more cheaply than they concentrate in one. What is worth copying instead: an in-house agent pool that bids in the same auction at the same published price in lanes where supply is thin, and the Seer desk run as a contract rather than a department. Both are revenue; neither requires eliminating the worker who is better than our pool.
 
 ### Why each party stays
 
@@ -660,13 +681,13 @@ Named, priced, and mostly boring
 | Risk | Why it bites | Mitigation | 
  
  
-| Poster–worker collusion | Two wallets manufacture settled volume to farm reputation or subsidies | Attestations weight by distinct counterparties; subsidy decays and is capped per wallet; GMV counts net of self-dealing clusters | 
+| Poster–worker collusion | Two wallets manufacture settled volume to farm reputation or subsidies | Attestations weight by distinct counterparties; subsidy decays and is capped per wallet; GMV counts net of self-dealing clusters, and three agents of one operator count as one bidder with one combined exposure cap — in claims and in volume alike, so splitting a wallet does not buy a second seat | 
  
 | Quality flood | Free submission turns every task into 50 plausible answers | Claim bonds, claim ceilings, deterministic tests first, market triage | 
  
 | Thin markets | Triage is only as good as its liquidity | Seeded liquidity, category-specific markets, and a fallback to full human review when liquidity is below threshold — never a silent fake signal | 
  
-| Arbitration cost | Kleros fees can exceed a $40 task | Escalation only above a minimum task value; small tasks resolved by poster with a bond-backed appeal, not by court | 
+| Arbitration cost | Kleros fees can exceed a $40 task | Escalation gate: a decision escalates only when the stake exceeds 8× the cost of the next step, and everything below it is final — a $25 task cannot buy a $40 arbitration. Small tasks are settled by the poster's bond-backed appeal, not by a court | 
  
 | Data licensing consent | Selling work product without clear rights is a legal and reputational hazard | Opt-in at task creation, revenue split with the worker, and nothing licensable by default | 
  
@@ -737,7 +758,7 @@ Every number below is reproducible from the repository, and the scripts fail lou
  
 - python3 tools/model.py --check — unit economics, 12-month ledger, break-even, cash curve and float, from the drivers in the file.
  
-- python3 tools/field_stats.py --check — the 50-entry convergence table in section 00, against data/claims_2026-11-08.json.
+- python3 tools/field_stats.py --check — the 54-entry convergence table in section 00, against data/claims_2026-11-08.json.
  
 - python3 tools/seer_depth.py — Seer's board as measured on 8 November 2026 (3,051 markets); writes data/seer_depth_2026-11-08.json.
  

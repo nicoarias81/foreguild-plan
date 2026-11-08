@@ -36,9 +36,9 @@ PATTERNS = {
 
 # the counts printed in section 00 of index.html
 PAGE = {
-    "futarchy": 40, "named_metric": 26, "named_roles": 13, "take_pct": 26,
-    "per_task_floor": 6, "escrow": 14, "bonds": 11, "dispute_ladder": 26,
-    "risk_section": 15, "phased_roadmap": 29, "links_out": 46,
+    "futarchy": 44, "named_metric": 29, "named_roles": 13, "take_pct": 28,
+    "per_task_floor": 6, "escrow": 16, "bonds": 13, "dispute_ladder": 28,
+    "risk_section": 16, "phased_roadmap": 30, "links_out": 50,
     "prices_worker_inference": 0, "metered_rail": 1, "live_market_deployed": 2,
 }
 

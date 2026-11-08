@@ -77,6 +77,19 @@ def unit_economics(ticket=61.0, task="standard"):
     }
 
 
+def verification_ratio(ticket):
+    """Expected audit cost as a share of the fee and of the ticket.
+
+    Section 07 quotes this at three ticket sizes: it is the number a reviewer
+    compares across plans, and the one that decides whether verification can
+    scale with volume at all.
+    """
+    fee = ticket * FEE_CONTRACT
+    audit = AUDIT_SAMPLE * AUDIT_COST
+    return {"ticket": ticket, "fee": fee, "audit": audit,
+            "pct_of_fee": audit / fee, "pct_of_gmv": audit / ticket}
+
+
 def month_ledger():
     rows = []
     for m in range(1, 13):
@@ -143,6 +156,10 @@ def main():
     print(f"CASH         operating at t0 ${op_cash0:.0f} ({runway_zero:.1f} months at zero revenue)")
     print(f"FEE-ONLY     net at m12 ${fee_only[-1]:.0f}; turns positive in month {fee_pos}; "
           f"blended path turns positive in month {blend_pos}")
+    ratios = [verification_ratio(t) for t in (61.0, 120.0, 158.0)]
+    print("RATIO        " + " | ".join(
+        f"${r['ticket']:.0f}: {r['pct_of_fee']*100:.0f}% of fee, {r['pct_of_gmv']*100:.1f}% of GMV"
+        for r in ratios))
     print(f"             trough ${trough:.0f} at m{trough_month}; first negative month {neg}")
     print(f"             closing m12 ${cash_rows[-1]['closing']:.0f}")
     print(f"FLOAT        ${float_month:.1f}/month at month-12 GMV (3.5% APY, 9-day hold)")
@@ -164,7 +181,7 @@ def main():
         "m12_revenue": 10834, "m12_contribution": 5434, "m12_profit": 2174,
         "m12_per_task": 2.26, "breakeven_fee": 2312, "breakeven_blend": 1440,
         "float_month": 128.0, "fee_only_net_m12": 124, "fee_only_turn": 12,
-        "blend_turn": 11,
+        "blend_turn": 11, "ratio_61": 52, "ratio_120": 26, "ratio_158": 20,
     }
     got = {"contribution": u["contribution"], "contribution_pct_of_fee": u["contribution_pct_of_fee"],
            "m12_revenue": m12["revenue"], "m12_contribution": m12["contribution"],
@@ -172,7 +189,10 @@ def main():
            "breakeven_fee": round(breakeven_fee, 0), "breakeven_blend": round(breakeven_blend, 0),
            "float_month": round(float_month, 0),
            "fee_only_net_m12": round(fee_only[-1], 0), "fee_only_turn": fee_pos,
-           "blend_turn": blend_pos}
+           "blend_turn": blend_pos,
+           "ratio_61": round(ratios[0]["pct_of_fee"] * 100),
+           "ratio_120": round(ratios[1]["pct_of_fee"] * 100),
+           "ratio_158": round(ratios[2]["pct_of_fee"] * 100)}
 
     if "--check" in sys.argv:
         bad = 0
