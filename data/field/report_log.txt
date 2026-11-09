@@ -1,0 +1,46 @@
+[09:42:31] escrito C:\Users\nicoa\poidh-auto\foreguild\data\field_stats.json
+{
+ "n": 1,
+ "entries": {
+  "mean": 1.0,
+  "median": 1,
+  "max": 1,
+  "pct_bounties_with_10plus_entries": 0.0
+ },
+ "zero_entries": {
+  "count": 0,
+  "pct": 0.0
+ },
+ "settlement": {
+  "closed_total": 1,
+  "closed_won": 1,
+  "closed_no_winner": 0,
+  "canceled": 0,
+  "win_rate_of_closed_pct": 100.0,
+  "status_counts": {
+   "completed": 1
+  }
+ },
+ "time_to_verdict_hours": {
+  "n_measurable": 1,
+  "median": 92.05,
+  "min": 92.05,
+  "max": 92.05,
+  "values": [
+   92.05
+  ]
+ },
+ "entries_per_eth": {
+  "n": 1,
+  "median": 312.5,
+  "split_by": "median amount = 0.0032 ETH",
+  "small_half": {
+   "n": 0,
+   "median": null
+  },
+  "large_half": {
+   "n": 1,
+   "median": 312.5
+  }
+ }
+}

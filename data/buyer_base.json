@@ -1,0 +1,160 @@
+{
+  "cutoff": "2026-11-08T03:59:54Z",
+  "per_chain": {
+    "mainnet": {
+      "bounties": 46,
+      "accepted": 27
+    },
+    "arbitrum": {
+      "bounties": 161,
+      "accepted": 113
+    },
+    "base": {
+      "bounties": 542,
+      "accepted": 304
+    }
+  },
+  "issuers_total": 193,
+  "issuers_with_accepted_bounty": 140,
+  "issuers_with_2plus_accepted": 43,
+  "issuers_2plus_share_pct": 30.7,
+  "issuers_paid_gt_100usd": 18,
+  "issuers_paid_gt_1000usd": 2,
+  "spend_median_usd": 11.81,
+  "spend_mean_usd": 75.94,
+  "spend_p90_usd": 122.92,
+  "top10_share_of_spend_pct": 70.6,
+  "eth_price_usd": 2235.0,
+  "repeat_issuer_detail": [
+    {
+      "issuer": "0x4200ac338555e25b20c8fe82ac02a5c8d4e5a5b4",
+      "accepted_bounties": 81,
+      "usd": 3250.49,
+      "chains": [
+        "arbitrum",
+        "base",
+        "mainnet"
+      ]
+    },
+    {
+      "issuer": "0x10fc964ef70c8467cd8c53e9ed9347422adf96a8",
+      "accepted_bounties": 124,
+      "usd": 2056.95,
+      "chains": [
+        "arbitrum",
+        "base",
+        "mainnet"
+      ]
+    },
+    {
+      "issuer": "0x8d171fd565e0963359c82911a087b42ce62108f3",
+      "accepted_bounties": 3,
+      "usd": 348.66,
+      "chains": [
+        "base"
+      ]
+    },
+    {
+      "issuer": "0xed416de2d92a8df357d941bcf45f80af20f28a62",
+      "accepted_bounties": 4,
+      "usd": 223.5,
+      "chains": [
+        "base"
+      ]
+    },
+    {
+      "issuer": "0x7234c36a71ec237c2ae7698e8916e0735001e9af",
+      "accepted_bounties": 10,
+      "usd": 168.52,
+      "chains": [
+        "base"
+      ]
+    },
+    {
+      "issuer": "0xaffc9f6684899efb628d90323adf4d838d2ea740",
+      "accepted_bounties": 2,
+      "usd": 134.1,
+      "chains": [
+        "base"
+      ]
+    },
+    {
+      "issuer": "0xa179413c4eac732668c368258a7ef1d6195c2de5",
+      "accepted_bounties": 2,
+      "usd": 134.1,
+      "chains": [
+        "base"
+      ]
+    },
+    {
+      "issuer": "0x9aa0f215076c1404a92a5b7219512f4c57d7029b",
+      "accepted_bounties": 6,
+      "usd": 123.82,
+      "chains": [
+        "base",
+        "mainnet"
+      ]
+    },
+    {
+      "issuer": "0x934c80e3a3e9136ee3558950385b66ac5e7d9bf7",
+      "accepted_bounties": 2,
+      "usd": 100.58,
+      "chains": [
+        "base"
+      ]
+    },
+    {
+      "issuer": "0x6a0ba3707df9d13a4445cd7e04274b2725930cd7",
+      "accepted_bounties": 4,
+      "usd": 79.12,
+      "chains": [
+        "base"
+      ]
+    },
+    {
+      "issuer": "0x7cccff608dda05bde58a28b6910ebc78aea1d4a3",
+      "accepted_bounties": 7,
+      "usd": 71.52,
+      "chains": [
+        "arbitrum",
+        "base"
+      ]
+    },
+    {
+      "issuer": "0x71cbbe6ecf1a9c4d8b9115757ebcc5ff45902177",
+      "accepted_bounties": 4,
+      "usd": 59.43,
+      "chains": [
+        "base",
+        "mainnet"
+      ]
+    },
+    {
+      "issuer": "0x07bd76c8f0a6d3c5b54780f30ebd5a612527b278",
+      "accepted_bounties": 13,
+      "usd": 58.45,
+      "chains": [
+        "arbitrum",
+        "base",
+        "mainnet"
+      ]
+    },
+    {
+      "issuer": "0x59733c7cd78d08dab90368ad2cc09c8c81f097c0",
+      "accepted_bounties": 7,
+      "usd": 52.35,
+      "chains": [
+        "base",
+        "mainnet"
+      ]
+    },
+    {
+      "issuer": "0xb29050965a5ac70ab487aa47546cdcbc97dae45d",
+      "accepted_bounties": 2,
+      "usd": 42.46,
+      "chains": [
+        "base"
+      ]
+    }
+  ]
+}

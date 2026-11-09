@@ -44,7 +44,11 @@ PAGE = {
 
 
 def main():
-    data = json.loads(DUMP.read_text(encoding="utf-8"))
+    dump = DUMP
+    for i, a in enumerate(sys.argv):
+        if a == "--dump" and i + 1 < len(sys.argv):
+            dump = Path(sys.argv[i + 1])
+    data = json.loads(dump.read_text(encoding="utf-8"))
     claims = data["claims"] if isinstance(data, dict) else data
     bodies = [c.get("description") or "" for c in claims]  # claim body only, not the title
     import re
