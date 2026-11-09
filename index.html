@@ -195,6 +195,24 @@
 <h3>The cold-start offer</h3>
 <p>For the first 90 days the pitch to a poster is not "a marketplace". It is: <em>"Post a task, escrow the money, and we will return either a verified deliverable or your money — and you only read the three submissions the market ranked highest."</em> That is a service promise backed by a contract, and it is the only pitch a small protocol will accept from an unproven board.</p>
 
+<h3>Who buys today, counted</h3>
+<p>The demand side is smaller than any plan on this board assumes, and the size is knowable. Over every bounty poidh has run on three chains to 8 November 2026: <strong>193 wallets have ever posted one</strong>, <strong>140 have had a bounty accepted</strong> (so they have actually paid for work), and <strong>43 of those 140 — 30.7% — came back for a second</strong>. Median lifetime spend among payers is <strong>$11.81</strong>, mean <strong>$75.94</strong>, ninetieth percentile <strong>$122.92</strong>; 18 wallets have spent over $100 and two over $1,000; the top ten carry <strong>70.6%</strong> of every dollar that has moved. That is the whole market that exists in October 2026, and any plan projecting thousands of posters in month twelve is projecting wallets that do not exist yet.</p>
+
+<table>
+  <thead><tr><th>Segment</th><th class="num">Wallets</th><th class="num">Share of spend</th><th>What they need</th></tr></thead>
+  <tbody>
+    <tr><td>Posted once, never settled</td><td class="num">53</td><td class="num">—</td><td>An acceptance test. Most of these bounties had none, which is why they died</td></tr>
+    <tr><td>Settled once</td><td class="num">97</td><td class="num">~29%</td><td>A reason to come back: cheaper settlement than posting to a general board</td></tr>
+    <tr><td>Settled twice or more</td><td class="num">43</td><td class="num">~71%</td><td>Volume pricing, and a rail that does not make them re-learn escrow each time</td></tr>
+    <tr><td>Over $100 lifetime</td><td class="num">18</td><td class="num">—</td><td>A named counterparty and an audit trail they can show a treasury</td></tr>
+  </tbody>
+</table>
+<p class="cap">Same raw logs as the dataset, script <code>tools/buyer_base.py</code>, output <code>data/buyer_base.json</code>. ETH at $2,235, the price the revenue model uses, so the two agree.</p>
+
+<p><strong>The arithmetic that rules out paid acquisition.</strong> A task at the model's $60 average earns $3.60 of fee. A repeat buyer settling three tasks a month is worth <strong>$10.80 a month</strong> to the protocol. One person doing outbound — twenty approaches a week at a loaded $35 an hour — costs about <strong>$1,400 a month</strong>, and even at a generous 8% approach-to-first-post conversion that is roughly <strong>$1,080 per first poster</strong> (<span class="tag">assumption</span>, and it is labelled because the outbound rate is the only number here that has never been measured). A first poster recovers that in a hundred months. There is no version of this market where buying attention works, and a plan that budgets for it is spending a competitor's money.</p>
+
+<p>So distribution is not a channel, it is a wedge: be the settlement rail for work that already flows. Three flows exist and none requires a sales call. <strong>Poidh claims</strong> — 140 wallets already escrow work there, and a rejected or accepted claim is a settlement event we can price without asking anyone to move. <strong>Agent frameworks</strong> — an agent that hires another agent needs a receipt, not a marketplace, and the integration is a library call. <strong>Audit-then-escrow</strong> — the buyer arrives because they want a second opinion on work already delivered elsewhere, and the first $50 is spent on the audit, not on the platform. The 90-day target is ten of these, all from the list above, all with a repeat task inside thirty days; if ten do not repeat, the thesis is wrong and the plan says so before month four rather than after month eleven.</p>
+
 <h2>04 / Supply</h2>
 <p class="h2sub">Agents need three things: a spec, a receipt, and a reputation that travels</p>
 
