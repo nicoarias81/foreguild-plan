@@ -167,7 +167,7 @@
     <h3>One constitution</h3>
     <ul>
       <li>Treasury and parameters live on-chain; the escrow contract holds funds, not the team.</li>
-      <li>Decisions that change the economics (fee schedule, category whitelist, audit budget) go through futarchy markets on Gnosis.</li>
+      <li>Decisions that change the economics (fee schedule, category whitelist, audit budget) go through futarchy markets on Seer — the venue is the deployment where the depth threshold in section 10 is met, which today is Gnosis, and the choice of venue is itself a parameter the market can move.</li>
       <li>Facts that change a single payout go through Reality.eth, with Kleros as the backstop.</li>
     </ul>
   </div>
@@ -510,7 +510,7 @@
     <tr><td>12</td><td class="num">$10,834</td><td class="num">$5,434</td><td class="num">$3,260</td><td class="num">+$2,174</td><td class="num">$21,792</td></tr>
   </tbody>
 </table>
-<p class="cap">Closing cash is operating cash only: the $4,000 of launch liquidity sits in the markets, is recoverable, and is not counted as available. The monthly P&amp;L turns positive in month 11 on the blended take and in month 12 on the settlement fee alone; the closing balance never goes negative because the tranche lands before month 5's burn does — remove the tranche and cash is exhausted during month 5.</p>
+<p class="cap">Each row recomputes from its own drivers: month 1 is 30 tasks at a $40 ticket (30 × $2.40 = $72 of revenue, 30 × $0.15 = $4 of contribution), month 3 is 120 at $42, month 12 is 2,400 at $61; the contribution column is the blended take minus the $2.25 of audit and infrastructure, which is why it starts at 5% of revenue in month 1 and reaches 50% in month 12. Closing cash is operating cash only: the $4,000 of launch liquidity sits in the markets, is recoverable, and is not counted as available. The monthly P&amp;L turns positive in month 11 on the blended take and in month 12 on the settlement fee alone; the closing balance never goes negative because the tranche lands before month 5's burn does — remove the tranche and cash is exhausted during month 5.</p>
 
 <p>The prize is 0.5 ETH + 4,000 USDC, which at the $2,235 ETH price this model uses is <strong>$5,117.50</strong> — poidh quotes the 0.5 ETH at $971 this morning, so take $5,117.50 as the ceiling and $4,971 as today's value. That is a fifth of the seed, not the third an earlier draft claimed, and it is still treated as <strong>the first tranche</strong>: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. That also fixes what cheque is being asked for, which the header should not leave to inference: <strong>$21,582.50 if the prize lands and $26,700 if it does not</strong>, with the month-5 tranche sized for the second case. If the prize is <em>all</em> the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it. Either way the seed buys proof, not a company: $26,700 is what it costs to find out whether posters will pay 6% for a receipt, and the plan is built so that the answer arrives at month 5 instead of month 12.</p>
 
@@ -586,7 +586,7 @@
 
 <p>So the chain is: <em>market → mandate budget → which tasks exist → which agents may claim them → what a payout requires</em>. That is how futarchy "directs the swarm" without pretending that a prediction market can review a pull request.</p>
 
-<p>Markets are price-based decision markets on Gnosis, resolved after a stated opening time, with Reality.eth and Kleros as the resolution backstop — the same stack Seer documents for its futarchy markets. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:</p>
+<p>Markets are price-based decision markets on Seer's deployment, resolved after a stated opening time, with Reality.eth and Kleros as the resolution backstop — the same stack Seer documents for its futarchy markets. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:</p>
 
 <ul>
   <li><strong>Opening time ≥ one full accounting period.</strong> A market that resolves before the metric window closes measures noise. Fee markets resolve 30 days after the change goes live.</li>
@@ -673,7 +673,7 @@
   <p>Every number below is reproducible from the repository, and the scripts fail loudly when a figure on this page drifts from its drivers:</p>
   <ul>
     <li><code>python3 tools/model.py --check</code> — unit economics, 12-month ledger, break-even, cash curve and float, from the drivers in the file.</li>
-    <li><code>python3 tools/field_stats.py --check</code> — the 54-entry convergence table in section 00, against <code>data/claims_2026-11-08.json</code>.</li>
+    <li><code>python3 tools/field_stats.py --check</code> — the 55-entry convergence table in section 00, against <code>data/claims_2026-11-09.json</code>.</li>
     <li><code>python3 tools/seer_depth.py</code> — Seer's board as measured on 8 November 2026 (3,051 markets); writes <code>data/seer_depth_2026-11-08.json</code>.</li>
     <li><code>python3 tools/trader_depth.py</code> — distinct traders per funded market, from the PnL leaderboard; writes <code>data/trader_depth_2026-11-08.json</code>. <code>--check</code> re-asserts the figures in section 10 without touching the network.</li>
   </ul>

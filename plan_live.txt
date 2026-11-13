@@ -119,7 +119,7 @@ One constitution
 
 Treasury and parameters live on-chain; the escrow contract holds funds, not the team.
 
-Decisions that change the economics (fee schedule, category whitelist, audit budget) go through futarchy markets on Gnosis.
+Decisions that change the economics (fee schedule, category whitelist, audit budget) go through futarchy markets on Seer — the venue is the deployment where the depth threshold in section 10 is met, which today is Gnosis, and the choice of venue is itself a parameter the market can move.
 
 Facts that change a single payout go through Reality.eth, with Kleros as the backstop.
 
@@ -511,7 +511,7 @@ Month | Revenue | Contribution | Fixed | Net | Closing cash |
 
 12 | $10,834 | $5,434 | $3,260 | +$2,174 | $21,792 |
 
-Closing cash is operating cash only: the $4,000 of launch liquidity sits in the markets, is recoverable, and is not counted as available. The monthly P&L turns positive in month 11 on the blended take and in month 12 on the settlement fee alone; the closing balance never goes negative because the tranche lands before month 5's burn does — remove the tranche and cash is exhausted during month 5.
+Each row recomputes from its own drivers: month 1 is 30 tasks at a $40 ticket (30 × $2.40 = $72 of revenue, 30 × $0.15 = $4 of contribution), month 3 is 120 at $42, month 12 is 2,400 at $61; the contribution column is the blended take minus the $2.25 of audit and infrastructure, which is why it starts at 5% of revenue in month 1 and reaches 50% in month 12. Closing cash is operating cash only: the $4,000 of launch liquidity sits in the markets, is recoverable, and is not counted as available. The monthly P&L turns positive in month 11 on the blended take and in month 12 on the settlement fee alone; the closing balance never goes negative because the tranche lands before month 5's burn does — remove the tranche and cash is exhausted during month 5.
 
 The prize is 0.5 ETH + 4,000 USDC, which at the $2,235 ETH price this model uses is $5,117.50 — poidh quotes the 0.5 ETH at $971 this morning, so take $5,117.50 as the ceiling and $4,971 as today's value. That is a fifth of the seed, not the third an earlier draft claimed, and it is still treated as the first tranche: it funds the contracts and the seed liquidity, which is exactly the money that cannot be raised later on a promise. That also fixes what cheque is being asked for, which the header should not leave to inference: $21,582.50 if the prize lands and $26,700 if it does not, with the month-5 tranche sized for the second case. If the prize is all the money, the plan becomes a deliberately smaller 8-week proof — no external audit (peer review only), unpaid founders, $1,500 of market liquidity, 20 tasks, and a hard stop if fewer than ten of them settle. Shipping an escrow contract on a promise is how protocols lose user funds; the reduced path says so out loud instead of hiding it. Either way the seed buys proof, not a company: $26,700 is what it costs to find out whether posters will pay 6% for a receipt, and the plan is built so that the answer arrives at month 5 instead of month 12.
 
@@ -601,7 +601,7 @@ The loop closes on revenue. Mandate outcomes feed the same accounting that price
 
 So the chain is: market → mandate budget → which tasks exist → which agents may claim them → what a payout requires. That is how futarchy "directs the swarm" without pretending that a prediction market can review a pull request.
 
-Markets are price-based decision markets on Gnosis, resolved after a stated opening time, with Reality.eth and Kleros as the resolution backstop — the same stack Seer documents for its futarchy markets. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:
+Markets are price-based decision markets on Seer's deployment, resolved after a stated opening time, with Reality.eth and Kleros as the resolution backstop — the same stack Seer documents for its futarchy markets. The metric for the fee market, for instance, is trailing revenue; a trader who believes a higher fee increases revenue buys YES on that branch. Two practical details that decide whether this works at all:
 
 Opening time ≥ one full accounting period. A market that resolves before the metric window closes measures noise. Fee markets resolve 30 days after the change goes live.
 
@@ -703,7 +703,7 @@ Every number below is reproducible from the repository, and the scripts fail lou
 
 python3 tools/model.py --check — unit economics, 12-month ledger, break-even, cash curve and float, from the drivers in the file.
 
-python3 tools/field_stats.py --check — the 54-entry convergence table in section 00, against data/claims_2026-11-08.json.
+python3 tools/field_stats.py --check — the 55-entry convergence table in section 00, against data/claims_2026-11-09.json.
 
 python3 tools/seer_depth.py — Seer's board as measured on 8 November 2026 (3,051 markets); writes data/seer_depth_2026-11-08.json.
 
